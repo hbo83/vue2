@@ -24,6 +24,7 @@ app.get('/posts', (req, res) => {
 // ---mongoose---
 mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: true });
 const Contact = require('./Contact.model');
+const Owner = require('./Owner.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -32,7 +33,7 @@ db.once('open', function() {
 });
 //test spojeni s DB
 
-
+//contacts
 app.get('/contacts', function(req, res){
   Contact.find({}).exec(function(err, contacts){
     if(err){
@@ -85,9 +86,67 @@ app.delete('/contact/:id', function(req, res){
       console.log(contact);
       res.send(contact);
     }
-
   })
 })
+
+//owners
+app.get('/owners', function(req, res){
+  Owner.find({}).exec(function(err, owners){
+    if(err){
+      res.send('error has occured');
+    } else {
+      res.json(owners);
+    }
+  })
+})
+
+app.post('/owner', function(req, res){
+  var newOwner = new Owner();
+
+  newOwner.firstName = req.body.firstName;
+  newOwner.lastName = req.body.lastName;
+  newOwner.unit = req.body.unit;
+  newOwner.part = req.body.part;
+
+  newOwner.save(function(err, owner){
+    if(err){
+      res.send('error saving owner')
+    } else {
+      console.log(owner);
+      res.send(owner);
+    }
+  });
+});
+
+app.put('/owner/:id', function(req, res){
+  Owner.findOneAndUpdate({
+    _id: req.params.id },
+    { $set: { phone: req.body.unit }},
+    { upsert: true },
+    function( err, newOwner ){
+      if(err){
+        console.log(err);
+      } else {
+        console.log(newOwner);
+        res.send(newOwner);
+      }
+  });
+});
+
+app.delete('/owner/:id', function(req, res){
+  Owner.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, owner){
+    if(err){
+      console.log(err);
+    } else {
+      console.log(owner);
+      res.send(owner);
+    }
+  })
+})
+
+
 app.get('/', function(req, res){
   res.send('hi')
 });

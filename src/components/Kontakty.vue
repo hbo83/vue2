@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h1>{{ msg }}</h1> -->
     <Header />
     <Nav />
 
@@ -21,7 +20,6 @@
 </tr>
     </table>
 
-    <!-- <Formular /> -->
 <Modal />
 <!-- <button @click="isOpen = !isOpen;">
   {{ isOpen ? "Close" : "Open" }} modal
@@ -44,7 +42,6 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      user: [],
       contacts: []
     }
   },
@@ -52,7 +49,6 @@ export default {
     Header,
     Nav,
     Modal
-    // Formular
   },
   methods: {
     say: function (message) {

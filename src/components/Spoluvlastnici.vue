@@ -5,9 +5,25 @@
     <Nav />
 
     <div class="spoluvlastnici">
-      
 
-        <table>
+
+<table>
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>Jméno</th>
+<th>Kontakt</th>
+</tr>
+</thead>
+
+<tr v-for="owner in owners">
+<td>{{ owner.firstName }}</td>
+<td>{{ owner.lastName }}</td>
+<td>{{ owner.part }}</td>
+</tr>
+</table>
+<ModalOwner />
+        <!-- <table>
       <tr>
         <th>Vlastník</th>
         <th>Jednotka</th>
@@ -48,7 +64,7 @@
         <td>159/3</td>
         <td>9286/46869</td>
       </tr>
-    </table>
+    </table> -->
 
     </div>
   </div>
@@ -58,18 +74,32 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-
+import ModalOwner from './ModalOwner.vue'
+import axios from 'axios';
 export default {
   name: 'Spoluvlastnici',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      owners: []
     }
   },
   components: {
     Header,
-    Nav
-  }
+    Nav,
+    ModalOwner
+  },
+  mounted() {
+      axios.get('http://localhost:8081/owners')
+      .then((response) => {
+        console.log(response.data);
+        console.log(this.msg);
+        this.owners = response.data;
+        console.log(this.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}
 }
 </script>
 
@@ -78,7 +108,7 @@ export default {
 
 .spoluvlastnici {
   width: 80%;
-  height: 500px;
+  height: auto;
   border: 1px solid black;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

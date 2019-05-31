@@ -10,8 +10,10 @@
             <input id="firstName" type="text" class="form-control" v-model="firstName">
             <strong>lastName:</strong>
             <input type="text" class="form-control" v-model="lastName">
-            <strong>phone:</strong>
-            <input type="text" class="form-control" v-model="phone">
+            <strong>unit:</strong>
+            <input type="text" class="form-control" v-model="unit">
+            <strong>part:</strong>
+            <input type="text" class="form-control" v-model="part">
             <button class="btn btn-success">Submit</button>
             </form>
           </div>
@@ -39,7 +41,7 @@
 import axios from 'axios';
 import VueAxios from 'vue-axios'
     export default {
-      name: 'Modal',
+      name: 'ModalOwner',
         mounted() {
             console.log('Component mounted.');
 
@@ -48,7 +50,8 @@ import VueAxios from 'vue-axios'
             return {
               firstName: '',
               lastName: '',
-              phone: '',
+              unit: '',
+              part: '',
               isOpen: false
             };
         },
@@ -56,10 +59,11 @@ import VueAxios from 'vue-axios'
             formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                axios.post('http://localhost:8081/contact', {
+                axios.post('http://localhost:8081/owner', {
                   firstName: this.firstName,
                       lastName: this.lastName,
-                      phone: this.phone
+                      unit: this.unit,
+                      part: this.part
                 })
 
             }

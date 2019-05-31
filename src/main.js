@@ -5,9 +5,12 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-Vue.use(Vuetify)
 
+Vue.use(Vuetify, VueAxios)
+Vue.use(axios)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -16,4 +19,9 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+})
+
+
+axios.post('http://localhost:8081/contact', {
+  firstName: 'Flavio'
 })

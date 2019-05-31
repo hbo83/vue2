@@ -15,27 +15,29 @@
 </thead>
 
 <tr v-for="contact in contacts">
-  <td>{{ contact.firstname }}</td>
-  <td>{{ contact.lastname }}</td>
+  <td>{{ contact.firstName }}</td>
+  <td>{{ contact.lastName }}</td>
   <td>{{ contact.phone }}</td>
 </tr>
     </table>
 
+    <!-- <Formular /> -->
 <Modal />
 <!-- <button @click="isOpen = !isOpen;">
   {{ isOpen ? "Close" : "Open" }} modal
 </button> -->
     </div>
   </div>
-
 </template>
 
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
 import Modal from './Modal.vue'
+// import Formular from './Formular.vue'
 
 import axios from 'axios';
+
 
 export default {
   name: 'Kontakty',
@@ -50,6 +52,7 @@ export default {
     Header,
     Nav,
     Modal
+    // Formular
   },
   methods: {
     say: function (message) {
@@ -61,7 +64,6 @@ export default {
       .then((response) => {
         console.log(response.data);
         console.log(this.msg);
-        this.user = response.data;
         this.contacts = response.data;
         console.log(this.user);
       })
@@ -79,7 +81,7 @@ export default {
 
 .kontakty {
   width: 80%;
-  height: 500px;
+  height: auto;
   border: 1px solid black;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

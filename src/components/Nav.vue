@@ -10,6 +10,7 @@
       <li><router-link to = "/schuze"><v-icon size="28px">people</v-icon>Schůze</router-link></li>
       <li><router-link to = "/zavady"><v-icon size="28px">healing</v-icon>Závady</router-link></li>
       <li><router-link to = "/nastaveni"><v-icon size="28px">trip_origin</v-icon>Nastavení</router-link></li>
+      <li><router-link to = "/faq"><v-icon size="28px">trip_origin</v-icon>FAQ</router-link></li>
     </ul>
   </nav>
 </template>

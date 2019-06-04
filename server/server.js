@@ -1,9 +1,26 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
+const cors = require('cors');
+const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
 const mongoose = require("mongoose");
+const multer = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname )
+  }
+})
+
+var upload = multer({ storage: storage })
+// const upload = multer({ dest: 'uploads/' });
+
+const imgPath = 'photo/sc.png'
 
 app.use(morgan('combined'))
 app.use(bodyParser.json())
@@ -11,6 +28,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors())
+app.use('/uploads', express.static('uploads'))
 
 app.get('/posts', (req, res) => {
   res.send(
@@ -21,16 +39,18 @@ app.get('/posts', (req, res) => {
   )
 })
 
-// ---mongoose---
+// ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
 mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: true });
 const Contact = require('./Contact.model');
 const Owner = require('./Owner.model');
+const File = require('./File.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('spojeno k DB')
-});
+  console.log('spojeno k DB');
+
+  });
 //test spojeni s DB
 
 //contacts
@@ -43,6 +63,46 @@ app.get('/contacts', function(req, res){
     }
   })
 })
+
+app.post('/img', upload.single('productImage'), ( req, res, next) => {
+  console.log(req.file);
+  const file = new File({
+    _id: new mongoose.Types.ObjectId(),
+    name: req.body.name,
+    price: req.body.price,
+    productImage: req.file.path
+  });
+  file.save()
+  .then( result => {
+    console.log(result);
+    res.status(201).json({
+      message: 'Create product successfully',
+      createdProduct: {
+        name: result.name,
+        price: result.price
+      }
+    });
+  });
+})
+
+app.get('/getimg', (req, res, next) => {
+  File.find()
+  .select('name price _id')
+  .exec()
+  .then( docs => {
+    return {
+      name: doc.name,
+      price: doc.price,
+      _id: doc._id,
+      request: {
+        type: 'GET',
+        url: 'http://localhost:3000/products/' + doc._id
+      }
+}
+  });
+  res.status(200).json( response );
+});
+
 
 app.post('/contact', function(req, res){
   var newContact = new Contact();
@@ -147,9 +207,15 @@ app.delete('/owner/:id', function(req, res){
 })
 
 
-app.get('/', function(req, res){
-  res.send('hi')
-});
+// app.get('/', function(req, res){
+//   res.send('hi')
+// });
+
+// app.post('/file', function(req, res){
+//   res.send('data');
+//   console.log("data")
+// });
+
 
 // app.get('/logins', function(req, res){
 //   console.log('tu mas loginy');
@@ -157,6 +223,28 @@ app.get('/', function(req, res){
 //   console.log(Login.find().where('mail').all());
 // });
 
+
+
+//   app.post('/file', upload.array('image', 5), (req, res, next) => {
+//   const images = req.files.map((file) => {
+//   return {
+//     filename: file.filename,
+//     originalname: file.originalname
+//   }
+// })
+// console.log("data");
+// Image.insertMany(images, (err, result) => {
+//   if (err) return res.sendStatus(404)
+//   res.json(result)
+// })
+// })
+
+// app.post('/file',function(req,res){
+//  var newItem = new File();
+//  newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
+//  newItem.img.contentType = 'image/png';
+//  newItem.save();
+// });
 
 
 

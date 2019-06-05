@@ -17,7 +17,19 @@ var storage = multer.diskStorage({
   }
 })
 
-var upload = multer({ storage: storage })
+// const fileFilter = (req, res, cb ) => {
+//   //reject a file
+//   if ( file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//     cb(new Error('message'), true);
+//   } else
+//   cb(null, false);
+// }
+var upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  }
+})
 // const upload = multer({ dest: 'uploads/' });
 
 const imgPath = 'photo/sc.png'
@@ -63,7 +75,7 @@ app.get('/contacts', function(req, res){
     }
   })
 })
-
+//file upload
 app.post('/img', upload.single('productImage'), ( req, res, next) => {
   console.log(req.file);
   const file = new File({
@@ -85,11 +97,57 @@ app.post('/img', upload.single('productImage'), ( req, res, next) => {
   });
 })
 
-app.get('/getimg', (req, res, next) => {
+app.get('/getimg', function(req, res){
+  File.find({}).exec(function(err, files){
+    if(err){
+      res.send('error has occured');
+    } else {
+      console.log(files);
+      res.json(files);
+    }
+  })
+})
+
+app.get('/getimgmulti', (req, res, next) => {
   File.find()
-  .select('name price _id')
+  .select('name price _id productImage')
   .exec()
   .then( docs => {
+    const response = {
+      count: docs.length,
+      products: docs.map(doc => {
+        return {
+          name: doc.name,
+          price: doc.price,
+          productImage: doc.productImage,
+          _id: doc._id,
+          request: {
+            type: 'GET',
+            url: 'http://localhost:3000/getimgmulti/' + doc._id
+          }
+        }
+      })
+    }
+    res.status(200).json( response );
+  });
+});
+
+app.get('/getimg:productId', (req, res, next) => {
+  const id = req.params.producdId;
+  File.find(id)
+  .select('name price _id productImage')
+  .exec()
+  .then( doc => {
+    console.log("from database", doc);
+    if (doc) {
+      res.status(200).json({
+        product: doc,
+        request: {
+          type:  'GET',
+          url: 'http://localhost:3000/products'
+        }
+      })
+    }
     return {
       name: doc.name,
       price: doc.price,

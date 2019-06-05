@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Nastenka from '@/components/Nastenka'
-import Spoluvlastnici from '@/components/Spoluvlastnici'
+import Owners from '@/components/owners'
 import Kontakty from '@/components/Kontakty'
 import Schuze from '@/components/Schuze'
 import Dokumenty from '@/components/Dokumenty'
@@ -23,9 +23,9 @@ export default new Router({
       component: Nastenka
     },
     {
-      path: '/spoluvlastnici',
-      name: 'Spoluvlastnici',
-      component: Spoluvlastnici
+      path: '/owners',
+      name: 'Owners',
+      component: Owners
     },
     {
       path: '/kontakty',

@@ -9,12 +9,17 @@
 
         <table>
       <tr>
-        <th>Dokumenty</th>
-        <th>Jednotka</th>
-        <th>Podíl</th>
+        <th>Název dokumentu</th>
+        <th>Změněno</th>
+        <th>Odkaz na stažení</th>
       </tr>
-
+<tr v-for="img in imgs">
+  <td>{{ img.name }}</td>
+  <td>{{ img.price }}</td>
+  <td>{{ img.productImage }}</td>
+</tr>
     </table>
+    <ModalDocs />
 <div class="container">
     <!-- <div class="large-12 medium-12 small-12 cell"> -->
 
@@ -36,19 +41,33 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-
+import ModalDocs from './ModalDocs.vue'
 import axios from 'axios';
 
 export default {
   name: 'Dokumenty',
   data () {
     return {
-      selectedFile: null
+      selectedFile: null,
+      imgs: []
     }
   },
+  mounted() {
+      axios.get('http://localhost:8081/getimg')
+      .then((response) => {
+        console.log(response.data);
+        console.log(this.msg);
+        this.imgs = response.data;
+        console.log(this.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+},
   components: {
     Header,
-    Nav
+    Nav,
+    ModalDocs
   },
   methods: {
     onFileSelected( event ) {
@@ -56,7 +75,9 @@ export default {
       this.selectedFile = event.target.files[0]
     },
     onUpload() {
-      const fd = new FormData();
+      const fd = new FormData();//vytvori formular
+      fd.append('name', 'value1');//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
         onUploadProgress: uploadEvent => {

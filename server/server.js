@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const morgan = require('morgan');
@@ -7,7 +6,9 @@ const path = require('path');
 const fs = require('fs');
 const mongoose = require("mongoose");
 const multer = require('multer');
+var http = require('http');
 
+const app = express();
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -32,16 +33,16 @@ var upload = multer({
 })
 // const upload = multer({ dest: 'uploads/' });
 
-const imgPath = 'photo/sc.png'
+// const imgPath = 'photo/sc.png'
 
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors())
-app.use('/uploads', express.static('uploads'))
-
+app.use('/uploads', express.static('uploads'));
+// app.use("/public", express.static(path.join(__dirname, 'public')));
 app.get('/posts', (req, res) => {
   res.send(
     [{
@@ -81,7 +82,7 @@ app.post('/img', upload.single('productImage'), ( req, res, next) => {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    price: req.body.price,
+    modified: new Date().toISOString(),
     productImage: req.file.path
   });
   file.save()
@@ -91,7 +92,7 @@ app.post('/img', upload.single('productImage'), ( req, res, next) => {
       message: 'Create product successfully',
       createdProduct: {
         name: result.name,
-        price: result.price
+        modified: result.modified
       }
     });
   });
@@ -108,22 +109,22 @@ app.get('/getimg', function(req, res){
   })
 })
 
-app.get('/getimgmulti', (req, res, next) => {
+app.get('/getimgmulti:productId', (req, res, next) => {
   File.find()
-  .select('name price _id productImage')
+  .select('name modified _id productImage')
   .exec()
   .then( docs => {
     const response = {
       count: docs.length,
-      products: docs.map(doc => {
+      files: docs.map(doc => {
         return {
           name: doc.name,
-          price: doc.price,
+          modified: doc.modified,
           productImage: doc.productImage,
           _id: doc._id,
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/getimgmulti/' + doc._id
+            url: 'http://localhost:8081/files/' + doc._id
           }
         }
       })
@@ -135,7 +136,7 @@ app.get('/getimgmulti', (req, res, next) => {
 app.get('/getimg:productId', (req, res, next) => {
   const id = req.params.producdId;
   File.find(id)
-  .select('name price _id productImage')
+  .select('name modified _id productImage')
   .exec()
   .then( doc => {
     console.log("from database", doc);
@@ -144,17 +145,17 @@ app.get('/getimg:productId', (req, res, next) => {
         product: doc,
         request: {
           type:  'GET',
-          url: 'http://localhost:3000/products'
+          url: 'http://localhost:8081/files/'
         }
       })
     }
     return {
       name: doc.name,
-      price: doc.price,
+      modified: doc.modified,
       _id: doc._id,
       request: {
         type: 'GET',
-        url: 'http://localhost:3000/products/' + doc._id
+        url: 'http://localhost:8081/files/' + doc._id
       }
 }
   });

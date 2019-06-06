@@ -15,22 +15,23 @@
       </tr>
 <tr v-for="img in imgs">
   <td>{{ img.name }}</td>
-  <td>{{ img.price }}</td>
-  <td>{{ img.productImage }}</td>
+  <td>{{ img.modified }}</td>
+  <!-- <td><a href="http">{{ ahref + img.productImage.slice(8) }}</a></td> -->
+  <td><button class="btn btn-success" v-on:click="docDownload()">stáhnout</button></td>
 </tr>
     </table>
     <ModalDocs />
 <div class="container">
     <!-- <div class="large-12 medium-12 small-12 cell"> -->
 
-        <input
+        <!-- <input
          style="display: none"
          type="file"
          id="file"
          ref="fileInput"
-         v-on:change="onFileSelected"/>
-      <button v-on:click="$refs.fileInput.click()">Pickup File</button>
-        <button v-on:click="onUpload()">Submit</button>
+         v-on:change="onFileSelected"/> -->
+      <!-- <button v-on:click="$refs.fileInput.click()">Pickup File</button> -->
+        <!-- <button v-on:click="onUpload()">Submit</button> -->
     <!-- </div> -->
   </div>
     </div>
@@ -49,7 +50,8 @@ export default {
   data () {
     return {
       selectedFile: null,
-      imgs: []
+      imgs: [],
+      ahref: "http://localhost:8081/uploads/"
     }
   },
   mounted() {
@@ -73,6 +75,21 @@ export default {
     onFileSelected( event ) {
       console.log( event );
       this.selectedFile = event.target.files[0]
+    },
+    docDownload(){
+      
+      axios({
+  url: 'http://localhost:8081/uploads/1559716291268-bohol.png',
+  method: 'GET',
+  responseType: 'blob', // important
+}).then((response) => {
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'file.png');
+  document.body.appendChild(link);
+  link.click();
+});
     },
     onUpload() {
       const fd = new FormData();//vytvori formular

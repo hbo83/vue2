@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 const FileSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: { type: String },
-    price: { type: Number },
+    modified: { type: String },
     productImage: { type: String, required: true },
 })
 module.exports = mongoose.model('File', FileSchema);

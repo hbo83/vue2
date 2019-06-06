@@ -9,6 +9,7 @@ import Revize from '@/components/Revize'
 import Zavady from '@/components/Zavady'
 import Nastaveni from '@/components/Nastaveni'
 import Odecty from '@/components/Odecty'
+import Home from '@/components/Home'
 
 
 
@@ -31,11 +32,6 @@ export default new Router({
       path: '/kontakty',
       name: 'Kontakty',
       component: Kontakty
-    },
-    {
-      path: '/nastenka',
-      name: 'Nastenka',
-      component: Nastenka
     },
     {
       path: '/schuze',
@@ -63,14 +59,14 @@ export default new Router({
       component: Nastaveni
     },
     {
-      path: '/dokumenty',
-      name: 'Dokumenty',
-      component: Dokumenty
-    },
-    {
       path: '/odecty',
       name: 'Odecty',
       component: Odecty
+    },
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
     }
   ]
 })

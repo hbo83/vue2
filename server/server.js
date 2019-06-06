@@ -57,6 +57,7 @@ mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: tr
 const Contact = require('./Contact.model');
 const Owner = require('./Owner.model');
 const File = require('./File.model');
+const Meeting = require('./Meeting.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -66,13 +67,23 @@ db.once('open', function() {
   });
 //test spojeni s DB
 
-//contacts
+//gets
 app.get('/contacts', function(req, res){
   Contact.find({}).exec(function(err, contacts){
     if(err){
       res.send('error has occured');
     } else {
       res.json(contacts);
+    }
+  })
+})
+
+app.get('/meetings', function(req, res){
+  Contact.find({}).exec(function(err, meetings){
+    if(err){
+      res.send('error has occured');
+    } else {
+      res.json(meetings);
     }
   })
 })
@@ -162,7 +173,7 @@ app.get('/getimg:productId', (req, res, next) => {
   res.status(200).json( response );
 });
 
-
+//posts
 app.post('/contact', function(req, res){
   var newContact = new Contact();
 
@@ -176,6 +187,23 @@ app.post('/contact', function(req, res){
     } else {
       console.log(contact);
       res.send(contact);
+    }
+  });
+});
+
+app.post('/meeting', function(req, res){
+  var newMeeting = new Meeting ();
+
+  newMeeting.theme = req.body.theme;
+  newMeeting.created = req.body.created;
+  newMeeting.date = req.body.date;
+
+  newMeeting.save(function(err, meeting){
+    if(err){
+      res.send('error saving contact')
+    } else {
+      console.log(meeting);
+      res.send(meeting);
     }
   });
 });

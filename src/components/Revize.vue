@@ -35,6 +35,18 @@ export default {
   components: {
     Header,
     Nav
+  },
+  mounted() {
+      axios.get('http://localhost:8081/meetings')
+      .then((response) => {
+        console.log(response.data);
+        console.log(this.msg);
+        this.contacts = response.data;
+        console.log(this.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>

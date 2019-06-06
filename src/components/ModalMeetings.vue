@@ -4,14 +4,14 @@
       <div v-if="isOpen">
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
-            <h1>Nový kontakt</h1>
+            <h1>ázev schůze</h1>
             <form @submit="formSubmit">
-            <label for="firstName">First Name</label>
-            <input id="firstName" type="text" class="form-control" v-model="firstName">
-            <strong>lastName:</strong>
-            <input type="text" class="form-control" v-model="lastName">
-            <strong>phone:</strong>
-            <input type="text" class="form-control" v-model="phone">
+            <label for="meetingName">Název schůze</label>
+            <input id="firstName" type="text" class="form-control" v-model="theme">
+            <strong>vytvořeno:</strong>
+            <input type="text" class="form-control" v-model="created">
+            <strong>datum:</strong>
+            <input type="text" class="form-control" v-model="date">
             <button class="btn btn-success">Submit</button>
             </form>
           </div>
@@ -19,7 +19,7 @@
       </div>
     </transition>
     <v-btn color="green" @click="isOpen = !isOpen;">
-      {{ isOpen ? "Close" : "Nový kontakt" }}</v-btn>
+      {{ isOpen ? "Close" : "Nová schůze" }}</v-btn>
     <!-- <button @click="isOpen = !isOpen;">
       {{ isOpen ? "Close" : "Open" }} modal
     </button> -->
@@ -27,28 +27,22 @@
 </template>
 
 <script>
-// export default {
-//   data: function() {
-//     return {
-//       isOpen: false
-//     };
-//   }
-// };
+
 </script>
 <script>
 import axios from 'axios';
 import VueAxios from 'vue-axios'
     export default {
-      name: 'Modal',
+      name: 'ModalMeetings',
         mounted() {
             console.log('Component mounted.');
 
         },
         data() {
             return {
-              firstName: '',
-              lastName: '',
-              phone: '',
+              theme: '',
+              created: '',
+              date: '',
               isOpen: false
             };
         },
@@ -56,10 +50,10 @@ import VueAxios from 'vue-axios'
             formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                axios.post('http://localhost:8081/contact', {
-                  firstName: this.firstName,
-                      lastName: this.lastName,
-                      phone: this.phone
+                axios.post('http://localhost:8081/meeting', {
+                  theme: this.theme,
+                      created: this.created,
+                      date: this.date
                 })
 
             }

@@ -11,13 +11,14 @@
       <th>Vytvořeno</th>
       <th>Uskutečnění</th>
     </tr>
-    <tr>
-      <td>Nátěr střechy</td>
-      <td>29.06.2019</td>
-      <td>30.08.2019</td>
+    <tr v-for="meeting in meetings">
+      <td>{{ meeting.theme }}</td>
+      <td>{{ meeting.created }}</td>
+      <td>{{ meeting.date }}</td>
     </tr>
 
   </table>
+  <ModalMeetings />
     </div>
   </div>
 
@@ -26,17 +27,31 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-
+import ModalMeetings from './ModalMeetings.vue'
+import axios from 'axios';
 export default {
   name: 'Schuze',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      meetings: []
     }
   },
   components: {
     Header,
-    Nav
+    Nav,
+    ModalMeetings
+  },
+    mounted() {
+        axios.get('http://localhost:8081/meetings')
+        .then((response) => {
+          console.log(response.data);
+          console.log(this.msg);
+          this.meetings = response.data;
+          console.log(this.user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 }
 </script>

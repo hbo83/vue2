@@ -20,7 +20,7 @@
 </tr>
     </table>
 
-<Modal />
+<ModalContacts />
 <!-- <button @click="isOpen = !isOpen;">
   {{ isOpen ? "Close" : "Open" }} modal
 </button> -->
@@ -31,7 +31,7 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import Modal from './Modal.vue'
+import ModalContacts from './ModalContacts.vue'
 // import Formular from './Formular.vue'
 
 import axios from 'axios';
@@ -48,7 +48,7 @@ export default {
   components: {
     Header,
     Nav,
-    Modal
+    ModalContacts
   },
   methods: {
     say: function (message) {

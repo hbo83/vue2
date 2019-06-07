@@ -9,13 +9,17 @@
 
         <table>
       <tr>
-        <th>odecty</th>
-        <th>Jednotka</th>
-        <th>Podíl</th>
+        <th>Komodita</th>
+        <th>Datum</th>
+        <th>Hodnota</th>
       </tr>
-
+<tr v-for="measure in measures">
+<td>{{ measure.commodity }}</td>
+<td>{{ measure.date }}</td>
+<td>{{ measure.value }}</td>
+</tr>
     </table>
-
+<ModalMeasure />
     </div>
   </div>
 
@@ -24,18 +28,35 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-
+import ModalMeasure from './ModalMeasure.vue'
+import axios from 'axios';
 export default {
   name: 'Odecty',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      measures: []
     }
   },
   components: {
     Header,
-    Nav
-  }
+    Nav,
+    ModalMeasure
+  },
+  mounted() {
+      axios.get('http://localhost:8081/measures')
+      .then((response) => {
+        console.log(response.data);
+        this.measures = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+},
+updated: function () {
+  this.$nextTick(function () {
+    console.log("updated");
+  })
+}
 }
 </script>
 

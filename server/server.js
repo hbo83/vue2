@@ -9,6 +9,22 @@ const multer = require('multer');
 var http = require('http');
 
 const app = express();
+
+// ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
+mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: true });
+const Contact = require('./Contact.model');
+const Owner = require('./Owner.model');
+const File = require('./File.model');
+const Meeting = require('./Meeting.model');
+const Revision = require('./Revision.model');
+const Measure = require('./Measure.model');
+//test spojeni s DB
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {//test spojeni s DB
+  console.log('spojeno k DB');
+});
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -52,22 +68,19 @@ app.get('/posts', (req, res) => {
   )
 })
 
-// ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
-mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: true });
-const Contact = require('./Contact.model');
-const Owner = require('./Owner.model');
-const File = require('./File.model');
-const Meeting = require('./Meeting.model');
-//test spojeni s DB
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('spojeno k DB');
 
-  });
-//test spojeni s DB
 
 //gets
+app.get('/owners', function(req, res){
+  Owner.find({}).exec(function(err, owners){
+    if(err){
+      res.send('error has occured');
+    } else {
+      res.json(owners);
+    }
+  })
+})
+
 app.get('/contacts', function(req, res){
   Contact.find({}).exec(function(err, contacts){
     if(err){
@@ -79,11 +92,31 @@ app.get('/contacts', function(req, res){
 })
 
 app.get('/meetings', function(req, res){
-  Contact.find({}).exec(function(err, meetings){
+  Meeting.find({}).exec(function(err, meetings){
     if(err){
       res.send('error has occured');
     } else {
       res.json(meetings);
+    }
+  })
+})
+
+app.get('/revisions', function(req, res){
+  Revision.find({}).exec(function(err, revision){
+    if(err){
+      res.send('error has occured');
+    } else {
+      res.json(revision);
+    }
+  })
+})
+
+app.get('/measures', function(req, res){
+  Measure.find({}).exec(function(err, measure){
+    if(err){
+      res.send('error has occured');
+    } else {
+      res.json(measure);
     }
   })
 })
@@ -200,10 +233,44 @@ app.post('/meeting', function(req, res){
 
   newMeeting.save(function(err, meeting){
     if(err){
-      res.send('error saving contact')
+      res.send('error saving meeting')
     } else {
       console.log(meeting);
       res.send(meeting);
+    }
+  });
+});
+
+app.post('/revision', function(req, res){
+  var newRevision = new Revision ();
+
+  newRevision.revTitle = req.body.revTitle;
+  newRevision.revLast = req.body.revLast;
+  newRevision.revNext = req.body.revLast;
+
+  newRevision.save(function(err, revision){
+    if(err){
+      res.send('error saving revision')
+    } else {
+      console.log(revision);
+      res.send(revision);
+    }
+  });
+});
+
+app.post('/measure', function(req, res){
+  var newMeasure = new Measure ();
+
+  newMeasure.commodity = req.body.commodity;
+  newMeasure.date = req.body.date;
+  newMeasure.value = req.body.value;
+
+  newMeasure.save(function(err, measure){
+    if(err){
+      res.send('error saving measure')
+    } else {
+      console.log(measure);
+      res.send(measure);
     }
   });
 });
@@ -236,16 +303,8 @@ app.delete('/contact/:id', function(req, res){
   })
 })
 
-//owners
-app.get('/owners', function(req, res){
-  Owner.find({}).exec(function(err, owners){
-    if(err){
-      res.send('error has occured');
-    } else {
-      res.json(owners);
-    }
-  })
-})
+
+
 
 app.post('/owner', function(req, res){
   var newOwner = new Owner();

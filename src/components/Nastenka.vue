@@ -5,6 +5,7 @@
     <Nav />
 
     <div class="nastenka">
+      <h1>Tady budou vystaveny vsechny udalsti: revize, odecty, opravy zavad atd.</h1>
       <table>
     <tr>
       <th>Téma</th>

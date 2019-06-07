@@ -4,16 +4,15 @@
       <div v-if="isOpen">
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
-            <h1>Nový kontakt</h1>
+            <h1>Nová revize</h1>
             <form @submit="formSubmit">
-            <label for="firstName">First Name</label>
-            <input id="firstName" type="text" class="form-control" v-model="firstName">
-            <strong>lastName:</strong>
-            <input type="text" class="form-control" v-model="lastName">
-            <strong>unit:</strong>
-            <input type="text" class="form-control" v-model="unit">
-            <strong>part:</strong>
-            <input type="text" class="form-control" v-model="part">
+            <label for="revTitle">název revize</label>
+            <input id="revTitle" type="text" class="form-control" v-model="revTitle">
+            <strong>revLast:</strong>
+            <input type="text" class="form-control" v-model="revLast">
+            <strong>revNext:</strong>
+            <input type="text" class="form-control" v-model="revNext">
+
             <button class="btn btn-success">Submit</button>
             </form>
           </div>
@@ -21,7 +20,7 @@
       </div>
     </transition>
     <v-btn color="green" @click="isOpen = !isOpen;">
-      {{ isOpen ? "Close" : "Nový kontakt" }}</v-btn>
+      {{ isOpen ? "Close" : "Nová revize" }}</v-btn>
     <!-- <button @click="isOpen = !isOpen;">
       {{ isOpen ? "Close" : "Open" }} modal
     </button> -->
@@ -32,17 +31,16 @@
 import axios from 'axios';
 import VueAxios from 'vue-axios'
     export default {
-      name: 'ModalOwner',
+      name: 'ModalRevision',
         mounted() {
             console.log('Component mounted.');
 
         },
         data() {
             return {
-              firstName: '',
-              lastName: '',
-              unit: '',
-              part: '',
+              revTitle: '',
+              revLast: '',
+              revNext: '',
               isOpen: false
             };
         },
@@ -50,11 +48,11 @@ import VueAxios from 'vue-axios'
             formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                axios.post('http://localhost:8081/owner', {
-                  firstName: this.firstName,
-                      lastName: this.lastName,
-                      unit: this.unit,
-                      part: this.part
+                axios.post('http://localhost:8081/revision', {
+                  revTitle: this.revTitle,
+                      revLast: this.revLast,
+                      revNext: this.revNext
+
                 })
 
             }

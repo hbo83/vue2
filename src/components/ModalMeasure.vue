@@ -4,16 +4,14 @@
       <div v-if="isOpen">
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
-            <h1>Nový kontakt</h1>
+            <h1>Nové měření</h1>
             <form @submit="formSubmit">
-            <label for="firstName">First Name</label>
-            <input id="firstName" type="text" class="form-control" v-model="firstName">
-            <strong>lastName:</strong>
-            <input type="text" class="form-control" v-model="lastName">
-            <strong>unit:</strong>
-            <input type="text" class="form-control" v-model="unit">
-            <strong>part:</strong>
-            <input type="text" class="form-control" v-model="part">
+            <label for="meetingName">Nové měření</label>
+            <input id="firstName" type="text" class="form-control" v-model="commodity">
+            <strong>datum:</strong>
+            <input type="text" class="form-control" v-model="date">
+            <strong>hodnota:</strong>
+            <input type="text" class="form-control" v-model="value">
             <button class="btn btn-success">Submit</button>
             </form>
           </div>
@@ -21,7 +19,7 @@
       </div>
     </transition>
     <v-btn color="green" @click="isOpen = !isOpen;">
-      {{ isOpen ? "Close" : "Nový kontakt" }}</v-btn>
+      {{ isOpen ? "Close" : "Nový odečet" }}</v-btn>
     <!-- <button @click="isOpen = !isOpen;">
       {{ isOpen ? "Close" : "Open" }} modal
     </button> -->
@@ -29,20 +27,22 @@
 </template>
 
 <script>
+
+</script>
+<script>
 import axios from 'axios';
 import VueAxios from 'vue-axios'
     export default {
-      name: 'ModalOwner',
+      name: 'ModalMeasures',
         mounted() {
             console.log('Component mounted.');
 
         },
         data() {
             return {
-              firstName: '',
-              lastName: '',
-              unit: '',
-              part: '',
+              commodity: '',
+              date: '',
+              value: '',
               isOpen: false
             };
         },
@@ -50,11 +50,10 @@ import VueAxios from 'vue-axios'
             formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                axios.post('http://localhost:8081/owner', {
-                  firstName: this.firstName,
-                      lastName: this.lastName,
-                      unit: this.unit,
-                      part: this.part
+                axios.post('http://localhost:8081/measure', {
+                  commodity: this.commodity,
+                  date: this.date,
+                      value: this.value
                 })
 
             }

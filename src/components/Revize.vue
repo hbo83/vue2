@@ -1,20 +1,23 @@
 <template>
   <div>
-    <!-- <h1>{{ msg }}</h1> -->
     <Header />
     <Nav />
 
     <div class="revize">
-
-
-        <table>
+    <table>
       <tr>
         <th>Předmět revize</th>
-        <th>Jednotka</th>
-        <th>Podíl</th>
+        <th>Podslední revize</th>
+        <th>Příští revize</th>
       </tr>
-
+      <tr v-for="revision in revisions">
+        <td>{{ revision.revTitle }}</td>
+        <td>{{ revision.revLast }}</td>
+        <td>{{ revision.revNext }}</td>
+      </tr>
     </table>
+    <ModalRevision />
+  </div>
 
     </div>
   </div>
@@ -24,25 +27,26 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
+import axios from 'axios';
+import ModalRevision from './ModalRevision.vue';
 
 export default {
   name: 'Revize',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      revisions: []
     }
   },
   components: {
     Header,
-    Nav
+    Nav,
+    ModalRevision
   },
   mounted() {
-      axios.get('http://localhost:8081/meetings')
+      axios.get('http://localhost:8081/revisions')
       .then((response) => {
         console.log(response.data);
-        console.log(this.msg);
-        this.contacts = response.data;
-        console.log(this.user);
+        this.revisions = response.data;
       })
       .catch((error) => {
         console.log(error);
@@ -54,17 +58,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.revize {
-  width: 80%;
+.revizeNav {
+  width: 10%;
   height: 500px;
   border: 1px solid black;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
+  box-sizing: border-box;
+
+  border: 1px solid black;
+
+
 }
 
 .revize table {
-  width: 100%;
+  width: 70%;
 }
 .revize td, .revize th {
   border: 1px solid #ddd;
@@ -81,5 +90,29 @@ export default {
   text-align: left;
   background-color: #4CAF50;
   color: white;
+}
+
+
+li a {
+  line-height: 49px;
+  font-size: 20px;
+  text-decoration: none;
+  display: block;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin-top: 0px;
+  border: 1px solid black;
+  height: 50px;
+  background-color: rgba(255,159,36,1);
+
+}
+a:hover {
+  background-color: green;
+  cursor: pointer;
 }
 </style>

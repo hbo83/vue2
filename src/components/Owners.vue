@@ -25,6 +25,7 @@
 <ModalOwner />
 
     </div>
+    <CrudPanel />
   </div>
 
 </template>
@@ -32,6 +33,8 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
+
+import CrudPanel from './CrudPanel.vue'
 import ModalOwner from './ModalOwner.vue'
 import axios from 'axios';
 export default {
@@ -44,7 +47,8 @@ export default {
   components: {
     Header,
     Nav,
-    ModalOwner
+    ModalOwner,
+    CrudPanel
   },
   mounted() {
       axios.get('http://localhost:8081/owners')

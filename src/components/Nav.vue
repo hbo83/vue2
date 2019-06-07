@@ -27,7 +27,7 @@ export default {
 nav {
   box-sizing: border-box;
   width: 10%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 800px;
   float: left;
 }
@@ -36,6 +36,9 @@ li a {
   font-size: 20px;
   text-decoration: none;
   display: block;
+  text-align: left;
+  margin-left: 12px;
+  opacity: 0.7;
 }
 ul {
   list-style-type: none;
@@ -43,15 +46,18 @@ ul {
   padding: 0;
 }
 li {
-  margin-top: 0px;
-  border: 1px solid black;
-  height: 50px;
-  background-color: rgba(255,159,36,1);
-
+  /* background-color: rgba(255,159,36,1); */
+}
+a:link, a:visited, a:active  {
+  color: grey;
 }
 a:hover {
-  background-color: green;
+  color: black;
   cursor: pointer;
+  opacity: 1;
+}
+li i {
+  margin-right: 12px
 }
 
 </style>

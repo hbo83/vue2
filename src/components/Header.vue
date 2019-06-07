@@ -8,9 +8,7 @@
 <script>
 // import Nav from './Nav.vue'
 export default {
-  // components: {
-  //   Nav
-  // },
+  name: 'Header',
   data () {
     return {
       greetings: 'hello'

@@ -21,9 +21,7 @@
     </table>
 
 <ModalContacts />
-<!-- <button @click="isOpen = !isOpen;">
-  {{ isOpen ? "Close" : "Open" }} modal
-</button> -->
+
     </div>
   </div>
 </template>

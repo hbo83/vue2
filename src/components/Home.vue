@@ -19,6 +19,11 @@ export default {
   components: {
     Header,
     Nav
+  },
+  methods: {
+    someMethod: function () {
+      alert(56)
+    }
   }
 }
 </script>

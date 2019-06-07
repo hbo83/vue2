@@ -1,8 +1,12 @@
 <template>
   <div class="crudPanel">
-    <v-btn>
+    <v-app>
+      <v-content>
+    <v-btn color="rgba(144,238,144, 0.5" active-class="your-class">
         <v-icon color="green" medium>add_box</v-icon>
       </v-btn>
+    </v-content>
+    </v-app>
   </div>
 </template>
 
@@ -24,5 +28,8 @@ export default {
   width: 3%;
   height: 200px;
   float: left;
+}
+.your-class {
+  width: 600px;
 }
 </style>

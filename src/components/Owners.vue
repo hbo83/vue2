@@ -65,13 +65,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 .owners {
   width: 80%;
   height: auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;

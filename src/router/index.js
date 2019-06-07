@@ -10,6 +10,8 @@ import Zavady from '@/components/Zavady'
 import Nastaveni from '@/components/Nastaveni'
 import Odecty from '@/components/Odecty'
 import Home from '@/components/Home'
+import Ucetnictvi from '@/components/Ucetnictvi'
+import Faq from '@/components/Faq'
 
 
 
@@ -17,8 +19,7 @@ import Home from '@/components/Home'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/nastenka',
       name: 'Nastenka',
       component: Nastenka
@@ -67,6 +68,16 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/ucetnictvi',
+      name: 'Ucetnictvi',
+      component: Ucetnictvi
+    },
+    {
+      path: '/faq',
+      name: 'Faq',
+      component: Faq
     }
   ]
 })

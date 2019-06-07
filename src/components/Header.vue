@@ -1,7 +1,7 @@
 <template>
   <header>
-    <h1>SVJ2000</h1>
-    <v-icon size="28px">home</v-icon>
+
+    <span @click="someMethod">Click me!</span>
   </header>
 </template>
 
@@ -13,23 +13,23 @@ export default {
     return {
       greetings: 'hello'
     }
+  },
+  methods: {
+    someMethod(){
+      console.log(this.$parent);
+      this.$parent.someMethod;
+    }
   }
 }
 
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-/* <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+<style scoped>
 header {
-  box-sizing: border-box;
-  display: flex;
-  /* background-color: blue; */
-  border: 1px solid black;
+  /* background-image: url("svj2000.png"); */
+ background-color: lightgreen;
+ background-size: 10%;
+ width: 100%;
+ height: 50px;
+margin: 10px;
 }
-
-a {
-  color: #42b983;
-}
-</style> */
+</style>

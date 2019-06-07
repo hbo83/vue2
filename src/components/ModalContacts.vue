@@ -6,12 +6,13 @@
           <div class="modal">
             <h1>Nový kontakt</h1>
             <form @submit="formSubmit">
-            <label for="firstName">First Name</label>
-            <input id="firstName" type="text" class="form-control" v-model="firstName">
-            <strong>lastName:</strong>
-            <input type="text" class="form-control" v-model="lastName">
-            <strong>phone:</strong>
-            <input type="text" class="form-control" v-model="phone">
+            <!-- <label for="firstName">First Name</label> -->
+            <input id="firstName" type="text" class="form-control" v-model="profession" placeholder="Povolání">
+            <!-- <strong>lastName:</strong> -->
+            <input type="text" class="form-control" v-model="name" placeholder="Jméno">
+            <!-- <strong>phone:</strong> -->
+            <input type="text" class="form-control" v-model="phone" placeholder="Kontakt">
+            <input type="text" class="form-control" v-model="email" placeholder="E-mail">
             <button class="btn btn-success">Submit</button>
             </form>
           </div>
@@ -40,9 +41,10 @@ import VueAxios from 'vue-axios'
         },
         data() {
             return {
-              firstName: '',
-              lastName: '',
+              profession: '',
+              name: '',
               phone: '',
+              email: '',
               isOpen: false
             };
         },
@@ -51,9 +53,10 @@ import VueAxios from 'vue-axios'
                 e.preventDefault();
                 let currentObj = this;
                 axios.post('http://localhost:8081/contact', {
-                  firstName: this.firstName,
-                      lastName: this.lastName,
-                      phone: this.phone
+                  profession: this.profession,
+                      name: this.name,
+                      phone: this.phone,
+                      email: this.email
                 })
 
             }

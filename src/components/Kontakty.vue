@@ -7,16 +7,18 @@
     <table>
 <thead>
   <tr>
-    <th>Kategorie</th>
+    <th>Profese</th>
     <th>Jméno</th>
-    <th>Kontakt</th>
+    <th>Telefon</th>
+    <th>E-mail</th>
   </tr>
 </thead>
 
 <tr v-for="contact in contacts">
-  <td>{{ contact.firstName }}</td>
-  <td>{{ contact.lastName }}</td>
+  <td>{{ contact.profession }}</td>
+  <td>{{ contact.name }}</td>
   <td>{{ contact.phone }}</td>
+  <td>{{ contact.email }}</td>
 </tr>
     </table>
 
@@ -39,7 +41,6 @@ export default {
   name: 'Kontakty',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       contacts: []
     }
   },
@@ -57,9 +58,7 @@ export default {
       axios.get('http://localhost:8081/contacts')
       .then((response) => {
         console.log(response.data);
-        console.log(this.msg);
         this.contacts = response.data;
-        console.log(this.user);
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +75,7 @@ export default {
 .kontakty {
   width: 80%;
   height: auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;

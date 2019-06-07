@@ -11,7 +11,9 @@ var http = require('http');
 const app = express();
 
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
-mongoose.connect('mongodb://localhost:27017/mongooseTest', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/mongooseTest', {
+  useNewUrlParser: true
+});
 const Contact = require('./Contact.model');
 const Owner = require('./Owner.model');
 const File = require('./File.model');
@@ -21,16 +23,16 @@ const Measure = require('./Measure.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {//test spojeni s DB
+db.once('open', function() { //test spojeni s DB
   console.log('spojeno k DB');
 });
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function(req, file, cb) {
     cb(null, 'uploads/')
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname )
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
   }
 })
 
@@ -71,9 +73,9 @@ app.get('/posts', (req, res) => {
 
 
 //gets
-app.get('/owners', function(req, res){
-  Owner.find({}).exec(function(err, owners){
-    if(err){
+app.get('/owners', function(req, res) {
+  Owner.find({}).exec(function(err, owners) {
+    if (err) {
       res.send('error has occured');
     } else {
       res.json(owners);
@@ -81,9 +83,9 @@ app.get('/owners', function(req, res){
   })
 })
 
-app.get('/contacts', function(req, res){
-  Contact.find({}).exec(function(err, contacts){
-    if(err){
+app.get('/contacts', function(req, res) {
+  Contact.find({}).exec(function(err, contacts) {
+    if (err) {
       res.send('error has occured');
     } else {
       res.json(contacts);
@@ -91,9 +93,9 @@ app.get('/contacts', function(req, res){
   })
 })
 
-app.get('/meetings', function(req, res){
-  Meeting.find({}).exec(function(err, meetings){
-    if(err){
+app.get('/meetings', function(req, res) {
+  Meeting.find({}).exec(function(err, meetings) {
+    if (err) {
       res.send('error has occured');
     } else {
       res.json(meetings);
@@ -101,9 +103,9 @@ app.get('/meetings', function(req, res){
   })
 })
 
-app.get('/revisions', function(req, res){
-  Revision.find({}).exec(function(err, revision){
-    if(err){
+app.get('/revisions', function(req, res) {
+  Revision.find({}).exec(function(err, revision) {
+    if (err) {
       res.send('error has occured');
     } else {
       res.json(revision);
@@ -111,9 +113,9 @@ app.get('/revisions', function(req, res){
   })
 })
 
-app.get('/measures', function(req, res){
-  Measure.find({}).exec(function(err, measure){
-    if(err){
+app.get('/measures', function(req, res) {
+  Measure.find({}).exec(function(err, measure) {
+    if (err) {
       res.send('error has occured');
     } else {
       res.json(measure);
@@ -121,7 +123,7 @@ app.get('/measures', function(req, res){
   })
 })
 //file upload
-app.post('/img', upload.single('productImage'), ( req, res, next) => {
+app.post('/img', upload.single('productImage'), (req, res, next) => {
   console.log(req.file);
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
@@ -130,21 +132,21 @@ app.post('/img', upload.single('productImage'), ( req, res, next) => {
     productImage: req.file.path
   });
   file.save()
-  .then( result => {
-    console.log(result);
-    res.status(201).json({
-      message: 'Create product successfully',
-      createdProduct: {
-        name: result.name,
-        modified: result.modified
-      }
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: 'Create product successfully',
+        createdProduct: {
+          name: result.name,
+          modified: result.modified
+        }
+      });
     });
-  });
 })
 
-app.get('/getimg', function(req, res){
-  File.find({}).exec(function(err, files){
-    if(err){
+app.get('/getimg', function(req, res) {
+  File.find({}).exec(function(err, files) {
+    if (err) {
       res.send('error has occured');
     } else {
       console.log(files);
@@ -155,67 +157,68 @@ app.get('/getimg', function(req, res){
 
 app.get('/getimgmulti:productId', (req, res, next) => {
   File.find()
-  .select('name modified _id productImage')
-  .exec()
-  .then( docs => {
-    const response = {
-      count: docs.length,
-      files: docs.map(doc => {
-        return {
-          name: doc.name,
-          modified: doc.modified,
-          productImage: doc.productImage,
-          _id: doc._id,
-          request: {
-            type: 'GET',
-            url: 'http://localhost:8081/files/' + doc._id
+    .select('name modified _id productImage')
+    .exec()
+    .then(docs => {
+      const response = {
+        count: docs.length,
+        files: docs.map(doc => {
+          return {
+            name: doc.name,
+            modified: doc.modified,
+            productImage: doc.productImage,
+            _id: doc._id,
+            request: {
+              type: 'GET',
+              url: 'http://localhost:8081/files/' + doc._id
+            }
           }
-        }
-      })
-    }
-    res.status(200).json( response );
-  });
+        })
+      }
+      res.status(200).json(response);
+    });
 });
 
 app.get('/getimg:productId', (req, res, next) => {
   const id = req.params.producdId;
   File.find(id)
-  .select('name modified _id productImage')
-  .exec()
-  .then( doc => {
-    console.log("from database", doc);
-    if (doc) {
-      res.status(200).json({
-        product: doc,
-        request: {
-          type:  'GET',
-          url: 'http://localhost:8081/files/'
-        }
-      })
-    }
-    return {
-      name: doc.name,
-      modified: doc.modified,
-      _id: doc._id,
-      request: {
-        type: 'GET',
-        url: 'http://localhost:8081/files/' + doc._id
+    .select('name modified _id productImage')
+    .exec()
+    .then(doc => {
+      console.log("from database", doc);
+      if (doc) {
+        res.status(200).json({
+          product: doc,
+          request: {
+            type: 'GET',
+            url: 'http://localhost:8081/files/'
+          }
+        })
       }
-}
-  });
-  res.status(200).json( response );
+      return {
+        name: doc.name,
+        modified: doc.modified,
+        _id: doc._id,
+        request: {
+          type: 'GET',
+          url: 'http://localhost:8081/files/' + doc._id
+        }
+      }
+    });
+  res.status(200).json(response);
 });
 
 //posts
-app.post('/contact', function(req, res){
+app.post('/contact', function(req, res) {
   var newContact = new Contact();
 
-  newContact.firstName = req.body.firstName;
-  newContact.lastName = req.body.lastName;
+  newContact.profession = req.body.profession;
+  newContact.name = req.body.name;
   newContact.phone = req.body.phone;
+  newContact.email = req.body.email;
 
-  newContact.save(function(err, contact){
-    if(err){
+  newContact.save(function(err, contact) {
+    if (err) {
       res.send('error saving contact')
     } else {
       console.log(contact);
@@ -224,15 +227,15 @@ app.post('/contact', function(req, res){
   });
 });
 
-app.post('/meeting', function(req, res){
-  var newMeeting = new Meeting ();
+app.post('/meeting', function(req, res) {
+  var newMeeting = new Meeting();
 
   newMeeting.theme = req.body.theme;
   newMeeting.created = req.body.created;
   newMeeting.date = req.body.date;
 
-  newMeeting.save(function(err, meeting){
-    if(err){
+  newMeeting.save(function(err, meeting) {
+    if (err) {
       res.send('error saving meeting')
     } else {
       console.log(meeting);
@@ -241,15 +244,15 @@ app.post('/meeting', function(req, res){
   });
 });
 
-app.post('/revision', function(req, res){
-  var newRevision = new Revision ();
+app.post('/revision', function(req, res) {
+  var newRevision = new Revision();
 
   newRevision.revTitle = req.body.revTitle;
   newRevision.revLast = req.body.revLast;
   newRevision.revNext = req.body.revLast;
 
-  newRevision.save(function(err, revision){
-    if(err){
+  newRevision.save(function(err, revision) {
+    if (err) {
       res.send('error saving revision')
     } else {
       console.log(revision);
@@ -258,15 +261,15 @@ app.post('/revision', function(req, res){
   });
 });
 
-app.post('/measure', function(req, res){
-  var newMeasure = new Measure ();
+app.post('/measure', function(req, res) {
+  var newMeasure = new Measure();
 
   newMeasure.commodity = req.body.commodity;
   newMeasure.date = req.body.date;
   newMeasure.value = req.body.value;
 
-  newMeasure.save(function(err, measure){
-    if(err){
+  newMeasure.save(function(err, measure) {
+    if (err) {
       res.send('error saving measure')
     } else {
       console.log(measure);
@@ -275,26 +278,31 @@ app.post('/measure', function(req, res){
   });
 });
 
-app.put('/contact/:id', function(req, res){
+app.put('/contact/:id', function(req, res) {
   Contact.findOneAndUpdate({
-    _id: req.params.id },
-    { $set: { phone: req.body.phone }},
-    { upsert: true },
-    function( err, newContact ){
-      if(err){
+      _id: req.params.id
+    }, {
+      $set: {
+        phone: req.body.phone
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newContact) {
+      if (err) {
         console.log(err);
       } else {
         console.log(newContact);
         res.send(newContact);
       }
-  });
+    });
 });
 
-app.delete('/contact/:id', function(req, res){
+app.delete('/contact/:id', function(req, res) {
   Contact.findOneAndRemove({
     _id: req.params.id
-  }, function(err, contact){
-    if(err){
+  }, function(err, contact) {
+    if (err) {
       console.log(err);
     } else {
       console.log(contact);
@@ -306,7 +314,7 @@ app.delete('/contact/:id', function(req, res){
 
 
 
-app.post('/owner', function(req, res){
+app.post('/owner', function(req, res) {
   var newOwner = new Owner();
 
   newOwner.firstName = req.body.firstName;
@@ -314,8 +322,8 @@ app.post('/owner', function(req, res){
   newOwner.unit = req.body.unit;
   newOwner.part = req.body.part;
 
-  newOwner.save(function(err, owner){
-    if(err){
+  newOwner.save(function(err, owner) {
+    if (err) {
       res.send('error saving owner')
     } else {
       console.log(owner);
@@ -324,26 +332,31 @@ app.post('/owner', function(req, res){
   });
 });
 
-app.put('/owner/:id', function(req, res){
+app.put('/owner/:id', function(req, res) {
   Owner.findOneAndUpdate({
-    _id: req.params.id },
-    { $set: { phone: req.body.unit }},
-    { upsert: true },
-    function( err, newOwner ){
-      if(err){
+      _id: req.params.id
+    }, {
+      $set: {
+        phone: req.body.unit
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newOwner) {
+      if (err) {
         console.log(err);
       } else {
         console.log(newOwner);
         res.send(newOwner);
       }
-  });
+    });
 });
 
-app.delete('/owner/:id', function(req, res){
+app.delete('/owner/:id', function(req, res) {
   Owner.findOneAndRemove({
     _id: req.params.id
-  }, function(err, owner){
-    if(err){
+  }, function(err, owner) {
+    if (err) {
       console.log(err);
     } else {
       console.log(owner);

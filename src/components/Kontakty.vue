@@ -22,7 +22,7 @@
 </tr>
     </table>
 
-<ModalContacts />
+<ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello"/>
 
     </div>
   </div>
@@ -41,7 +41,11 @@ export default {
   name: 'Kontakty',
   data () {
     return {
-      contacts: []
+      contacts: [],
+      ninjas:
+{ name: 'ryu' }
+
+
     }
   },
   components: {
@@ -52,6 +56,9 @@ export default {
   methods: {
     say: function (message) {
       alert(message)
+    },
+    onSayHello() {
+      alert(this.ninjas.name);
     }
   },
   mounted() {
@@ -85,13 +92,13 @@ export default {
   width: 100%;
 }
 .kontakty td, .kontakty th {
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   padding: 8px;
 }
 
 .kontakty tr:nth-child(even){background-color: #f2f2f2;}
 
-.kontakty tr:hover {background-color: #ddd;}
+.kontakty tr:hover {background-color: #ddd; cursor: pointer;}
 
 .kontakty th {
   padding-top: 12px;

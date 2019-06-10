@@ -4,16 +4,15 @@
       <div v-if="isOpen">
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
-            <h1>Nový kontakt</h1>
+            <button class="btn btn-back" @click="isOpen = !isOpen;">Zpět</button>
+            <h1>Nový kontakt</h1><h1>{{ ninjas.name }}</h1>
             <form @submit="formSubmit">
-            <!-- <label for="firstName">First Name</label> -->
             <input id="firstName" type="text" class="form-control" v-model="profession" placeholder="Povolání">
-            <!-- <strong>lastName:</strong> -->
             <input type="text" class="form-control" v-model="name" placeholder="Jméno">
-            <!-- <strong>phone:</strong> -->
             <input type="text" class="form-control" v-model="phone" placeholder="Kontakt">
             <input type="text" class="form-control" v-model="email" placeholder="E-mail">
-            <button class="btn btn-success">Submit</button>
+            <button class="btn btn-success">Uložit</button>
+            <button class="btn btn-success" @click="sayHello">pozdrav</button>
             </form>
           </div>
         </div>
@@ -21,15 +20,10 @@
     </transition>
     <v-btn color="green" @click="isOpen = !isOpen;">
       {{ isOpen ? "Close" : "Nový kontakt" }}</v-btn>
-    <!-- <button @click="isOpen = !isOpen;">
-      {{ isOpen ? "Close" : "Open" }} modal
-    </button> -->
   </div>
 </template>
 
-<script>
 
-</script>
 <script>
 import axios from 'axios';
 import VueAxios from 'vue-axios'
@@ -39,6 +33,8 @@ import VueAxios from 'vue-axios'
             console.log('Component mounted.');
 
         },
+        props: ['ninjas'],
+
         data() {
             return {
               profession: '',
@@ -51,14 +47,18 @@ import VueAxios from 'vue-axios'
         methods: {
             formSubmit(e) {
                 e.preventDefault();
+                this.isOpen = false;
                 let currentObj = this;
                 axios.post('http://localhost:8081/contact', {
                   profession: this.profession,
                       name: this.name,
                       phone: this.phone,
                       email: this.email
-                })
+                }).then(alert("kontakt uložen"))
 
+            },
+            sayHello() {
+              this.$emit('sayHello', 'Hello');
             }
         }
     }
@@ -75,17 +75,20 @@ import VueAxios from 'vue-axios'
   font-family: Helvetica, Arial, sans-serif;
 }
 .fadeIn-enter {
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .fadeIn-leave-active {
-  opacity: 0;
-  transition: all 0.2s step-end;
+  opacity: 0.5;
+  transition: all 0.8s step-end;
 }
 
 .fadeIn-enter .modal,
 .fadeIn-leave-active.modal {
   transform: scale(1.1);
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
 }
 button {
   /* padding: 7px;
@@ -94,7 +97,14 @@ button {
   color: white;
   font-size: 1.1rem; */
 }
-
+h1 {
+  font-weight: 100;
+  display: block;
+  float: left;
+}
+ input[type=text] {
+  font-weight: 700;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -126,5 +136,16 @@ input[type=text] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.btn-back {
+  width: 15%;
+  background-color: red;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
 }
 </style>

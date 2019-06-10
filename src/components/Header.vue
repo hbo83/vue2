@@ -1,7 +1,7 @@
 <template>
   <header>
 
-    <span @click="someMethod">Click me!</span>
+    <h1>SVJ2000</h1>
   </header>
 </template>
 
@@ -24,12 +24,18 @@ export default {
 
 </script>
 <style scoped>
+h1 {
+  font-size: 20px;
+  color: white;
+  display: block;
+  margin-right: 1392px;
+}
 header {
   /* background-image: url("svj2000.png"); */
  background-color: lightgreen;
  background-size: 10%;
  width: 100%;
- height: 50px;
-margin: 10px;
+ height: 39px;
+margin: 17px 0;
 }
 </style>

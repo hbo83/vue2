@@ -9,13 +9,17 @@
 
         <table>
       <tr>
-        <th>zavady</th>
+        <th>Závada</th>
         <th>Jednotka</th>
         <th>Podíl</th>
       </tr>
-
+<tr v-for="imperfection in imperfections">
+  <td>{{ imperfection.imperfection }}</td>
+  <td>{{ imperfection.created }}</td>
+  <td>{{ imperfection.hurry }}</td>
+</tr>
     </table>
-
+<ModalImperfection />
     </div>
   </div>
 
@@ -24,18 +28,31 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
+import ModalImperfection from './ModalImperfection';
+import axios from 'axios';
 
 export default {
   name: 'Zavady',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      imperfections: []
     }
   },
   components: {
     Header,
-    Nav
-  }
+    Nav,
+    ModalImperfection
+  },
+  mounted() {
+      axios.get('http://localhost:8081/imperfections')
+      .then((response) => {
+        console.log(response.data);
+        this.imperfections = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}
 }
 </script>
 

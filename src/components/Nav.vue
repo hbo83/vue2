@@ -1,8 +1,8 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to = "/nastenka"><v-icon size="28px">home</v-icon>Nástěnka</router-link></li>
-      <li><router-link to = "/owners"><v-icon size="28px">person</v-icon>Spoluvlastníci</router-link></li>
+      <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/nastenka"><v-icon size="28px">home</v-icon>Nástěnka</router-link></li>
+      <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/owners"><v-icon size="28px">person</v-icon>Spoluvlastníci</router-link></li>
       <li><router-link to = "/dokumenty"><v-icon size="28px">archive</v-icon>Dokumenty</router-link></li>
       <li><router-link to = "/kontakty"><v-icon size="28px">contact_phone</v-icon>Kontakty</router-link></li>
       <li><router-link to = "/revize"><v-icon size="28px">alarm</v-icon>Revize</router-link></li>
@@ -18,7 +18,24 @@
 
 <script>
 export default {
+name: 'Nav',
+data() {
+  return {
 
+      i0: {
+        isActive: true
+    }
+  }
+},
+methods: {
+  toggleClass: function() {
+    if(this.i0.isActive){
+      this.i0.isActive = false;
+    } else {
+      this.i0.isActive = true;
+    }
+  }
+}
 }
 </script>
 
@@ -48,9 +65,9 @@ ul {
 li {
   /* background-color: rgba(255,159,36,1); */
 }
-a:link, a:visited, a:active  {
+/* a:link, a:visited, a:active  {
   color: grey;
-}
+} */
 a:hover {
   color: black;
   cursor: pointer;
@@ -58,6 +75,12 @@ a:hover {
 }
 li i {
   margin-right: 12px
+}
+.red {
+  color: green;
+}
+.blue {
+  color: blue;
 }
 
 </style>

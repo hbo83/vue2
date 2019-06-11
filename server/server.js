@@ -20,6 +20,7 @@ const File = require('./File.model');
 const Meeting = require('./Meeting.model');
 const Revision = require('./Revision.model');
 const Measure = require('./Measure.model');
+const Imperfection = require('./Imperfection.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -119,6 +120,16 @@ app.get('/measures', function(req, res) {
       res.send('error has occured');
     } else {
       res.json(measure);
+    }
+  })
+})
+
+app.get('/imperfections', function(req, res) {
+  Imperfection.find({}).exec(function(err, imperfection) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(imperfection);
     }
   })
 })
@@ -274,6 +285,23 @@ app.post('/measure', function(req, res) {
     } else {
       console.log(measure);
       res.send(measure);
+    }
+  });
+});
+
+app.post('/imperfection', function(req, res) {
+  var newImperfection = new Imperfection();
+
+  newImperfection.imperfection = req.body.imperfection;
+  newImperfection.created = req.body.created;
+  newImperfection.hurry = req.body.hurry;
+
+  newImperfection.save(function(err, imperfection) {
+    if (err) {
+      res.send('error saving imperfection')
+    } else {
+      console.log(imperfection);
+      res.send(imperfection);
     }
   });
 });

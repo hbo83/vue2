@@ -5,14 +5,13 @@
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
             <button class="btn btn-back" @click="isOpen = !isOpen;">Zpět</button>
-            <h1>Nový kontakt</h1><h1>{{ ninjas.name }}</h1>
+            <h1>Nová závada</h1>
             <form @submit="formSubmit">
-            <input id="firstName" type="text" class="form-control" v-model="profession" placeholder="Povolání">
-            <input type="text" class="form-control" v-model="name" placeholder="Jméno">
-            <input type="text" class="form-control" v-model="phone" placeholder="Kontakt">
-            <input type="text" class="form-control" v-model="email" placeholder="E-mail">
+            <input type="text" class="form-control" v-model="imperfection" placeholder="Závada">
+            <input type="text" class="form-control" v-model="created" placeholder="Vytvořeno">
+            <input type="text" class="form-control" v-model="hurry" placeholder="Spěchá">
             <button class="btn btn-success">Uložit</button>
-            <button class="btn btn-success" @click="sayHello">pozdrav</button>
+
             </form>
           </div>
         </div>
@@ -20,64 +19,41 @@
     </transition>
 
     <v-btn v-if="!isOpen" color="green" @click="isOpen = !isOpen;">
-      {{ isOpen ? "Close" : "Nový kontakt" }}</v-btn>
+      {{ isOpen ? "Close" : "Nová závada" }}</v-btn>
   </div>
 </template>
 
-
 <script>
-import vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios'
     export default {
-      name: 'ModalContacts',
+      name: 'ModalImperfection',
         mounted() {
             console.log('Component mounted.');
 
         },
-        props: ['ninjas'],
-
         data() {
             return {
-              profession: '',
-              name: '',
-              phone: '',
-              email: '',
+              imperfection: '',
+              created: '',
+              hurry: '',
               isOpen: false
             };
         },
         methods: {
             formSubmit(e) {
                 e.preventDefault();
-                this.isOpen = false;
                 let currentObj = this;
-                axios.post('http://localhost:8081/contact', {
-                  profession: this.profession,
-                      name: this.name,
-                      phone: this.phone,
-                      email: this.email
-                }).then(alert("kontakt uložen"))
+                axios.post('http://localhost:8081/imperfection', {
+                  imperfection: this.imperfection,
+                      created: this.created,
+                      hurry: this.hurry
 
-            },
-            sayHello() {
-              this.$emit('sayHello', 'Hello');
+                })
+
             }
-        },
-        toggleClass: function() {
-          if(this.isDisplayed){
-            this.isDisplayed = false;
-          } else {
-            this.isDisplayed = true;
-          }
         }
     }
-
-//     const ap = new Vue({
-//   el: '#trans',
-//   data: {
-//     show: true
-//   }
-// })
 </script>
 <style scoped>
 .modal {
@@ -112,14 +88,7 @@ button {
   color: white;
   font-size: 1.1rem; */
 }
-h1 {
-  font-weight: 100;
-  display: block;
-  float: left;
-}
- input[type=text] {
-  font-weight: 700;
-}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -151,16 +120,5 @@ input[type=text] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-.btn-back {
-  width: 15%;
-  background-color: red;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: block;
 }
 </style>

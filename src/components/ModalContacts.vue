@@ -11,8 +11,8 @@
             <input type="text" class="form-control" v-model="name" placeholder="Jméno">
             <input type="text" class="form-control" v-model="phone" placeholder="Kontakt">
             <input type="text" class="form-control" v-model="email" placeholder="E-mail">
-            <button class="btn btn-success">Uložit</button>
-            <button class="btn btn-success" @click="sayHello">pozdrav</button>
+            <button class="btn btn-success" @click="addContact">Uložit</button>
+
             </form>
           </div>
         </div>
@@ -35,7 +35,7 @@ import VueAxios from 'vue-axios'
             console.log('Component mounted.');
 
         },
-        props: ['ninjas'],
+        props: ['ninjas', 'contact'],
 
         data() {
             return {
@@ -59,8 +59,14 @@ import VueAxios from 'vue-axios'
                 }).then(alert("kontakt uložen"))
 
             },
-            sayHello() {
-              this.$emit('sayHello', 'Hello');
+            addContact() {
+              this.$emit('addContact', {
+                profession: this.profession,
+                    name: this.name,
+                    phone: this.phone,
+                    email: this.email
+              });
+
             }
         },
         toggleClass: function() {

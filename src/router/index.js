@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Nastenka from '@/components/Nastenka'
 import Owners from '@/components/owners'
-import Kontakty from '@/components/Kontakty'
+import Contacts from '@/components/Contacts'
 import Schuze from '@/components/Schuze'
 import Dokumenty from '@/components/Dokumenty'
 import Revize from '@/components/Revize'
@@ -31,9 +31,9 @@ export default new Router({
       component: Owners
     },
     {
-      path: '/kontakty',
-      name: 'Kontakty',
-      component: Kontakty
+      path: '/contacts',
+      name: 'Contacts',
+      component: Contacts
     },
     {
       path: '/schuze',

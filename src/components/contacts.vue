@@ -3,7 +3,7 @@
     <Header />
     <Nav />
 
-    <div class="kontakty">
+    <div class="contacts">
     <table>
 <thead>
   <tr>
@@ -22,8 +22,7 @@
 </tr>
     </table>
 
-<ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello"/>
-
+<ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello" @addContact="add"/>
     </div>
   </div>
 </template>
@@ -59,6 +58,10 @@ export default {
     },
     onSayHello() {
       alert(this.ninjas.name);
+    },
+    add( contact ) {
+      this.contacts.push(contact);
+      console.log(contact);
     }
   },
   mounted() {
@@ -79,7 +82,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.kontakty {
+.contacts {
   width: 80%;
   height: auto;
   /* border: 1px solid black; */
@@ -88,19 +91,19 @@ export default {
   border-collapse: collapse;
 }
 
-.kontakty table {
+.contacts table {
   width: 100%;
 }
-.kontakty td, .kontakty th {
+.contacts td, .contacts th {
   /* border: 1px solid #ddd; */
   padding: 8px;
 }
 
-.kontakty tr:nth-child(even){background-color: #f2f2f2;}
+.contacts tr:nth-child(even){background-color: #f2f2f2;}
 
-.kontakty tr:hover {background-color: #ddd; cursor: pointer;}
+.contacts tr:hover {background-color: #ddd; cursor: pointer;}
 
-.kontakty th {
+.contacts th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

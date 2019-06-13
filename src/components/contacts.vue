@@ -11,6 +11,8 @@
     <th>Jméno</th>
     <th>Telefon</th>
     <th>E-mail</th>
+    <th>edit</th>
+    <th>delete</th>
   </tr>
 </thead>
 
@@ -19,10 +21,13 @@
   <td>{{ contact.name }}</td>
   <td>{{ contact.phone }}</td>
   <td>{{ contact.email }}</td>
+  <td><v-btn @click="edit(contact._id)">{{ contact._id }}</v-btn></td>
+  <td><v-btn @click="delContact(contact._id)">Delete</v-btn></td>
 </tr>
     </table>
 
 <ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello" @addContact="add"/>
+<ModalContactSave v-if="modalContactSaveOpen" @editContact="edit"/>
     </div>
   </div>
 </template>
@@ -31,7 +36,7 @@
 import Header from './Header.vue'
 import Nav from './Nav.vue'
 import ModalContacts from './ModalContacts.vue'
-// import Formular from './Formular.vue'
+import ModalContactSave from './ModalContactSave.vue'
 
 import axios from 'axios';
 
@@ -41,16 +46,17 @@ export default {
   data () {
     return {
       contacts: [],
-      ninjas:
-{ name: 'ryu' }
-
-
+      ninjas: {
+        name: 'ryu'
+      },
+      modalContactSaveOpen: false
     }
   },
   components: {
     Header,
     Nav,
-    ModalContacts
+    ModalContacts,
+    ModalContactSave
   },
   methods: {
     say: function (message) {
@@ -62,8 +68,31 @@ export default {
     add( contact ) {
       this.contacts.push(contact);
       console.log(contact);
+    },
+    edit( contact ) {
+
+      alert("edit");
+    },
+    delContact(id) {
+      axios.delete('http://localhost:8081/contact/'+ id)
+      .then((response) => {
+        console.log(response.data);
+        // this.contacts = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    var index = this.contacts.findIndex(i => i._id == id);
+    console.log(index);
+    if(index === 0){
+      this.contacts.splice(0, 1);
+    } else {
+      this.contacts.splice(index, 1);
+    }
+    console.log(this.contacts);
     }
   },
+
   mounted() {
       axios.get('http://localhost:8081/contacts')
       .then((response) => {

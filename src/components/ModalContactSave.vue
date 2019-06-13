@@ -35,7 +35,7 @@ import VueAxios from 'vue-axios'
             console.log('Component mounted.');
 
         },
-        props: ['showed', 'contact'],
+        props: ['showed', 'contacts'],
 
         data() {
             return {
@@ -43,7 +43,8 @@ import VueAxios from 'vue-axios'
               name: '',
               phone: '',
               email: '',
-              isOpen: true
+              isOpen: true,
+              id: this.showed.id
             };
         },
         methods: {
@@ -55,12 +56,14 @@ import VueAxios from 'vue-axios'
                 e.preventDefault();
                 this.isOpen = false;
                 let currentObj = this;
-                axios.put('http://localhost:8081/contact/' + id, {
+
+                axios.put('http://localhost:8081/contact/' + this.id, {
+                  id: this.id,
                   profession: this.profession,
                       name: this.name,
                       phone: this.phone,
                       email: this.email
-                }).then(alert("kontakt změněn"))
+                }).then(alert("kontakt změněn" + this.id))
 
             },
             addContact() {

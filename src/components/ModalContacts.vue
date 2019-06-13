@@ -5,7 +5,7 @@
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
             <button class="btn btn-back" @click="isOpen = !isOpen;">Zpět</button>
-            <h1>Nový kontakt</h1><h1>{{ ninjas.name }}</h1>
+            <h1>Nový kontakt</h1>
             <form @submit="formSubmit">
             <input id="firstName" type="text" class="form-control" v-model="profession" placeholder="Povolání">
             <input type="text" class="form-control" v-model="name" placeholder="Jméno">
@@ -61,20 +61,13 @@ import VueAxios from 'vue-axios'
             },
             addContact() {
               this.$emit('addContact', {
-                profession: this.profession,
+                    profession: this.profession,
                     name: this.name,
                     phone: this.phone,
                     email: this.email
               });
 
             }
-        },
-        toggleClass: function() {
-          if(this.isDisplayed){
-            this.isDisplayed = false;
-          } else {
-            this.isDisplayed = true;
-          }
         }
     }
 

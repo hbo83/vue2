@@ -21,13 +21,13 @@
   <td>{{ contact.name }}</td>
   <td>{{ contact.phone }}</td>
   <td>{{ contact.email }}</td>
-  <td><v-btn @click="modalContactSaveOpen = !modalContactSaveOpen;">{{ contact._id }}</v-btn></td>
+  <td><v-btn @click="initCurrentId(contact._id)">{{ contact._id }}</v-btn></td>
   <td><v-btn @click="delContact(contact._id)">Delete</v-btn></td>
 </tr>
     </table>
 
-<ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello" @addContact="add"/>
-<ModalContactSave v-bind:showed="modalContactSaveOpen" v-if="modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc"/>
+<ModalContacts @addContact="add"/>
+<ModalContactSave v-bind:showed="editData" v-if="editData.modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc"/>
     </div>
   </div>
 </template>
@@ -40,16 +40,15 @@ import ModalContactSave from './ModalContactSave.vue'
 
 import axios from 'axios';
 
-
 export default {
   name: 'Kontakty',
   data () {
     return {
       contacts: [],
-      ninjas: {
-        name: 'ryu'
-      },
-      modalContactSaveOpen: false
+      editData: {
+        modalContactSaveOpen: false,
+        id: "5d00989e3058803dc4e5c13b"
+      }
     }
   },
   components: {
@@ -59,23 +58,21 @@ export default {
     ModalContactSave
   },
   methods: {
+    initCurrentId(id) {
+      this.editData.modalContactSaveOpen = !this.editData.modalContactSaveOpen
+      this.editData.id = id;
+    },
     closeFunc() {
-      
       this.modalContactSaveOpen = false;
-
     },
     say: function (message) {
       alert(message)
-    },
-    onSayHello() {
-      alert(this.ninjas.name);
     },
     add( contact ) {
       this.contacts.push(contact);
       console.log(contact);
     },
     edit( contact ) {
-
       alert("edit");
     },
     delContact(id) {

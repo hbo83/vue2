@@ -356,8 +356,26 @@ app.delete('/contact/:id', function(req, res) {
   })
 })
 
-
-
+//puts
+app.put('/owner/:id', function(req, res) {
+  Owner.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: {
+        phone: req.body.unit
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newOwner) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newOwner);
+        res.send(newOwner);
+      }
+    });
+});
 
 app.post('/owner', function(req, res) {
   var newOwner = new Owner();

@@ -21,13 +21,13 @@
   <td>{{ contact.name }}</td>
   <td>{{ contact.phone }}</td>
   <td>{{ contact.email }}</td>
-  <td><v-btn @click="edit(contact._id)">{{ contact._id }}</v-btn></td>
+  <td><v-btn @click="modalContactSaveOpen = !modalContactSaveOpen;">{{ contact._id }}</v-btn></td>
   <td><v-btn @click="delContact(contact._id)">Delete</v-btn></td>
 </tr>
     </table>
 
 <ModalContacts v-bind:ninjas="ninjas" @sayHello="onSayHello" @addContact="add"/>
-<ModalContactSave v-if="modalContactSaveOpen" @editContact="edit"/>
+<ModalContactSave v-bind:showed="modalContactSaveOpen" v-if="modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc"/>
     </div>
   </div>
 </template>
@@ -59,6 +59,11 @@ export default {
     ModalContactSave
   },
   methods: {
+    closeFunc() {
+      
+      this.modalContactSaveOpen = false;
+
+    },
     say: function (message) {
       alert(message)
     },

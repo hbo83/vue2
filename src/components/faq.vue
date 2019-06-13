@@ -1,27 +1,23 @@
 <template>
   <div>
-    <!-- <h1>{{ msg }}</h1> -->
-    <Header />
-    <Nav />
-
-    <div class="faq">
-      <table>
-    <tr>
-      <th>ucto</th>
-      <th>ucto</th>
-      <th>ucto</th>
-    </tr>
-    <tr v-for="meeting in meetings">
-      <td>{{ meeting.theme }}</td>
-      <td>{{ meeting.created }}</td>
-      <td>{{ meeting.date }}</td>
-    </tr>
-
-  </table>
-  <ModalMeetings />
-    </div>
-  </div>
-
+  <Header />
+  <Nav />
+  <div class="exPanelWrapper">
+  <v-expansion-panel >
+    <v-expansion-panel-content
+      v-for="item in items"
+      :key="item.name"
+    >
+      <template v-slot:header>
+        <div><b>{{item.name}}</b></div>
+      </template>
+      <v-card>
+        <v-card-text>{{ item. content }}</v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
+</div>
+</div>
 </template>
 
 <script>
@@ -33,7 +29,13 @@ export default {
   name: 'Faq',
   data () {
     return {
-      meetings: []
+      items: [
+        { name: "Založení SVJ", content: "lerefsdfgvs"},
+        { name: "Svolání domovní schůze", content: "Svolání schůze se musí konat alespoň jedenkrát ročně. Svolavatelem je "},
+        { name: "Povinnosti předsedy", content: "lerefsdfgvs"},
+        { name: "Revize", content: "lerefsdfgvs"},
+        { name: "Orgány společenství", content: "lerefsdfgvs"}
+      ]
     }
   },
   components: {
@@ -59,32 +61,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.faq {
-  width: 80%;
-  height: 500px;
-  border: 1px solid black;
-  float: left;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-}
-
-.faq table {
-  width: 100%;
-}
-.faq td, .faq th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.faq tr:nth-child(even){background-color: #f2f2f2;}
-
-.faq tr:hover {background-color: #ddd;}
-
-.faq th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
+.exPanelWrapper {
+  width: 85%;
+  float: left
 }
 </style>

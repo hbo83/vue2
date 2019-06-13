@@ -1,11 +1,11 @@
 <template>
   <div id="trans">
     <transition name="fade">
-      <div v-if="isOpen">
+      <div v-if="showed">
         <div class="overlay" @click.self="isOpen = false;">
           <div class="modal">
-            <button class="btn btn-back" @click="isOpen = !isOpen;">Zpět</button>
-            <h1>Editace kontaktu</h1>
+            <button class="btn btn-back" @click="closeModal">Zpět</button>
+            <h1>Editace kontaktu</h1><h1>{{showed}}</h1>
             <form @submit="formSubmit">
             <input id="firstName" type="text" class="form-control" v-model="profession" placeholder="Povolání">
             <input type="text" class="form-control" v-model="name" placeholder="Jméno">
@@ -35,7 +35,7 @@ import VueAxios from 'vue-axios'
             console.log('Component mounted.');
 
         },
-        props: ['ninjas', 'contact'],
+        props: ['showed', 'contact'],
 
         data() {
             return {
@@ -43,10 +43,14 @@ import VueAxios from 'vue-axios'
               name: '',
               phone: '',
               email: '',
-              isOpen: false
+              isOpen: true
             };
         },
         methods: {
+          closeModal() {
+            this.$emit('closeModal');
+
+          },
             formSubmit(e) {
                 e.preventDefault();
                 this.isOpen = false;
@@ -83,6 +87,7 @@ import VueAxios from 'vue-axios'
             this.isDisplayed = true;
           }
         }
+
     }
 
 //     const ap = new Vue({

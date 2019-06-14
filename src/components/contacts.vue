@@ -4,6 +4,7 @@
     <Nav />
 
     <div class="contacts">
+      <router-view></router-view>//pokud zanoruju routy, musim mit pokazdy router-view v ty komponente do ktery chci zanorit
     <table>
 <thead>
   <tr>
@@ -47,7 +48,7 @@ export default {
       contacts: [],
       editData: {
         modalContactSaveOpen: false,
-        id: "5d00989e3058803dc4e5c13b"
+        id: null
       }
     }
   },
@@ -63,7 +64,7 @@ export default {
       this.editData.id = id;
     },
     closeFunc() {
-      this.modalContactSaveOpen = false;
+      this.editData.modalContactSaveOpen = false;
     },
     say: function (message) {
       alert(message)
@@ -116,7 +117,8 @@ export default {
 .contacts {
   width: 80%;
   height: auto;
-  /* border: 1px solid black; */
+  overflow: auto;
+  max-height: 600px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;

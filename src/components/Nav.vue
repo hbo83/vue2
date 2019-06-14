@@ -12,6 +12,7 @@
       <li><router-link to = "/ucetnictvi"><v-icon size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
       <li><router-link to = "/nastaveni"><v-icon size="28px">apps</v-icon>Nastavení</router-link></li>
       <li><router-link to = "/faq"><v-icon size="28px">contact_support</v-icon>FAQ</router-link></li>
+      <li><router-link to = "/hints"><v-icon size="28px">thumb_up</v-icon>Důležité rady</router-link></li>
     </ul>
   </nav>
 </template>

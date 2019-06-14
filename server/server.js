@@ -357,12 +357,15 @@ app.delete('/contact/:id', function(req, res) {
 })
 
 //puts
-app.put('/owner/:id', function(req, res) {
+app.put('/contact/:id', function(req, res) {
   Owner.findOneAndUpdate({
       _id: req.params.id
     }, {
       $set: {
-        phone: req.body.unit
+        profession: req.body.profession,
+        name: req.body.namen,
+        phone: req.body.phone,
+        mail: req.body.mail
       }
     }, {
       upsert: true

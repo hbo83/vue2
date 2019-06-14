@@ -12,8 +12,8 @@ import Odecty from '@/components/Odecty'
 import Home from '@/components/Home'
 import Ucetnictvi from '@/components/Ucetnictvi'
 import Faq from '@/components/Faq'
-
-
+import Hints from '@/components/Hints'
+import NewContact from '@/components/NewContact'
 
 
 Vue.use(Router)
@@ -33,7 +33,12 @@ export default new Router({
     {
       path: '/contacts',
       name: 'Contacts',
-      component: Contacts
+      component: Contacts,
+      children: [{
+        path: 'newContact',
+        name: 'NewContact',
+        component: NewContact,
+      }]
     },
     {
       path: '/schuze',
@@ -79,6 +84,11 @@ export default new Router({
       path: '/faq',
       name: 'Faq',
       component: Faq
+    },
+    {
+      path: '/hints',
+      name: 'Hints',
+      component: Hints
     }
   ]
 })

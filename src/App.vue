@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
 
+  <div id="app">
+   <!-- <img src="./assets/logo.png"> -->
+    
     <router-view/>
     <!-- <Header /> -->
   </div>
@@ -25,4 +26,5 @@ export default {
   color: #2c3e50;
   /* margin-top: 60px; */
 }
+
 </style>

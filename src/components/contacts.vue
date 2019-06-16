@@ -29,15 +29,18 @@
 
 <ModalContacts @addContact="add"/>
 <ModalContactSave v-bind:showed="editData" v-if="editData.modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc"/>
+<button><router-link to = "/newContact"><v-icon size="28px">thumb_up</v-icon>Důležité rady</router-link></button>
     </div>
   </div>
 </template>
 
 <script>
+import vue from 'vue';
 import Header from './Header.vue'
 import Nav from './Nav.vue'
 import ModalContacts from './ModalContacts.vue'
 import ModalContactSave from './ModalContactSave.vue'
+import NewContact from './NewContact.vue'
 
 import axios from 'axios';
 

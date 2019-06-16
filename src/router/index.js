@@ -33,12 +33,12 @@ export default new Router({
     {
       path: '/contacts',
       name: 'Contacts',
-      component: Contacts,
-      children: [{
-        path: 'newContact',
-        name: 'NewContact',
-        component: NewContact,
-      }]
+      component: Contacts
+      // children: [{
+      //   path: 'newContact',
+      //   name: 'NewContact',
+      //   component: NewContact,
+      // }]
     },
     {
       path: '/schuze',
@@ -89,6 +89,11 @@ export default new Router({
       path: '/hints',
       name: 'Hints',
       component: Hints
+    },
+    {
+      path: '/newContact',
+      name: 'NewContact',
+      component: NewContact,
     }
   ]
 })

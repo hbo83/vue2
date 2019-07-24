@@ -3,7 +3,7 @@
   <Header />
   <Nav />
 
-  <div class="newContact">
+  <div class="editContact">
     <v-app>
     <v-form
     ref="form"
@@ -57,7 +57,14 @@
       @click="formSubmit"
       color="success"
     >
-      Uložit
+      Uložit změnu
+    </v-btn>
+
+    <v-btn
+      @click="delContact(id)"
+      color="error"
+    >
+      Smazat kontakt {{ this.id }}
     </v-btn>
 
 
@@ -82,12 +89,12 @@ export default {
       name: '',
       phone: '',
       email: '',
-      isOpen: false
+      id: ''
     }
   },
   methods: {
-    someMethod(){
-      console.log(this.$parent);
+    someMethod(e){
+      console.log(e);
       this.$parent.someMethod;
     },
     formSubmit(e) {
@@ -101,17 +108,27 @@ export default {
               email: this.email
         }).then(alert("kontakt uložen")).then(this.name = '')
     },
-    addContact() {
-      this.$emit('addContact', {
-            profession: this.profession,
-            name: this.name,
-            phone: this.phone,
-            email: this.email
+    delContact(id) {
+      console.log("mazu")
+      axios.delete('http://localhost:8081/contact/'+ id)
+      .then((response) => {
+        console.log(response.data);
+        // this.contacts = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
       });
     }
   },
   mounted() {
-    console.log(789)
+    //zde jsou namountována data z parametru předaného v komponentě contacts redirektem
+    console.log(this.$route.params)
+    this.profession = this.$route.params.profession
+    this.name = this.$route.params.name
+    this.phone = this.$route.params.phone
+    this.email = this.$route.params.email
+    this.id = this.$route.params._id
+    console.log(this.id)
   },
   components: {
     Header,

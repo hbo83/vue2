@@ -5,6 +5,7 @@
 
     <div class="contacts">
       <router-view></router-view>//pokud zanoruju routy, musim mit pokazdy router-view v ty komponente do ktery chci zanorit
+      <!-- proste tam dam hint at oznaci radku s kterou chtej pracovat -->
     <table>
 <thead>
   <tr>
@@ -12,25 +13,26 @@
     <th>Jméno</th>
     <th>Telefon</th>
     <th>E-mail</th>
-    <th>edit</th>
-    <th>delete</th>
+    <!-- <th>edit</th> -->
+    <!-- <th>delete</th> -->
   </tr>
 </thead>
 
-<tr v-for="contact in contacts">
+<tr @click="selectRow(contact)" v-for="contact in contacts">
   <td>{{ contact.profession }}</td>
   <td>{{ contact.name }}</td>
   <td>{{ contact.phone }}</td>
   <td>{{ contact.email }}</td>
-  <td><v-btn @click="initCurrentId(contact._id)">{{ contact._id }}</v-btn></td>
-  <td><v-btn @click="delContact(contact._id)">Delete</v-btn></td>
+  <td style="display: none"><v-btn @click="initCurrentId(contact._id)">{{ contact._id }}</v-btn></td>
+  <td style="display: none"><v-btn @click="delContact(contact._id)">Delete</v-btn></td>
 </tr>
     </table>
 
 <ModalContacts @addContact="add"/>
 <ModalContactSave v-bind:showed="editData" v-if="editData.modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc"/>
-<button><router-link to = "/newContact"><v-icon size="28px">thumb_up</v-icon>Důležité rady</router-link></button>
+
     </div>
+    <v-btn to="/contacts/newContact" color="success">Nový kontakt</v-btn>
   </div>
 </template>
 
@@ -43,6 +45,7 @@ import ModalContactSave from './ModalContactSave.vue'
 import NewContact from './NewContact.vue'
 
 import axios from 'axios';
+
 
 export default {
   name: 'Kontakty',
@@ -62,6 +65,12 @@ export default {
     ModalContactSave
   },
   methods: {
+    selectRow(contact) {
+      console.log(event.target.parentNode.parentNode.childNodes)
+      // console.log(id)
+      //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
+      this.$router.push({ name: 'EditContact', params: contact})
+    },
     initCurrentId(id) {
       this.editData.modalContactSaveOpen = !this.editData.modalContactSaveOpen
       this.editData.id = id;

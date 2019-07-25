@@ -1,44 +1,20 @@
 <template>
-  <div>
+<div>
   <Header />
   <Nav />
 
   <div class="editContact">
     <v-app>
-    <v-form
-    ref="form"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="profession"
-      :counter="10"
+      <v-form ref="form" lazy-validation>
+        <v-text-field v-model="profession" :counter="10" label="Profese" required></v-text-field>
 
-      label="Profese"
-      required
-    ></v-text-field>
+        <v-text-field v-model="name" label="Jméno" required></v-text-field>
 
-    <v-text-field
-      v-model="name"
+        <v-text-field v-model="phone" label="Telefon" required></v-text-field>
 
-      label="Jméno"
-      required
-    ></v-text-field>
+        <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
-    <v-text-field
-      v-model="phone"
-
-      label="Telefon"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="email"
-
-      label="E-mail"
-      required
-    ></v-text-field>
-
-    <!-- <v-select
+        <!-- <v-select
       v-model="select"
       :items="items"
       :rules="[v => !!v || 'Item is required']"
@@ -53,23 +29,17 @@
       required
     ></v-checkbox> -->
 
-    <v-btn
-      @click="formSubmit"
-      color="success"
-    >
-      Uložit změnu
-    </v-btn>
+        <v-btn @click="formSubmit" color="success">
+          Uložit změnu
+        </v-btn>
 
-    <v-btn
-      @click="delContact(id)"
-      color="error"
-    >
-      Smazat kontakt {{ this.id }}
-    </v-btn>
+        <v-btn @click="delContact(id)" color="error">
+          Smazat kontakt {{ this.id }}
+        </v-btn>
 
 
-  </v-form>
-</v-app>
+      </v-form>
+    </v-app>
   </div>
 </div>
 </template>
@@ -82,8 +52,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 
 export default {
-  name: 'NewContact',
-  data () {
+  name: 'EditContact',
+  data() {
     return {
       profession: '',
       name: '',
@@ -93,31 +63,40 @@ export default {
     }
   },
   methods: {
-    someMethod(e){
+    someMethod(e) {
       console.log(e);
       this.$parent.someMethod;
     },
     formSubmit(e) {
-        e.preventDefault();
-        this.isOpen = false;
-        let currentObj = this;
-        axios.post('http://localhost:8081/contact', {
-          profession: this.profession,
-              name: this.name,
-              phone: this.phone,
-              email: this.email
-        }).then(alert("kontakt uložen")).then(this.name = '')
+      e.preventDefault();
+      this.isOpen = false;
+      let currentObj = this;
+
+      axios.put('http://localhost:8081/contact/' + this.id, {
+        id: this.id,
+        profession: this.profession,
+        name: this.name,
+        phone: this.phone,
+        email: this.email
+      }).then(alert("kontakt změněn" + this.id + this.profession))
     },
     delContact(id) {
-      console.log("mazu")
-      axios.delete('http://localhost:8081/contact/'+ id)
-      .then((response) => {
-        console.log(response.data);
-        // this.contacts = response.data;
+      if (confirm('Určitě chcete smazat kontakt?')) {
+
+        console.log("mazu")
+        axios.delete('http://localhost:8081/contact/' + id)
+          .then((response) => {
+            console.log(response.data);
+            // this.contacts = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      alert("Kontakt byl smazán")
+      this.$router.push({
+        name: 'Contacts'
       })
-      .catch((error) => {
-        console.log(error);
-      });
     }
   },
   mounted() {
@@ -135,7 +114,6 @@ export default {
     Nav
   }
 }
-
 </script>
 <style scoped>
 .newContact {
@@ -143,8 +121,8 @@ export default {
   margin-left: 38%;
   background: none;
 }
+
 /* .application--wrap {
   background: black!important;
 } */
-
 </style>

@@ -99,7 +99,7 @@ export default {
               name: this.name,
               phone: this.phone,
               email: this.email
-        }).then(alert("kontakt uložen")).then(this.name = '')
+        }).then(this.$router.push({ name: 'Contacts'})).then(alert("kontakt uložen"))
     },
     addContact() {
       this.$emit('addContact', {

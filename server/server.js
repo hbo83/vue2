@@ -311,7 +311,10 @@ app.put('/contact/:id', function(req, res) {
       _id: req.params.id
     }, {
       $set: {
-        phone: req.body.phone
+        profession: req.body.profession,
+        name: req.body.profession,
+        phone: req.body.phone,
+        email: req.body.email
       }
     }, {
       upsert: true
@@ -326,21 +329,7 @@ app.put('/contact/:id', function(req, res) {
     });
 });
 
-// app.delete('/contact/:id', (req, res, next) => {
-//   const id = req.params._id
-//   Contacts.remove({
-//       _id: _id
-//     })
-//     .exec()
-//     .then(result => {
-//       res.status(200).json(result);
-//     }).catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// });
+
 
 //deletes
 app.delete('/contact/:id', function(req, res) {
@@ -363,9 +352,9 @@ app.put('/contact/:id', function(req, res) {
     }, {
       $set: {
         profession: req.body.profession,
-        name: req.body.namen,
+        name: req.body.name,
         phone: req.body.phone,
-        mail: req.body.mail
+        mail: req.body.email
       }
     }, {
       upsert: true

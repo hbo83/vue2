@@ -37,7 +37,7 @@
     <!-- <ModalContactSave v-bind:showed="editData" v-if="editData.modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc" /> -->
 
   </div>
-  <v-btn to="/contacts/newContact" color="success"><v-icon dark>add</v-icon></v-btn>
+  <v-btn to="/contacts/Contacts_New" color="success"><v-icon dark>add</v-icon></v-btn>
 </div>
 </template>
 
@@ -47,7 +47,7 @@ import Header from './Header.vue'
 import Nav from './Nav.vue'
 import ModalContacts from './ModalContacts.vue'
 import ModalContactSave from './ModalContactSave.vue'
-import NewContact from './NewContact.vue'
+import NewContact from './Contacts_New.vue'
 
 import axios from 'axios';
 
@@ -75,7 +75,7 @@ export default {
       // console.log(id)
       //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
       this.$router.push({
-        name: 'EditContact',
+        name: 'Contacts_Edit',
         params: contact
       })
     },

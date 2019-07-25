@@ -4,14 +4,14 @@
   <Nav />
 
   <div class="newContact">
-    <v-app>
+    <v-app class="white">
     <v-form
     ref="form"
     lazy-validation
   >
     <v-text-field
       v-model="profession"
-      :counter="10"
+      :counter="30"
 
       label="Profese"
       required
@@ -19,21 +19,22 @@
 
     <v-text-field
       v-model="name"
-
+      :counter="30"
+      :rules="nameRules"
       label="Jméno"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="phone"
-
+      :counter="13"
       label="Telefon"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="email"
-
+      :rules="emailRules"
       label="E-mail"
       required
     ></v-text-field>
@@ -75,14 +76,22 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 
 export default {
-  name: 'NewContact',
+  name: 'Contacts_New',
   data () {
     return {
       profession: '',
       name: '',
       phone: '',
       email: '',
-      isOpen: false
+      nameRules: [
+        v => !!v || 'Jméno je vyžadováno',
+        v => v.length <= 30 || 'Jméno musí mít méně než 30 znaků'
+      ],
+      email: '',
+      emailRules: [
+        // v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail je zadán nesprávně'
+      ]
     }
   },
   methods: {
@@ -124,7 +133,7 @@ export default {
 .newContact {
   width: 29%;
   margin-left: 38%;
-  background: none;
+
 }
 /* .application--wrap {
   background: black!important;

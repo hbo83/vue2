@@ -13,8 +13,8 @@ import Home from '@/components/Home'
 import Ucetnictvi from '@/components/Ucetnictvi'
 import Faq from '@/components/Faq'
 import Hints from '@/components/Hints'
-import NewContact from '@/components/NewContact'
-import EditContact from '@/components/EditContact'
+import Contacts_New from '@/components/Contacts_New'
+import Contacts_Edit from '@/components/Contacts_Edit'
 
 
 Vue.use(Router)
@@ -92,14 +92,14 @@ export default new Router({
       component: Hints
     },
     {
-      path: '/contacts/newContact',
-      name: 'NewContact',
-      component: NewContact,
+      path: '/contacts/Contacts_New',
+      name: 'Contacts_New',
+      component: Contacts_New,
     },
     {
-      path: '/contacts/editContact',
-      name: 'EditContact',
-      component: EditContact,
+      path: '/contacts/Contacts_Edit',
+      name: 'Contacts_Edit',
+      component: Contacts_Edit,
     }
   ]
 })

@@ -4,13 +4,13 @@
   <Nav />
 
   <div class="editContact">
-    <v-app>
+    <v-app  class="white">
       <v-form ref="form" lazy-validation>
-        <v-text-field v-model="profession" :counter="10" label="Profese" required></v-text-field>
+        <v-text-field v-model="profession" :counter="30" label="Profese" required></v-text-field>
 
-        <v-text-field v-model="name" label="Jméno" required></v-text-field>
+        <v-text-field v-model="name"  :counter="30" label="Jméno" required></v-text-field>
 
-        <v-text-field v-model="phone" label="Telefon" required></v-text-field>
+        <v-text-field v-model="phone"  :counter="13" label="Telefon" required></v-text-field>
 
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
@@ -34,7 +34,7 @@
         </v-btn>
 
         <v-btn @click="delContact(id)" color="error">
-          Smazat kontakt {{ this.id }}
+          Smazat kontakt
         </v-btn>
 
 
@@ -59,7 +59,16 @@ export default {
       name: '',
       phone: '',
       email: '',
-      id: ''
+      id: '',
+      nameRules: [
+        v => !!v || 'Jméno je vyžadováno',
+        v => v.length <= 30 || 'Jméno musí mít méně než 30 znaků'
+      ],
+      email: '',
+      emailRules: [
+        // v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail je zadán nesprávně'
+      ]
     }
   },
   methods: {
@@ -78,7 +87,9 @@ export default {
         name: this.name,
         phone: this.phone,
         email: this.email
-      }).then(alert("kontakt změněn" + this.id + this.profession))
+      }).then(this.$router.push({
+        name: 'Contacts'
+      })).then(alert("kontakt změněn"))
     },
     delContact(id) {
       if (confirm('Určitě chcete smazat kontakt?')) {
@@ -116,13 +127,10 @@ export default {
 }
 </script>
 <style scoped>
-.newContact {
+.editContact {
   width: 29%;
   margin-left: 38%;
-  background: none;
+
 }
 
-/* .application--wrap {
-  background: black!important;
-} */
 </style>

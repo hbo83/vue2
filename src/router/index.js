@@ -18,6 +18,7 @@ import Contacts_Edit from '@/components/Contacts_Edit'
 import Owners_New from '@/components/Owners_New'
 import Owners_Edit from '@/components/Owners_Edit'
 import Docs_New from '@/components/Docs_New'
+import Docs_Edit from '@/components/Docs_Edit'
 
 Vue.use(Router)
 
@@ -117,6 +118,11 @@ export default new Router({
       path: '/docs/Docs_New',
       name: 'Docs_New',
       component: Docs_New,
+    },
+    {
+      path: '/docs/Docs_Edit',
+      name: 'Docs_Edit',
+      component: Docs_Edit,
     }
   ]
 })

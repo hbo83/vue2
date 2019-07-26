@@ -7,23 +7,19 @@
     <v-app class="white">
       <v-form ref="form" lazy-validation>
         <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field>
-
-
-
-        <input
-
+<upload-btn round @file-update="update"><template slot="icon">
+    <v-icon>add</v-icon>
+  </template></upload-btn>
+        <!-- <input
          type="file"
          id="file"
          ref="fileInput"
          v-on:change="onFileSelected"/>
-      <!-- <button v-on:click="$refs.fileInput.click()">Pickup File</button> -->
 
         <button class="btn btn-success" v-on:click="onUpload()">Submit</button>
-
-        <!-- <v-btn @click="formSubmit" color="success">
-          Uložit
+        <v-btn fab width="80px" small color="info" v-on:click="onUpload()">
+          <v-icon large>save</v-icon>
         </v-btn> -->
-
       </v-form>
     </v-app>
   </div>
@@ -36,6 +32,7 @@ import Nav from './Nav.vue'
 import vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios'
+import UploadButton from 'vuetify-upload-button';
 
 export default {
   name: 'Docs_New',
@@ -45,6 +42,25 @@ export default {
     }
   },
   methods: {
+    update (file) {
+        this.selectedFile = event.target.files[0]
+        console.log( this.docName );//data
+        var docName = this.docName;
+        const fd = new FormData();
+        fd.append('name', docName);//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+        fd.append('productImage', this.selectedFile, this.selectedFile.name)
+        axios.post('http://localhost:8081/img', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
+          }
+        })
+        .then( res => {
+          console.log(res);
+          alert('Soubor byl nahrán')
+        }).then(this.$router.push({
+          name: 'Docs'
+        }))
+      },
     onFileSelected( event ) {
       console.log( event );
 
@@ -70,11 +86,12 @@ export default {
     }
   },
   mounted() {
-    console.log(789)
+    console.log('Docs_New.vue mounted')
   },
   components: {
     Header,
-    Nav
+    Nav,
+    'upload-btn': UploadButton
   }
 }
 </script>

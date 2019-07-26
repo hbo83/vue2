@@ -345,6 +345,19 @@ app.delete('/contact/:id', function(req, res) {
   })
 })
 
+app.delete('/doc/:id', function(req, res) {
+  File.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, doc) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(doc);
+      res.send(doc);
+    }
+  })
+})
+
 //puts
 app.put('/contact/:id', function(req, res) {
   Owner.findOneAndUpdate({
@@ -365,6 +378,28 @@ app.put('/contact/:id', function(req, res) {
       } else {
         console.log(newOwner);
         res.send(newOwner);
+      }
+    });
+});
+
+app.put('/doc/:id', function(req, res) {
+  File.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: {
+
+        name: req.body.name
+
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newDoc) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newDoc);
+        res.send(newDoc);
       }
     });
 });

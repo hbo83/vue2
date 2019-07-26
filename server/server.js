@@ -372,10 +372,11 @@ app.put('/contact/:id', function(req, res) {
 app.post('/owner', function(req, res) {
   var newOwner = new Owner();
 
-  newOwner.firstName = req.body.firstName;
-  newOwner.lastName = req.body.lastName;
-  newOwner.unit = req.body.unit;
+  newOwner.name = req.body.name;
+  newOwner.address = req.body.address;
   newOwner.part = req.body.part;
+  newOwner.phone = req.body.phone;
+  newOwner.email = req.body.email;
 
   newOwner.save(function(err, owner) {
     if (err) {
@@ -392,7 +393,11 @@ app.put('/owner/:id', function(req, res) {
       _id: req.params.id
     }, {
       $set: {
-        phone: req.body.unit
+        name: req.body.name,
+        address: req.body.address,
+        part: req.body.part,
+        phone: req.body.phone,
+        email: req.body.email
       }
     }, {
       upsert: true

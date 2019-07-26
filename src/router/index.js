@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Nastenka from '@/components/Nastenka'
-import Owners from '@/components/owners'
+import Owners from '@/components/Owners'
 import Contacts from '@/components/Contacts'
 import Schuze from '@/components/Schuze'
 import Dokumenty from '@/components/Dokumenty'
@@ -15,6 +15,8 @@ import Faq from '@/components/Faq'
 import Hints from '@/components/Hints'
 import Contacts_New from '@/components/Contacts_New'
 import Contacts_Edit from '@/components/Contacts_Edit'
+import Owners_New from '@/components/Owners_New'
+import Owners_Edit from '@/components/Owners_Edit'
 
 
 Vue.use(Router)
@@ -100,6 +102,16 @@ export default new Router({
       path: '/contacts/Contacts_Edit',
       name: 'Contacts_Edit',
       component: Contacts_Edit,
+    },
+    {
+      path: '/owners/Owners_New',
+      name: 'Owners_New',
+      component: Owners_New,
+    },
+    {
+      path: '/owners/Owners_Edit',
+      name: 'Owners_Edit',
+      component: Owners_Edit,
     }
   ]
 })

@@ -3,20 +3,24 @@
   <Header />
   <Nav />
 
-  <div class="newContact">
+  <div class="newOwner">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
-        <v-text-field v-model="profession" :counter="30" label="Profese" required></v-text-field>
+        <v-text-field v-model="name" :counter="30" label="Jméno" required></v-text-field>
 
-        <v-text-field v-model="name" :counter="30" :rules="nameRules" label="Jméno" required></v-text-field>
+        <v-text-field v-model="address" :counter="30" :rules="nameRules" label="Adresa" required></v-text-field>
 
-        <v-text-field v-model="phone" :counter="13" label="Telefon" required></v-text-field>
+        <v-text-field v-model="part" :counter="13" label="Podíl" required></v-text-field>
+
+        <v-text-field v-model="phone" label="Telefon" required></v-text-field>
 
         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+
 
         <v-btn @click="formSubmit" color="success">
           Uložit
         </v-btn>
+
 
       </v-form>
     </v-app>
@@ -32,11 +36,12 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 
 export default {
-  name: 'Contacts_New',
+  name: 'Owners_New',
   data() {
     return {
-      profession: '',
       name: '',
+      address: '',
+      part: '',
       phone: '',
       email: '',
       nameRules: [
@@ -59,13 +64,14 @@ export default {
       e.preventDefault();
       this.isOpen = false;
       let currentObj = this;
-      axios.post('http://localhost:8081/contact', {
-        profession: this.profession,
+      axios.post('http://localhost:8081/owner', {
         name: this.name,
+        address: this.address,
+        part: this.part,
         phone: this.phone,
         email: this.email
       }).then(this.$router.push({
-        name: 'Contacts'
+        name: 'Owners'
       })).then(alert("kontakt uložen"))
     }
   },
@@ -79,9 +85,10 @@ export default {
 }
 </script>
 <style scoped>
-.newContact {
+.newOwner {
   width: 29%;
   margin-left: 38%;
 
 }
+
 </style>

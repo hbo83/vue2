@@ -14,8 +14,6 @@
           <th>Jméno</th>
           <th>Telefon</th>
           <th>E-mail</th>
-          <!-- <th>edit</th> -->
-          <!-- <th>delete</th> -->
         </tr>
       </thead>
 
@@ -24,20 +22,15 @@
         <td>{{ contact.name }}</td>
         <td>{{ contact.phone }}</td>
         <td>{{ contact.email }}</td>
-        <td style="display: none">
-          <v-btn @click="initCurrentId(contact._id)">{{ contact._id }}</v-btn>
-        </td>
-        <td style="display: none">
-          <v-btn @click="delContact(contact._id)">Delete</v-btn>
-        </td>
       </tr>
     </table>
 
-    <!-- <ModalContacts @addContact="add" /> -->
-    <!-- <ModalContactSave v-bind:showed="editData" v-if="editData.modalContactSaveOpen" @editContact="edit" @closeModal="closeFunc" /> -->
-
   </div>
-  <v-btn to="/contacts/Contacts_New" color="success"><v-icon dark>add</v-icon></v-btn>
+
+  <v-btn fab width="80px" small color="info" to="/contacts/Contacts_New">
+    <v-icon large>add</v-icon>
+  </v-btn>
+
 </div>
 </template>
 
@@ -45,8 +38,8 @@
 import vue from 'vue';
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import ModalContacts from './ModalContacts.vue'
-import ModalContactSave from './ModalContactSave.vue'
+// import ModalContacts from './ModalContacts.vue'
+// import ModalContactSave from './ModalContactSave.vue'
 import NewContact from './Contacts_New.vue'
 
 import axios from 'axios';
@@ -65,9 +58,9 @@ export default {
   },
   components: {
     Header,
-    Nav,
-    ModalContacts,
-    ModalContactSave
+    Nav
+    // ModalContacts,
+    // ModalContactSave
   },
   methods: {
     selectRow(contact) {
@@ -118,7 +111,12 @@ export default {
 
   mounted() {
     //po vymazani kontaktu mi axios vracel stary data, zrejme nakesovany, musel jsem zde vypnou cashovani
-    var config = {headers: {'Content-Type': 'application/json','Cache-Control' : 'no-cache'}};
+    var config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    };
     axios.get('http://localhost:8081/contacts', config)
       .then((response) => {
         console.log(response.data);

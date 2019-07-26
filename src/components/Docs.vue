@@ -35,6 +35,9 @@
     <!-- </div> -->
   </div>
     </div>
+    <v-btn fab width="80px" small color="info" to="/docs/Docs_New">
+      <v-icon large>add</v-icon>
+    </v-btn>
   </div>
 
 </template>
@@ -77,7 +80,7 @@ export default {
       this.selectedFile = event.target.files[0]
     },
     docDownload(){
-      
+
       axios({
   url: 'http://localhost:8081/uploads/1559716291268-bohol.png',
   method: 'GET',

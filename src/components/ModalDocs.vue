@@ -10,7 +10,7 @@
             <label for="docName">Název dokumentu</label>
             <input id="docName" type="text" class="form-control" v-model="docName">
             <input
-             style="display: none"
+
              type="file"
              id="file"
              ref="fileInput"

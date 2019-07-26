@@ -4,7 +4,7 @@ import Nastenka from '@/components/Nastenka'
 import Owners from '@/components/Owners'
 import Contacts from '@/components/Contacts'
 import Schuze from '@/components/Schuze'
-import Dokumenty from '@/components/Dokumenty'
+import Docs from '@/components/Docs'
 import Revize from '@/components/Revize'
 import Zavady from '@/components/Zavady'
 import Nastaveni from '@/components/Nastaveni'
@@ -17,7 +17,7 @@ import Contacts_New from '@/components/Contacts_New'
 import Contacts_Edit from '@/components/Contacts_Edit'
 import Owners_New from '@/components/Owners_New'
 import Owners_Edit from '@/components/Owners_Edit'
-
+import Docs_New from '@/components/Docs_New'
 
 Vue.use(Router)
 
@@ -49,9 +49,9 @@ export default new Router({
       component: Schuze
     },
     {
-      path: '/dokumenty',
-      name: 'Dokumenty',
-      component: Dokumenty
+      path: '/Docs',
+      name: 'Docs',
+      component: Docs
     },
     {
       path: '/revize',
@@ -112,6 +112,11 @@ export default new Router({
       path: '/owners/Owners_Edit',
       name: 'Owners_Edit',
       component: Owners_Edit,
+    },
+    {
+      path: '/docs/Docs_New',
+      name: 'Docs_New',
+      component: Docs_New,
     }
   ]
 })

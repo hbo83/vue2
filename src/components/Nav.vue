@@ -3,7 +3,7 @@
     <ul>
       <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/nastenka"><v-icon size="28px">home</v-icon>Nástěnka</router-link></li>
       <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/owners"><v-icon size="28px">person</v-icon>Spoluvlastníci</router-link></li>
-      <li><router-link to = "/dokumenty"><v-icon size="28px">archive</v-icon>Dokumenty</router-link></li>
+      <li><router-link to = "/docs"><v-icon size="28px">archive</v-icon>Dokumenty</router-link></li>
       <li><router-link to = "/contacts"><v-icon size="28px">contact_phone</v-icon>Kontakty</router-link></li>
       <li><router-link to = "/revize"><v-icon size="28px">alarm</v-icon>Revize</router-link></li>
       <li><router-link to = "/odecty"><v-icon size="28px">report</v-icon>Odečty</router-link></li>

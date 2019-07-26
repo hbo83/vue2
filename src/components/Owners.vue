@@ -93,24 +93,20 @@ export default {
 .owners {
   width: 80%;
   height: auto;
-  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
 }
 
 .owners table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .owners td,
 .owners th {
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 8px;
-}
-
-.owners tr:nth-child(even) {
-  background-color: #f2f2f2;
+  text-align: left;
 }
 
 .owners tr:hover {

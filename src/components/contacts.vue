@@ -138,22 +138,19 @@ export default {
   max-height: 600px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
 }
 
 .contacts table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .contacts td,
 .contacts th {
-  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd;
   padding: 8px;
   text-align: left;
-}
-
-.contacts tr:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 .contacts tr:hover {

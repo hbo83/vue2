@@ -4,6 +4,7 @@
     <Nav />
 
     <div class="revize">
+      <p>V případě vzniku požáru či úrazu, se vždy hledá jeho příčina, ať už ze strany Policie nebo pojišťovny. Pokud vyšetřování určí, že příčinou byla třeba závada na elektroinstalaci, pak následně se pátrá kdo je za to zodpovědný a zda nezanedbal některou ze svých povinností. Pojišťovna při neodborné kontrole, neplatné revizi nebo dokonce její absenci, ve většině případů krátí pojistné plnění nebo neuhradí vzniklou škodu způsobenou na těchto zařízeních.</p>
     <table>
       <tr>
         <th>Předmět revize</th>

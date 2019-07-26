@@ -134,25 +134,24 @@ export default {
 .dokumenty {
   width: 80%;
   height: 500px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
 }
 
 .dokumenty table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .dokumenty td,
 .dokumenty th {
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 8px;
+  text-align: left;
 }
 
-.dokumenty tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
 .dokumenty tr:hover {
   background-color: #ddd;

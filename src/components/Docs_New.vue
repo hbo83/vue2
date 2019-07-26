@@ -7,19 +7,10 @@
     <v-app class="white">
       <v-form ref="form" lazy-validation>
         <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field>
-<upload-btn round @file-update="update"><template slot="icon">
-    <v-icon>add</v-icon>
-  </template></upload-btn>
-        <!-- <input
-         type="file"
-         id="file"
-         ref="fileInput"
-         v-on:change="onFileSelected"/>
-
-        <button class="btn btn-success" v-on:click="onUpload()">Submit</button>
-        <v-btn fab width="80px" small color="info" v-on:click="onUpload()">
-          <v-icon large>save</v-icon>
-        </v-btn> -->
+        <upload-btn round @file-update="update"><template slot="icon">
+            <v-icon>add</v-icon>
+          </template></upload-btn>
+        
       </v-form>
     </v-app>
   </div>
@@ -42,47 +33,29 @@ export default {
     }
   },
   methods: {
-    update (file) {
-        this.selectedFile = event.target.files[0]
-        console.log( this.docName );//data
-        var docName = this.docName;
-        const fd = new FormData();
-        fd.append('name', docName);//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-        fd.append('productImage', this.selectedFile, this.selectedFile.name)
-        axios.post('http://localhost:8081/img', fd, {
+    update(file) {
+      this.selectedFile = event.target.files[0]
+      console.log(this.docName); //data
+      var docName = this.docName;
+      const fd = new FormData();
+      fd.append('name', docName); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('productImage', this.selectedFile, this.selectedFile.name)
+      axios.post('http://localhost:8081/img', fd, {
           onUploadProgress: uploadEvent => {
             console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
           }
         })
-        .then( res => {
+        .then(res => {
           console.log(res);
           alert('Soubor byl nahrán')
         }).then(this.$router.push({
           name: 'Docs'
         }))
-      },
-    onFileSelected( event ) {
-      console.log( event );
+    },
+    onFileSelected(event) {
+      console.log(event);
 
       this.selectedFile = event.target.files[0]
-    },
-    onUpload() {
-      console.log( this.docName );//data
-      var docName = this.docName;
-      const fd = new FormData();
-      fd.append('name', docName);//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      axios.post('http://localhost:8081/img', fd, {
-        onUploadProgress: uploadEvent => {
-          console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-        }
-      })
-      .then( res => {
-        console.log(res);
-        alert('Soubor byl nahrán')
-      }).then(this.$router.push({
-        name: 'Docs'
-      }))
     }
   },
   mounted() {

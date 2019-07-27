@@ -9,11 +9,11 @@
           Pojišťovna při neodborné kontrole, neplatné revizi nebo dokonce její absenci, ve většině případů krátí pojistné plnění nebo neuhradí
            vzniklou škodu způsobenou na těchto zařízeních.</p>
     <table>
-      <tr>
+      <!-- <tr>
         <th>Předmět revize</th>
         <th>Poslední revize</th>
         <th>Příští revize</th>
-      </tr>
+      </tr> -->
       <!-- <tr v-for="revision in revisions">
         <td>{{ revision.revTitle }}</td>
         <td>{{ revision.revLast }}</td>
@@ -29,17 +29,19 @@
         <th>Způsobilá osoba</th>
         <th>Předpis</th>
         <th>Lhůta</th>
+        <th>Poslední revize</th>
+        <th>Příští revize</th>
       </tr>
       <tr>
-        <td rowspan="3">Elektrická zařízení</td>
-        <td>Elektroinstalace</td>
+        <td rowspan="3"><b>Elektrická zařízení</b></td>
+        <td id="elInstal">Elektroinstalace</td>
         <td>Pravidelná revize</td>
         <td>Revizní technik</td>
         <td>ČSN 33 1500</td>
         <td>1x za 5 let</td>
       </tr>
       <tr>
-        <td rowspan="2">Hromosvod</td>
+        <td id="lConductor" rowspan="2">Hromosvod</td>
         <td>Vizuální kontrola</td>
         <td>Revizní technik</td>
         <td>ČSN EN 62305-3</td>
@@ -53,8 +55,8 @@
       </tr>
 
       <tr>
-        <td rowspan="10">Požární bezpečnost</td>
-        <td rowspan="2">Hasící přístroje</td>
+        <td rowspan="10"><b>Požární bezpečnost</b></td>
+        <td id="extings" rowspan="2">Hasící přístroje</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
@@ -67,14 +69,14 @@
         <td>1x za 5 let</td>
       </tr>
       <tr>
-        <td>Hydranty</td>
+        <td id="hydrants" >Hydranty</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>ČSN 73 0873</td>
         <td>1x za rok</td>
       </tr>
       <tr>
-        <td rowspan="3">Elektronická požární signalizace</td>
+        <td id="eps" rowspan="3">Elektronická požární signalizace</td>
         <td>Zkoušky činnosti ústředny</td>
         <td>Oprávněná osoba</td>
         <td>246/2001 Sb.</td>
@@ -93,28 +95,28 @@
         <td>1x za rok</td>
       </tr>
       <tr>
-        <td>Stabilní hasicí zařízení</td>
+        <td id="shz">Stabilní hasicí zařízení</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za rok</td>
       </tr>
       <tr>
-        <td>Větrání únikových cest, zařízení pro odvod kouře a tepla, požární větrání</td>
+        <td id="ventilation">Větrání únikových cest, zařízení pro odvod kouře a tepla, požární větrání</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za rok</td>
       </tr>
       <tr>
-        <td>Nouzové osvětlení</td>
+        <td id="eLighting">Nouzové osvětlení</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za rok</td>
       </tr>
       <tr>
-        <td>Objekty bez zvýšeného požárního nebezpečí</td>
+        <td id="obzpn">Objekty bez zvýšeného požárního nebezpečí</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
@@ -122,8 +124,8 @@
       </tr>
 
       <tr>
-        <td rowspan="4">Zdvihací zařízení</td>
-        <td rowspan="4">Výtahy</td>
+        <td rowspan="4"><b>Zdvihací zařízení</b></td>
+        <td id="lifts" rowspan="4">Výtahy</td>
         <td>Provozní prohlídka</td>
         <td>Dozorce výtahu</td>
         <td>ČSN 27 4002</td>
@@ -149,8 +151,8 @@
       </tr>
 
       <tr>
-        <td rowspan="4">Plynová zařízení</td>
-        <td rowspan="2">Domovní rozvod plynu, spotřebiče (např. kotel)</td>
+        <td rowspan="4"><b>Plynová zařízení</b></td>
+        <td id="drp" rowspan="2">Domovní rozvod plynu, spotřebiče (např. kotel)</td>
         <td>Kontrola</td>
         <td>Oprávněná osoba</td>
         <td>85/1978 Sb.</td>
@@ -163,7 +165,7 @@
         <td>1x za 3 roky</td>
       </tr>
       <tr>
-        <td rowspan="2">Plynová kotelna</td>
+        <td id="gasBoiler" rowspan="2">Plynová kotelna</td>
         <td>Kontrola</td>
         <td>Oprávněná osoba</td>
         <td>ČSN 07 0703</td>
@@ -177,7 +179,7 @@
       </tr>
 
       <tr>
-        <td colspan="2">Nízkotlaké kotelny</td>
+        <td id="lowPresBoiler" colspan="2"><b>Nízkotlaké kotelny</b></td>
         <td>Odborná prohlídka</td>
         <td>Revizní technik</td>
         <td>91/1993 Sb.</td>
@@ -185,7 +187,7 @@
       </tr>
 
       <tr>
-        <td colspan="2" rowspan="2">Spalinové cesty (komíny)</td>
+        <td id="chimney" colspan="2" rowspan="2"><b>Spalinové cesty (komíny)</b></td>
         <td>Kontrola</td>
         <td>Způsobilá osoba</td>
         <td>91/2010 Sb.</td>
@@ -199,7 +201,7 @@
       </tr>
 
       <tr>
-        <td colspan="2" rowspan="3">Tlaková zařízení</td>
+        <td id="presureDev" colspan="2" rowspan="3"><b>Tlaková zařízení</b></td>
         <td>Provozní revize</td>
         <td>Revizní technik</td>
         <td>ČSN 69 0012</td>
@@ -266,26 +268,32 @@ export default {
   border: 1px solid black;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
   box-sizing: border-box;
 
-  border: 1px solid black;
+  border-bottom: 1px solid black;
 
 
 }
 
 .revize table {
   width: 70%;
+  border-collapse: collapse;
 }
 .revize td, .revize th {
-  border: 1px solid #ddd;
+  text-align: left;
   padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
 }
 
 /* .revize tr:nth-child(even){background-color: #f2f2f2;} */
 
-.revize tr:hover {background-color: #ddd;}
-
+/* .revize tr:hover {background-color: #ddd;} */
+/* .revize td:hover:nth-child(even){background-color: #f2f2f2;} */
+#elInstal, #lConductor, #extings, #hydrants, #eps, #shz, #ventilation, #eLighting, #obzpn, #lifts, #drp, #gasBoiler, #lowPresBoiler, #chimney, #presureDev {
+  background-color: #f2f2f2;
+}
 .revize th {
   padding-top: 12px;
   padding-bottom: 12px;

@@ -9,7 +9,7 @@ const multer = require('multer');
 var http = require('http');
 
 const app = express();
-
+mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
 mongoose.connect('mongodb://localhost:27017/mongooseTest', {
   useNewUrlParser: true
@@ -306,6 +306,7 @@ app.post('/imperfection', function(req, res) {
   });
 });
 
+//puts
 app.put('/contact/:id', function(req, res) {
   Contact.findOneAndUpdate({
       _id: req.params.id
@@ -325,6 +326,29 @@ app.put('/contact/:id', function(req, res) {
       } else {
         console.log(newContact);
         res.send(newContact);
+      }
+    });
+});
+
+app.put('/revision/:id', function(req, res) {
+  Revision.findOneAndUpdate({
+      // _id: req.params.id
+      revTitle: "Electroinstalation"
+    }, {
+      $set: {
+        revLast: req.body.revLast,
+        revNext: req.body.revNext
+
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newRevision) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newRevision);
+        res.send(newRevision);
       }
     });
 });

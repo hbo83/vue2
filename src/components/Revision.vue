@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <Header />
-    <Nav />
+<div>
+  <Header />
+  <Nav />
 
-    <div class="revize">
-      <p>V případě vzniku požáru či úrazu, se vždy hledá jeho příčina, ať už ze strany Policie nebo pojišťovny. Pokud vyšetřování určí,
-         že příčinou byla třeba závada na elektroinstalaci, pak následně se pátrá kdo je za to zodpovědný a zda nezanedbal některou ze svých povinností.
-          Pojišťovna při neodborné kontrole, neplatné revizi nebo dokonce její absenci, ve většině případů krátí pojistné plnění nebo neuhradí
-           vzniklou škodu způsobenou na těchto zařízeních.</p>
+  <div class="revize">
+    <p>V případě vzniku požáru či úrazu, se vždy hledá jeho příčina, ať už ze strany Policie nebo pojišťovny. Pokud vyšetřování určí,
+      že příčinou byla třeba závada na elektroinstalaci, pak následně se pátrá kdo je za to zodpovědný a zda nezanedbal některou ze svých povinností.
+      Pojišťovna při neodborné kontrole, neplatné revizi nebo dokonce její absenci, ve většině případů krátí pojistné plnění nebo neuhradí
+      vzniklou škodu způsobenou na těchto zařízeních.</p>
     <table>
       <!-- <tr>
         <th>Předmět revize</th>
@@ -31,17 +31,25 @@
         <th>Lhůta</th>
         <th>Poslední revize</th>
         <th>Příští revize</th>
+        <th>Zbývá dní</th>
       </tr>
       <tr>
         <td rowspan="3"><b>Elektrická zařízení</b></td>
-        <td id="elInstal">Elektroinstalace</td>
+        <td id="elInstal">
+          <v-btn to="/revision/Revision_Electroinstalation">Elektroinstalace</v-btn>
+        </td>
         <td>Pravidelná revize</td>
         <td>Revizní technik</td>
         <td>ČSN 33 1500</td>
         <td>1x za 5 let</td>
+        <td>{{this.electroinstalation}}</td>
+        <td>{{this.electroinstalation}}</td>
+        <td>365</td>
       </tr>
       <tr>
-        <td id="lConductor" rowspan="2">Hromosvod</td>
+        <td id="lConductor" rowspan="2">
+          <v-btn>Hromosvod</v-btn>
+        </td>
         <td>Vizuální kontrola</td>
         <td>Revizní technik</td>
         <td>ČSN EN 62305-3</td>
@@ -69,7 +77,7 @@
         <td>1x za 5 let</td>
       </tr>
       <tr>
-        <td id="hydrants" >Hydranty</td>
+        <td id="hydrants">Hydranty</td>
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>ČSN 73 0873</td>
@@ -223,9 +231,8 @@
     <ModalRevision />
   </div>
 
-    </div>
-  </div>
-
+</div>
+</div>
 </template>
 
 <script>
@@ -235,10 +242,11 @@ import axios from 'axios';
 import ModalRevision from './ModalRevision.vue';
 
 export default {
-  name: 'Revize',
-  data () {
+  name: 'Revision',
+  data() {
     return {
-      // revisions: []
+      electroinstalation: '',
+      revisions: []
     }
   },
   components: {
@@ -246,11 +254,32 @@ export default {
     Nav,
     ModalRevision
   },
+  methods: {
+    sortData(data) {
+      if (item.revTitle === "Electroinstalation") {
+        // alert(item.revLast)
+        data = item.revLast;
+        alert(data);
+      }
+    }
+  },
   mounted() {
-      axios.get('http://localhost:8081/revisions')
+    axios.get('http://localhost:8081/revisions')
       .then((response) => {
-        console.log(response.data);
         this.revisions = response.data;
+        // console.log(response.data[3].revLast);
+        // this.electroinstalation = response.data[3].revLast;
+        console.log(this.revisions);
+        this.revisions.forEach( item => {
+          if (item.revTitle === "Electroinstalation") {
+            this.electroinstalation = item.revLast;
+          }
+          // alert(this.electroinstalation);
+        })
+
+        // for( revision in this.revisions) {
+        //   console.log(revision);
+        // }
       })
       .catch((error) => {
         console.log(error);
@@ -261,7 +290,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .revizeNav {
   width: 10%;
   height: 500px;
@@ -280,20 +308,20 @@ export default {
   width: 70%;
   border-collapse: collapse;
 }
-.revize td, .revize th {
+
+.revize td,
+.revize th {
   text-align: left;
   padding: 8px;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
 }
 
-/* .revize tr:nth-child(even){background-color: #f2f2f2;} */
 
-/* .revize tr:hover {background-color: #ddd;} */
 /* .revize td:hover:nth-child(even){background-color: #f2f2f2;} */
-#elInstal, #lConductor, #extings, #hydrants, #eps, #shz, #ventilation, #eLighting, #obzpn, #lifts, #drp, #gasBoiler, #lowPresBoiler, #chimney, #presureDev {
+/* #elInstal, #lConductor, #extings, #hydrants, #eps, #shz, #ventilation, #eLighting, #obzpn, #lifts, #drp, #gasBoiler, #lowPresBoiler, #chimney, #presureDev {
   background-color: #f2f2f2;
-}
+} */
 .revize th {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -309,18 +337,21 @@ li a {
   text-decoration: none;
   display: block;
 }
+
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
+
 li {
   margin-top: 0px;
   border: 1px solid black;
   height: 50px;
-  background-color: rgba(255,159,36,1);
+  background-color: rgba(255, 159, 36, 1);
 
 }
+
 a:hover {
   background-color: green;
   cursor: pointer;

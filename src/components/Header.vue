@@ -1,7 +1,7 @@
 <template>
   <header>
 
-    <h1>SVJ2000</h1>
+    <h1>SVJ2000 s námi je správa domu hračka</h1>
   </header>
 </template>
 

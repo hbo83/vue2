@@ -4,9 +4,19 @@
   <Nav />
 
   <div class="electroInstalation">
-  <p>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné, pokud elektrické zařízení odpovída z hlediska bezpečnosti příslušným ustanovením norem.</p>
-  <v-app id="inspire">
-  <p>Lhůta revize: 1x za 5 let</p>
+  <p><b>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné,
+     pokud elektrické zařízení odpovída z hlediska bezpečnosti příslušným ustanovením norem.</b></p>
+  <v-app class="grey" id="inspire">
+  <table>
+    <tr>
+      <th>Datum poslední revize</th>
+      <th>Datum příští revize</th>
+    </tr>
+    <tr>
+      <td>{{date}}</td>
+      <td>{{nextDate}}</td>
+    </tr>
+  </table>
       <v-flex xs12 sm6 md4>
         <v-menu
           v-model="menu2"
@@ -29,27 +39,21 @@
           <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
         </v-menu>
       </v-flex>
-  <p>datum příští revize: 2024-5-6</p>
-    <!-- </v-layout> -->
+      <table>
+        <tr>
+          <th>Kontaktní osoba</th>
+        </tr>
+        <tr>
+          <td>Pavel Novák</td>
+        </tr>
+      </table>
+    <v-btn @click="formSubmit2" color="success">
+      Uložit
+    </v-btn>
   </v-app>
 
 
-    <v-app class="white">
-      <v-form ref="form" lazy-validation>
 
-
-        <p>kontakt na revizaka - vyber z kontaktu</p>
-
-        <v-btn @click="formSubmit2" color="success">
-          Uložit
-        </v-btn>
-
-          <!-- <v-btn @click="al(date)" color="success">
-            Uložit
-          </v-btn> -->
-
-      </v-form>
-    </v-app>
   </div>
 </div>
 </template>
@@ -69,23 +73,19 @@ export default {
   data() {
     return {
       date: new Date().toISOString().substr(0, 10),
+      
       menu: false,
       modal: false,
       menu2: false,
 
-      profession: '',
-      name: '',
-      phone: '',
-      email: '',
-      nameRules: [
-        v => !!v || 'Jméno je vyžadováno',
-        v => v.length <= 30 || 'Jméno musí mít méně než 30 znaků'
-      ],
-      email: '',
-      emailRules: [
-        // v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail je zadán nesprávně'
-      ]
+
+    }
+  },
+  computed: {
+    nextDate: function() {
+      let numDate = parseInt(this.date.substr(0, 4)) + 5
+      let numDay = this.date.substr(4, 9)
+      return numDate + numDay
     }
   },
   methods: {
@@ -97,7 +97,6 @@ export default {
       axios.put('http://localhost:8081/revision/5d3d4967f21d7167583bf923', {
         id: '5d3d4967f21d7167583bf923',
         revTitle: 'Electroinstalation',
-        revLast: this.date,
         revLast: this.date
       }).then(this.$router.push({
         name: 'Revision'
@@ -142,6 +141,7 @@ export default {
   },
   mounted() {
     console.log('Docs_New.vue mounted')
+    console.log(new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().substr(0, 10));
   },
   components: {
     Header,
@@ -152,8 +152,8 @@ export default {
 </script>
 <style scoped>
 .electroInstalation {
-  width: 29%;
-  margin-left: 38%;
+  width: 51%;
+  margin-left: 26%;
 
 }
 </style>

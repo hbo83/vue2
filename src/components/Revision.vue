@@ -8,18 +8,7 @@
       že příčinou byla třeba závada na elektroinstalaci, pak následně se pátrá kdo je za to zodpovědný a zda nezanedbal některou ze svých povinností.
       Pojišťovna při neodborné kontrole, neplatné revizi nebo dokonce její absenci, ve většině případů krátí pojistné plnění nebo neuhradí
       vzniklou škodu způsobenou na těchto zařízeních.</p>
-    <table>
-      <!-- <tr>
-        <th>Předmět revize</th>
-        <th>Poslední revize</th>
-        <th>Příští revize</th>
-      </tr> -->
-      <!-- <tr v-for="revision in revisions">
-        <td>{{ revision.revTitle }}</td>
-        <td>{{ revision.revLast }}</td>
-        <td>{{ revision.revNext }}</td>
-      </tr> -->
-    </table>
+
 
     <table>
       <tr>
@@ -43,7 +32,7 @@
         <td>ČSN 33 1500</td>
         <td>1x za 5 let</td>
         <td>{{this.electroinstalation}}</td>
-        <td>{{this.electroinstalation}}</td>
+        <td>{{this.nextDate}}</td>
         <td>365</td>
       </tr>
       <tr>
@@ -253,6 +242,13 @@ export default {
     Header,
     Nav,
     ModalRevision
+  },
+  computed: {
+    nextDate: function() {
+      let numDate = parseInt(this.electroinstalation.substr(0, 4)) + 5
+      let numDay = this.electroinstalation.substr(4, 9)
+      return numDate + numDay
+    }
   },
   methods: {
     sortData(data) {

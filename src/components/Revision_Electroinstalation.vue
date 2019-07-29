@@ -4,10 +4,10 @@
   <Nav />
 
   <div class="electroInstalation">
-  <p><b>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné,
+  <p style="text-align: justify"><b>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné,
      pokud elektrické zařízení odpovída z hlediska bezpečnosti příslušným ustanovením norem.</b></p>
-  <v-app class="grey" id="inspire">
-  <table>
+  <v-app class="white">
+  <!-- <table>
     <tr>
       <th>Datum poslední revize</th>
       <th>Datum příští revize</th>
@@ -16,8 +16,8 @@
       <td>{{date}}</td>
       <td>{{nextDate}}</td>
     </tr>
-  </table>
-      <v-flex xs12 sm6 md4>
+  </table> -->
+      <!-- <v-flex xs12 sm6 md4> -->
         <v-menu
           v-model="menu2"
           :close-on-content-click="false"
@@ -38,16 +38,18 @@
           </template>
           <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
         </v-menu>
-      </v-flex>
-      <table>
+      <!-- </v-flex> -->
+
+
+      <!-- <table>
         <tr>
           <th>Kontaktní osoba</th>
         </tr>
         <tr>
           <td>Pavel Novák</td>
         </tr>
-      </table>
-    <v-btn @click="formSubmit2" color="success">
+      </table> -->
+    <v-btn style="margin-bottom: 380px" @click="formSubmit" color="success">
       Uložit
     </v-btn>
   </v-app>
@@ -73,7 +75,7 @@ export default {
   data() {
     return {
       date: new Date().toISOString().substr(0, 10),
-      
+
       menu: false,
       modal: false,
       menu2: false,
@@ -89,7 +91,7 @@ export default {
     }
   },
   methods: {
-    formSubmit2(e) {
+    formSubmit(e) {
       e.preventDefault();
       this.isOpen = false;
       let currentObj = this;
@@ -101,18 +103,6 @@ export default {
       }).then(this.$router.push({
         name: 'Revision'
       })).then(alert("revize update" + this.date))
-    },
-    formSubmit(e) {
-      e.preventDefault();
-      this.isOpen = false;
-      let currentObj = this;
-      axios.post('http://localhost:8081/revision', {
-        revTitle: 'Electroinstalation',
-        revLast: this.date,
-        revLast: this.date
-      }).then(this.$router.push({
-        name: 'Revision'
-      })).then(alert("revize uložena"))
     },
     update(file) {
       this.selectedFile = event.target.files[0]
@@ -152,8 +142,19 @@ export default {
 </script>
 <style scoped>
 .electroInstalation {
-  width: 51%;
+  width: 54%;
   margin-left: 26%;
-
+  height: 100px;
 }
+#inspire {
+  height: 150px;
+}
+/* .electroInstalation {
+  .application--wrap {
+    min-height: 1vh !important;
+  }
+} */
+/* .application--wrap {
+  min-height: 50px!important;
+} */
 </style>

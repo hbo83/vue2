@@ -138,7 +138,7 @@ export default {
   max-height: 600px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-
+  margin-left: 30px;
 }
 
 .contacts table {

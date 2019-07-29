@@ -4,9 +4,32 @@
   <Nav />
 
   <div class="conductor">
-  <p style="text-align: justify"><b>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné,
-     pokud elektrické zařízení odpovída z hlediska bezpečnosti příslušným ustanovením norem.</b></p>
+  <p style="text-align: justify"><b>Jako každé jiné elektrické zařízení je potřeba i na hromosvodech provádět dle příslušných norem pravidelné
+     revize a kontroly. Zařízení slouží k ochraně budov, objektů a živých bytostí v nich před nebezpečnými účinky blesku. Hromosvod vytváří
+      umělou vodivou cestu k přijetí a svedení bleskového výboje do země. Proto z hlediska bezpečnosti lidského zdraví a majetkových škod je
+       nezbytné toto zařízení udržovat a dodržovat termíny kontrol a revizí.</b></p>
   <v-app class="white">
+
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="date"
+              label="Datum poslední revize vizuální kontroly"
+              prepend-icon="event"
+              readonly
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
+        </v-menu>
 
         <v-menu
           v-model="menu2"
@@ -19,14 +42,14 @@
         >
           <template v-slot:activator="{ on }">
             <v-text-field
-              v-model="date"
-              label="Datum poslední revize"
+              v-model="date2"
+              label="Datum poslední pravidelné revize"
               prepend-icon="event"
               readonly
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="date2" @input="menu2 = false"></v-date-picker>
         </v-menu>
 
     <v-btn style="margin-bottom: 380px" @click="formSubmit" color="success">
@@ -47,7 +70,7 @@ import Nav from './Nav.vue'
 import vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios'
-import UploadButton from 'vuetify-upload-button';
+
 
 
 export default {
@@ -55,7 +78,7 @@ export default {
   data() {
     return {
       date: new Date().toISOString().substr(0, 10),
-
+      date2: new Date().toISOString().substr(0, 10),
       menu: false,
       modal: false,
       menu2: false,
@@ -78,7 +101,8 @@ export default {
       axios.put('http://localhost:8081/revision/Conductor', {
         // id: '5d3d4967f21d7167583bf923',
         revTitle: 'Conductor',
-        revLast: this.date
+        revLast1: this.date,
+        revLast2: this.date2
       }).then(this.$router.push({
         name: 'Revision'
       })).then(alert("revize update" + this.date))

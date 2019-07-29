@@ -43,7 +43,7 @@
         <td>Revizní technik</td>
         <td>ČSN EN 62305-3</td>
         <td>1x za 2 roky</td>
-        <td>{{this.Conductor}}</td>
+        <td>{{this.Conductor.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -51,7 +51,7 @@
         <td>Revizní technik</td>
         <td>ČSN EN 62305-3</td>
         <td>1x za 4 roky</td>
-        <td>{{this.Conductor}}</td>
+        <td>{{this.Conductor.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
 
@@ -62,7 +62,7 @@
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za rok</td>
-        <td>{{this.Extings}}</td>
+        <td>{{this.Extings.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -70,7 +70,7 @@
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za 5 let</td>
-        <td>{{this.Extings}}</td>
+        <td>{{this.Extings.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -88,7 +88,7 @@
         <td>Oprávněná osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za měsíc</td>
-        <td>{{this.Eps}}</td>
+        <td>{{this.Eps.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -96,7 +96,7 @@
         <td>Oprávněná osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za 6 měsíců</td>
-        <td>{{this.Eps}}</td>
+        <td>{{this.Eps.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -104,7 +104,7 @@
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
         <td>1x za rok</td>
-        <td>{{this.Eps}}</td>
+        <td>{{this.Eps.revLast3}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -117,7 +117,8 @@
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
-        <td id="ventilation"><v-btn to="/revision/Revision_Ventilation">Větrání únikových cest, zařízení pro odvod kouře a tepla, požární větrání</v-btn></td>
+        <td id="ventilation"><v-btn to="/revision/Revision_Ventilation">Větrání únikových cest</v-btn></td>
+        <!-- Větrání únikových cest, zařízení pro odvod kouře a tepla, požární větrání -->
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
@@ -135,7 +136,8 @@
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
-        <td id="obzpn"><v-btn to="/revision/Revision_Obzpn">Objekty bez zvýšeného požárního nebezpečí</v-btn></td>
+        <td id="obzpn"><v-btn to="/revision/Revision_Obzpn">Obzpn</v-btn></td>
+        <!-- Objekty bez zvýšeného požárního nebezpečí -->
         <td>Kontrola provozuschopnosti</td>
         <td>Způsobilá osoba</td>
         <td>246/2001 Sb.</td>
@@ -151,7 +153,7 @@
         <td>Dozorce výtahu</td>
         <td>ČSN 27 4002</td>
         <td>1x za 14 dní</td>
-        <td>{{this.Lifts}}</td>
+        <td>{{this.Lifts.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -159,7 +161,7 @@
         <td>Způsobilá osoba</td>
         <td>ČSN 27 4002</td>
         <td>1x za 3 měsíce</td>
-        <td>{{this.Lifts}}</td>
+        <td>{{this.Lifts.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -167,7 +169,7 @@
         <td>Inspekční technik</td>
         <td>ČSN 27 4002</td>
         <td>1x za 3 roky</td>
-        <td>{{this.Lifts}}</td>
+        <td>{{this.Lifts.revLast3}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -175,18 +177,19 @@
         <td>Inspekční orgán</td>
         <td>ČSN 27 4002</td>
         <td>1x za 6 let</td>
-        <td>{{this.Lifts}}</td>
+        <td>{{this.Lifts.revLast4}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
 
       <tr>
         <td rowspan="4"><b>Plynová zařízení</b></td>
-        <td id="drp" rowspan="2"><v-btn to="/revision/Revision_Drp">Domovní rozvod plynu, spotřebiče (např. kotel)</v-btn></td>
+        <td id="drp" rowspan="2"><v-btn to="/revision/Revision_Drp">Domovní rozvod plynu</v-btn></td>
+        <!-- Domovní rozvod plynu, spotřebiče (např. kotel) -->
         <td>Kontrola</td>
         <td>Oprávněná osoba</td>
         <td>85/1978 Sb.</td>
         <td>1x za rok</td>
-        <td>{{this.Drp}}</td>
+        <td>{{this.Drp.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -194,7 +197,7 @@
         <td>Revizní technik</td>
         <td>85/1978 Sb.</td>
         <td>1x za 3 roky</td>
-        <td>{{this.Drp}}</td>
+        <td>{{this.Drp.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -203,7 +206,7 @@
         <td>Oprávněná osoba</td>
         <td>ČSN 07 0703</td>
         <td>1x za 1 rok</td>
-        <td>{{this.Gasboiler}}</td>
+        <td>{{this.Gasboiler.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -211,7 +214,7 @@
         <td>Revizní technik</td>
         <td>ČSN 07 0703</td>
         <td>1x za 3 roky</td>
-        <td>{{this.Gasboiler}}</td>
+        <td>{{this.Gasboiler.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
 
@@ -233,7 +236,7 @@
         <td>Způsobilá osoba</td>
         <td>91/2010 Sb.</td>
         <td>1x za 1 rok</td>
-          <td>{{this.Chimney}}</td>
+          <td>{{this.Chimney.revLast1}}</td>
           <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -241,7 +244,7 @@
         <td>Způsobilá osoba</td>
         <td>91/2010 Sb.</td>
         <td>1x za 1 rok</td>
-        <td>{{this.Chimney}}</td>
+        <td>{{this.Chimney.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
 
@@ -252,7 +255,7 @@
         <td>Revizní technik</td>
         <td>ČSN 69 0012</td>
         <td>1x za 1 rok</td>
-        <td>{{this.PresureDev}}</td>
+        <td>{{this.PresureDev.revLast1}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -260,7 +263,7 @@
         <td>Revizní technik</td>
         <td>ČSN 69 0012</td>
         <td>1x za 5 let</td>
-        <td>{{this.PresureDev}}</td>
+        <td>{{this.PresureDev.revLast2}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
       <tr>
@@ -268,11 +271,11 @@
         <td>Revizní technik</td>
         <td>ČSN 69 0012</td>
         <td>po vnitřní revizi</td>
-        <td>{{this.PresureDev}}</td>
+        <td>{{this.PresureDev.revLast3}}</td>
         <td>{{this.nextDate}}</td>
       </tr>
     </table>
-    <ModalRevision />
+
   </div>
 
 </div>
@@ -283,34 +286,61 @@
 import Header from './Header.vue'
 import Nav from './Nav.vue'
 import axios from 'axios';
-import ModalRevision from './ModalRevision.vue';
+
 
 export default {
   name: 'Revision',
   data() {
     return {
       electroinstalation: '',
-      Conductor: '',
-      Extings: '',
+      Conductor: {
+        revLast1: '',
+        revLast2: ''
+      },
+      Extings: {
+        revLast1: '',
+        revLast2: ''
+      },
       Hydrants: '',
-      Eps: '',
+      Eps: {
+        revLast1: '',
+        revLast2: '',
+        revLast3: ''
+      },
       Shz: '',
       Ventilation: '',
       Elighting: '',
       Obzpn: '',
-      Lifts: '',
-      Drp: '',
-      Gasboiler: '',
+      Lifts: {
+        revLast1: '',
+        revLast2: '',
+        revLast3: '',
+        revLast4: ''
+      },
+      Drp: {
+        revLast1: '',
+        revLast2: ''
+      },
+      Gasboiler: {
+        revLast1: '',
+        revLast2: ''
+      },
       LowPresBoiler: '',
-      Chimney: '',
-      PresureDev: '',
+      Chimney: {
+        revLast1: '',
+        revLast2: ''
+      },
+      PresureDev: {
+        revLast1: '',
+        revLast2: '',
+        revLast3: ''
+      },
       revisions: []
     }
   },
   components: {
     Header,
-    Nav,
-    ModalRevision
+    Nav
   },
   computed: {
     nextDate: function() {
@@ -348,7 +378,45 @@ export default {
           if (item.revTitle === "Electroinstalation") {
             this.electroinstalation = item.revLast;
           } else if (item.revTitle === "Conductor") {
-            this.Conductor = item.revLast;
+            this.Conductor.revLast1 = item.revLast1;
+            this.Conductor.revLast2 = item.revLast2;
+          } else if (item.revTitle === "Extings") {
+            this.Extings.revLast1 = item.revLast1;
+            this.Extings.revLast2 = item.revLast2;
+          } else if (item.revTitle === "Hydrant") {
+            this.Hydrants = item.revLast;
+          } else if (item.revTitle === "Eps") {
+            this.Eps.revLast1 = item.revLast1;
+            this.Eps.revLast2 = item.revLast2;
+            this.Eps.revLast3 = item.revLast3;
+          } else if (item.revTitle === "Shz") {
+            this.Shz = item.revLast;
+          } else if (item.revTitle === "Ventilation") {
+            this.Ventilation = item.revLast;
+          } else if (item.revTitle === "Elighting") {
+            this.Elighting = item.revLast;
+          } else if (item.revTitle === "Obzpn") {
+            this.Obzpn = item.revLast;
+          } else if (item.revTitle === "Lifts") {
+            this.Lifts.revLast1 = item.revLast1;
+            this.Lifts.revLast2 = item.revLast2;
+            this.Lifts.revLast3 = item.revLast3;
+            this.Lifts.revLast4 = item.revLast4;
+          } else if (item.revTitle === "Drp") {
+            this.Drp.revLast1 = item.revLast1;
+            this.Drp.revLast2 = item.revLast2;
+          } else if (item.revTitle === "Gasboiler") {
+            this.Gasboiler.revLast1 = item.revLast1;
+            this.Gasboiler.revLast2 = item.revLast2;
+          } else if (item.revTitle === "LowPresBoiler") {
+            this.LowPresBoiler = item.revLast;
+          }else if (item.revTitle === "Chimney") {
+            this.Chimney.revLast1 = item.revLast1;
+            this.Chimney.revLast2 = item.revLast2;
+          } else if (item.revTitle === "PresureDev") {
+            this.PresureDev.revLast1 = item.revLast1;
+            this.PresureDev.revLast2 = item.revLast2;
+            this.PresureDev.revLast3 = item.revLast3;
           }
           // alert(this.electroinstalation);
         })
@@ -366,22 +434,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.revizeNav {
-  width: 10%;
-  height: 500px;
-  border: 1px solid black;
+.revize {
+  width: 80%;
+  height: auto;
+  /* overflow: auto; */
+  max-height: 600px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-
-  box-sizing: border-box;
-
-  border-bottom: 1px solid black;
-
-
+  margin-left: 30px;
 }
 
 .revize table {
-  width: 70%;
+  width: 85%;
   border-collapse: collapse;
 }
 

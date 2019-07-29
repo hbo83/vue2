@@ -337,8 +337,11 @@ app.put('/revision/:revTitle', function(req, res) {
     }, {
       $set: {
         revLast: req.body.revLast,
-        revNext: req.body.revNext
-
+        revNext: req.body.revNext,
+        revLast1: req.body.revLast1,
+        revLast2: req.body.revLast2,
+        revLast3: req.body.revLast3,
+        revLast4: req.body.revLast4
       }
     }, {
       upsert: true

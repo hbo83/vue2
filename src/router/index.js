@@ -20,6 +20,7 @@ import Owners_Edit from '@/components/Owners_Edit'
 import Docs_New from '@/components/Docs_New'
 import Docs_Edit from '@/components/Docs_Edit'
 import Revision_Electroinstalation from '@/components/Revision_Electroinstalation'
+import Revision_Conductor from '@/components/Revision_Conductor'
 
 Vue.use(Router)
 
@@ -129,6 +130,11 @@ export default new Router({
       path: '/revision/Revision_Electroinstalation',
       name: 'Revision_Electroinstalation',
       component: Revision_Electroinstalation,
+    },
+    {
+      path: '/revision/Revision_Conductor',
+      name: 'Revision_Conductor',
+      component: Revision_Conductor,
     }
   ]
 })

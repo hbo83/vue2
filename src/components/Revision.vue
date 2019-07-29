@@ -347,6 +347,8 @@ export default {
         this.revisions.forEach( item => {
           if (item.revTitle === "Electroinstalation") {
             this.electroinstalation = item.revLast;
+          } else if (item.revTitle === "Conductor") {
+            this.Conductor = item.revLast;
           }
           // alert(this.electroinstalation);
         })

@@ -330,10 +330,10 @@ app.put('/contact/:id', function(req, res) {
     });
 });
 
-app.put('/revision/:id', function(req, res) {
+app.put('/revision/:revTitle', function(req, res) {
   Revision.findOneAndUpdate({
       // _id: req.params.id
-      revTitle: "Electroinstalation"
+      revTitle: req.params.revTitle
     }, {
       $set: {
         revLast: req.body.revLast,

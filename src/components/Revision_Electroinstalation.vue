@@ -96,47 +96,22 @@ export default {
       this.isOpen = false;
       let currentObj = this;
 
-      axios.put('http://localhost:8081/revision/5d3d4967f21d7167583bf923', {
-        id: '5d3d4967f21d7167583bf923',
+      axios.put('http://localhost:8081/revision/Electroinstalation', {
+        // id: '5d3d4967f21d7167583bf923',
         revTitle: 'Electroinstalation',
         revLast: this.date
       }).then(this.$router.push({
         name: 'Revision'
       })).then(alert("revize update" + this.date))
-    },
-    update(file) {
-      this.selectedFile = event.target.files[0]
-      console.log(this.docName); //data
-      var docName = this.docName;
-      const fd = new FormData();
-      fd.append('name', docName); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      axios.post('http://localhost:8081/img', fd, {
-          onUploadProgress: uploadEvent => {
-            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-          }
-        })
-        .then(res => {
-          console.log(res);
-          alert('Soubor byl nahrán')
-        }).then(this.$router.push({
-          name: 'Docs'
-        }))
-    },
-    onFileSelected(event) {
-      console.log(event);
-
-      this.selectedFile = event.target.files[0]
     }
   },
   mounted() {
-    console.log('Docs_New.vue mounted')
+    console.log('Revision_Electroinstalation.vue mounted')
     console.log(new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().substr(0, 10));
   },
   components: {
     Header,
-    Nav,
-    'upload-btn': UploadButton
+    Nav
   }
 }
 </script>
@@ -146,15 +121,5 @@ export default {
   margin-left: 26%;
   height: 100px;
 }
-#inspire {
-  height: 150px;
-}
-/* .electroInstalation {
-  .application--wrap {
-    min-height: 1vh !important;
-  }
-} */
-/* .application--wrap {
-  min-height: 50px!important;
-} */
+
 </style>

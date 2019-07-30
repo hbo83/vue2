@@ -9,9 +9,23 @@
 
         <table>
       <tr>
-        <th>Komodita</th>
-        <th>Datum</th>
-        <th>Hodnota</th>
+        <th colspan="2">Byt</th>
+        <th colspan="3">Voda</th>
+        <th colspan="3">Elektřina</th>
+        <th colspan="3">Plyn</th>
+      </tr>
+      <tr>
+        <th>č.</th>
+        <th>Jméno</th>
+        <td>Poslední odečet datum</td>
+        <td>Poslední odečet hodnota</td>
+        <td>Datum příštího odečtu</td>
+        <td>Poslední odečet datum</td>
+        <td>Poslední odečet hodnota</td>
+        <td>Datum příštího odečtu</td>
+        <td>Poslední odečet datum</td>
+        <td>Poslední odečet hodnota</td>
+        <td>Datum příštího odečtu</td>
       </tr>
 <tr v-for="measure in measures">
 <td>{{ measure.commodity }}</td>
@@ -21,6 +35,9 @@
     </table>
 <ModalMeasure />
     </div>
+    <v-btn fab width="80px" small color="info" to="/odecty/Odecty_New">
+      <v-icon large>add</v-icon>
+    </v-btn>
   </div>
 
 </template>
@@ -78,6 +95,7 @@ updated: function () {
 .odecty td, .odecty th {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: left;
 }
 
 .odecty tr:nth-child(even){background-color: #f2f2f2;}

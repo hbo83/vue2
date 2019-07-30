@@ -34,7 +34,7 @@ import Revision_Gasboiler from '@/components/Revision_Gasboiler'
 import Revision_LowPresBoiler from '@/components/Revision_LowPresBoiler'
 import Revision_Chimney from '@/components/Revision_Chimney'
 import Revision_PresureDev from '@/components/Revision_PresureDev'
-
+import Odecty_New from '@/components/Odecty_New'
 
 
 Vue.use(Router)
@@ -215,6 +215,11 @@ export default new Router({
       path: '/revision/Revision_PresureDev',
       name: 'Revision_PresureDev',
       component: Revision_PresureDev,
+    },
+    {
+      path: '/odecty/Odecty_New',
+      name: 'Odecty_New',
+      component: Odecty_New,
     }
   ]
 })

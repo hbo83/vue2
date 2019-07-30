@@ -17,23 +17,31 @@
       <tr>
         <th>č.</th>
         <th>Jméno</th>
-        <td>Poslední odečet datum</td>
-        <td>Poslední odečet hodnota</td>
-        <td>Datum příštího odečtu</td>
-        <td>Poslední odečet datum</td>
-        <td>Poslední odečet hodnota</td>
-        <td>Datum příštího odečtu</td>
-        <td>Poslední odečet datum</td>
-        <td>Poslední odečet hodnota</td>
-        <td>Datum příštího odečtu</td>
+        <th>Poslední odečet datum</th>
+        <th>Poslední odečet hodnota</th>
+        <th>Datum příštího odečtu</th>
+        <th>Poslední odečet datum</th>
+        <th>Poslední odečet hodnota</th>
+        <th>Datum příštího odečtu</th>
+        <th>Poslední odečet datum</th>
+        <th>Poslední odečet hodnota</th>
+        <th>Datum příštího odečtu</th>
       </tr>
-<tr v-for="measure in measures">
-<td>{{ measure.commodity }}</td>
-<td>{{ measure.date }}</td>
-<td>{{ measure.value }}</td>
+<tr v-for="odecet in odecty">
+<td>{{ odecet.name }}</td>
+<td>{{ odecet.name }}</td>
+<td>{{ odecet.value }}</td>
+<td>{{ odecet.waterValue }}</td>
+<td>{{ odecet.date }}</td>
+<td>{{ odecet.electricityValue }}</td>
+<td>{{ odecet.commodity }}</td>
+<td>{{ odecet.gasValue }}</td>
+<td>{{ odecet.value }}</td>
+<td>{{ odecet.commodity }}</td>
+<td>{{ odecet.date }}</td>
 </tr>
     </table>
-<ModalMeasure />
+
     </div>
     <v-btn fab width="80px" small color="info" to="/odecty/Odecty_New">
       <v-icon large>add</v-icon>
@@ -45,25 +53,24 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import ModalMeasure from './ModalMeasure.vue'
+
 import axios from 'axios';
 export default {
   name: 'Odecty',
   data () {
     return {
-      measures: []
+      odecty: ''
     }
   },
   components: {
     Header,
-    Nav,
-    ModalMeasure
+    Nav
   },
   mounted() {
-      axios.get('http://localhost:8081/measures')
+      axios.get('http://localhost:8081/odecty')
       .then((response) => {
         console.log(response.data);
-        this.measures = response.data;
+        this.odecty = response.data;
       })
       .catch((error) => {
         console.log(error);

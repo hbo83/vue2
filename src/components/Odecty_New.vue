@@ -5,12 +5,12 @@
 
   <div class="newContact">
 
-    <v-flex xs6>
+    <!-- <v-flex xs6> -->
         <!-- <v-subheader>Vlastník</v-subheader> -->
-      </v-flex>
+      <!-- </v-flex> -->
       <v-flex xs6>
         <v-select
-          v-model="e1"
+          v-model="name"
           :items="owners"
           menu-props="auto"
           label="Vlastník"
@@ -22,11 +22,11 @@
     <v-app class="white">
       <v-form ref="form" lazy-validation>
         <!-- <v-subheader>Voda</v-subheader> -->
-        <v-text-field v-model="name" :rules="nameRules" label="Hodnota vodoměru" required></v-text-field>
+        <v-text-field prepend-icon="waves" v-model="waterValue" :rules="nameRules" label="Hodnota vodoměru" required></v-text-field>
 <!-- <v-subheader>Elektřina</v-subheader> -->
-        <v-text-field v-model="phone" label="Hodnota elektroměru"></v-text-field>
+        <v-text-field prepend-icon="battery_alert"v-model="electricityValue" label="Hodnota elektroměru"></v-text-field>
 <!-- <v-subheader>Plyn</v-subheader> -->
-        <v-text-field v-model="email" :rules="emailRules" label="Hodnota plynoměru"></v-text-field>
+        <v-text-field prepend-icon="local_gas_station" v-model="gasValue" label="Hodnota plynoměru"></v-text-field>
 
         <v-btn @click="formSubmit" color="success">
           Uložit
@@ -49,7 +49,10 @@ export default {
   name: 'Contacts_New',
   data() {
     return {
-      e1: '',
+      e1: 'Florida',
+        e2: 'Texas',
+        e3: null,
+        e4: null,
 
         items: [
           { text: 'State 1' },
@@ -60,15 +63,13 @@ export default {
           { text: 'State 6' },
           { text: 'State 7' },
         ],
-        owners: [
-          'Habal', 'Hánová', 'Černá', 'Giňa',
-          'Grugova'
-        ],
+        owners: [],
       name: '',
-      phone: '',
-      email: '',
+      waterValue: '',
+      electricityValue: '',
+      gasValue: '',
       nameRules: [
-        v => !!v || 'Jméno je vyžadováno',
+        v => !!v || 'Stav vodoměru je vyžadován',
         v => v.length <= 30 || 'Jméno musí mít méně než 30 znaků'
       ],
       email: '',
@@ -87,13 +88,13 @@ export default {
       e.preventDefault();
       this.isOpen = false;
       let currentObj = this;
-      axios.post('http://localhost:8081/contact', {
-        profession: this.profession,
+      axios.post('http://localhost:8081/odecty', {
         name: this.name,
-        phone: this.phone,
-        email: this.email
+        waterValue: this.waterValue,
+        electricityValue: this.electricityValue,
+        gasValue: this.gasValue
       }).then(this.$router.push({
-        name: 'Contacts'
+        name: 'Odecty'
       })).then(alert("kontakt uložen"))
     }
   },
@@ -110,14 +111,15 @@ export default {
     axios.get('http://localhost:8081/owners', config)
       .then((response) => {
         console.log(response.data);
-        console.log(this.msg);
-        this.owners = response.data;
-        console.log(this.user);
+        response.data.forEach((value, index) => {
+          this.owners.push(value.name)
+        })
+        console.log(this.owners);
       })
       .catch((error) => {
         console.log(error);
       });
-  
+
   },
   components: {
     Header,

@@ -21,6 +21,7 @@ const Meeting = require('./Meeting.model');
 const Revision = require('./Revision.model');
 const Measure = require('./Measure.model');
 const Imperfection = require('./Imperfection.model');
+const Odecty = require('./Odecty.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -114,12 +115,12 @@ app.get('/revisions', function(req, res) {
   })
 })
 
-app.get('/measures', function(req, res) {
-  Measure.find({}).exec(function(err, measure) {
+app.get('/odecty', function(req, res) {
+  Odecty.find({}).exec(function(err, odecty) {
     if (err) {
       res.send('error has occured');
     } else {
-      res.json(measure);
+      res.json(odecty);
     }
   })
 })
@@ -268,6 +269,24 @@ app.post('/revision', function(req, res) {
     } else {
       console.log(revision);
       res.send(revision);
+    }
+  });
+});
+
+app.post('/odecty', function(req, res) {
+  var newOdecty = new Odecty();
+
+  newOdecty.name = req.body.name;
+  newOdecty.waterValue = req.body.waterValue;
+  newOdecty.electricityValue = req.body.electricityValue;
+  newOdecty.gasValue = req.body.gasValue;
+
+  newOdecty.save(function(err, odecty) {
+    if (err) {
+      res.send('error saving odecty')
+    } else {
+      console.log(odecty);
+      res.send(odecty);
     }
   });
 });

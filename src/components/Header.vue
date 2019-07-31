@@ -1,7 +1,9 @@
 <template>
   <header>
 
-    <h1>SVJ2000 s námi je správa domu hračka</h1>
+    <h1>SVJ2000</h1>
+    <h3 style="font-size: 15px; text-align: left; margin-left: 217px; color: white;">- s námi je správa domu hračka</h3>
+    <v-icon style="color: white; float: right; margin-right: 20px;" size="28px">account_box</v-icon>
   </header>
 </template>
 

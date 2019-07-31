@@ -27,7 +27,7 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import ModalMeetings from './ModalMeetings.vue'
+
 import axios from 'axios';
 export default {
   name: 'Ucetnictvi',
@@ -38,8 +38,7 @@ export default {
   },
   components: {
     Header,
-    Nav,
-    ModalMeetings
+    Nav
   },
     mounted() {
         axios.get('http://localhost:8081/meetings')

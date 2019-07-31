@@ -11,7 +11,7 @@
       <th>Vytvořeno</th>
       <th>Uskutečnění</th>
     </tr>
-    <tr v-for="meeting in meetings">
+    <tr @click="selectRow(meeting)" v-for="meeting in meetings">
       <td>{{ meeting.theme }}</td>
       <td>{{ meeting.created }}</td>
       <td>{{ meeting.date }}</td>
@@ -55,6 +55,16 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+  },
+  methods: {
+    selectRow(meeting) {
+      console.log(event.target.parentNode.parentNode.childNodes)
+      // console.log(id)
+      //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
+      this.$router.push({
+        name: 'Meeting_Edit',
+        params: meeting
+      })}
   }
 }
 </script>
@@ -79,6 +89,7 @@ export default {
 .meeting td, .meeting th {
   border-bottom: 1px solid #ddd;
   padding: 8px;
+  cursor: pointer;
 }
 
 .meeting tr:nth-child(even){background-color: #f2f2f2;}

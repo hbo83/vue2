@@ -14,21 +14,6 @@
 
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
-        <!-- <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
-
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox> -->
-
         <v-btn @click="formSubmit" color="success">
           Uložit změnu
         </v-btn>

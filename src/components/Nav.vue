@@ -10,12 +10,12 @@
       <li><router-link style="color: black;font-weight: bold" to = "/revision"><v-icon style="color: #9be19d" size="28px">alarm</v-icon>Revize</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/odecty"><v-icon style="color: #fe9354f2" size="28px">report</v-icon>Odečty</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/meeting"><v-icon style="color: #bb8897" size="28px">people</v-icon>Schůze</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/zavady"><v-icon style="color: #fe9354f2" size="28px">healing</v-icon>Závady</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/ucetnictvi"><v-icon style="color: #fe9354f2" size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/nastaveni"><v-icon style="color: #fe9354f2" size="28px">apps</v-icon>Nastavení</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/faq"><v-icon style="color: #fe9354f2" size="28px">contact_support</v-icon>FAQ</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/hints"><v-icon style="color: #fe9354f2" size="28px">thumb_up</v-icon>Důležité rady</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/galerie"><v-icon style="color: #fe9354f2" size="28px">thumb_up</v-icon>Galerie</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/zavady"><v-icon style="color: black" size="28px">healing</v-icon>Závady</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/ucetnictvi"><v-icon style="color: black" size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/nastaveni"><v-icon style="color: black" size="28px">apps</v-icon>Nastavení</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/faq"><v-icon style="color: black" size="28px">contact_support</v-icon>FAQ</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/hints"><v-icon style="color: black" size="28px">thumb_up</v-icon>Důležité rady</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/galerie"><v-icon style="color: black" size="28px">thumb_up</v-icon>Galerie</router-link></li>
     </ul>
   </nav>
 </template>

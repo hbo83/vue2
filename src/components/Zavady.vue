@@ -28,7 +28,7 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import ModalImperfection from './ModalImperfection';
+
 import axios from 'axios';
 
 export default {
@@ -40,8 +40,8 @@ export default {
   },
   components: {
     Header,
-    Nav,
-    ModalImperfection
+    Nav
+
   },
   mounted() {
       axios.get('http://localhost:8081/imperfections')

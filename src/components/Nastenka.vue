@@ -5,7 +5,7 @@
     <Nav />
 
     <div class="nastenka">
-      <h1>Tady budou vystaveny vsechny udalsti: revize, odecty, opravy zavad atd.</h1>
+      <h1 style="color: green;text-align: left;margin-left: 30px;">Nadcházející události</h1>
       <table>
     <tr>
       <th>Téma</th>
@@ -48,7 +48,7 @@ export default {
 .nastenka {
   width: 80%;
   height: 500px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -56,9 +56,10 @@ export default {
 
 .nastenka table {
   width: 100%;
+  margin-left: 30px;
 }
 .nastenka td, .nastenka th {
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 8px;
 }
 

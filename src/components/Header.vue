@@ -31,11 +31,12 @@ h1 {
   margin-right: 1392px;
 }
 header {
-  /* background-image: url("svj2000.png"); */
- background-color: lightgreen;
- background-size: 10%;
+  /* src components */
+  background-image: url("flatHouse.png");
+ background-color: #9eceff;
+ background-size: 4%;
  width: 100%;
- height: 39px;
-margin: 17px 0;
+ height: 76px;
+margin-bottom: 17px;
 }
 </style>

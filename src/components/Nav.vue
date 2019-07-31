@@ -1,19 +1,21 @@
 <template>
   <nav>
     <ul>
-      <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/nastenka"><v-icon size="28px">home</v-icon>Nástěnka</router-link></li>
-      <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/owners"><v-icon size="28px">person</v-icon>Spoluvlastníci</router-link></li>
-      <li><router-link to = "/docs"><v-icon size="28px">archive</v-icon>Dokumenty</router-link></li>
-      <li><router-link to = "/contacts"><v-icon size="28px">contact_phone</v-icon>Kontakty</router-link></li>
-      <li><router-link to = "/revision"><v-icon size="28px">alarm</v-icon>Revize</router-link></li>
-      <li><router-link to = "/odecty"><v-icon size="28px">report</v-icon>Odečty</router-link></li>
-      <li><router-link to = "/schuze"><v-icon size="28px">people</v-icon>Schůze</router-link></li>
-      <li><router-link to = "/zavady"><v-icon size="28px">healing</v-icon>Závady</router-link></li>
-      <li><router-link to = "/ucetnictvi"><v-icon size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
-      <li><router-link to = "/nastaveni"><v-icon size="28px">apps</v-icon>Nastavení</router-link></li>
-      <li><router-link to = "/faq"><v-icon size="28px">contact_support</v-icon>FAQ</router-link></li>
-      <li><router-link to = "/hints"><v-icon size="28px">thumb_up</v-icon>Důležité rady</router-link></li>
-      <li><router-link to = "/galerie"><v-icon size="28px">thumb_up</v-icon>Galerie</router-link></li>
+      <!-- <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/nastenka"><v-icon size="28px">home</v-icon>Nástěnka</router-link></li>
+      <li v-bind:class="[i0.isActiveisActive ? 'red' : 'blue']" @click="toggleClass()"><router-link to = "/owners"><v-icon size="28px">person</v-icon>Spoluvlastníci</router-link></li> -->
+      <li><router-link style="color: black;font-weight: bold" to = "/nastenka"><v-icon style="color: green" size="28px">home</v-icon>Nástěnka</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/owners"><v-icon style="color: blue" size="28px">person</v-icon>Spoluvlastníci</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/docs"><v-icon style="color: #a2a217" size="28px">archive</v-icon>Dokumenty</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/contacts"><v-icon style="color: purple" size="28px">contact_phone</v-icon>Kontakty</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/revision"><v-icon style="color: #9be19d" size="28px">alarm</v-icon>Revize</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/odecty"><v-icon style="color: #fe9354f2" size="28px">report</v-icon>Odečty</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/schuze"><v-icon style="color: #fe9354f2" size="28px">people</v-icon>Schůze</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/zavady"><v-icon style="color: #fe9354f2" size="28px">healing</v-icon>Závady</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/ucetnictvi"><v-icon style="color: #fe9354f2" size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/nastaveni"><v-icon style="color: #fe9354f2" size="28px">apps</v-icon>Nastavení</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/faq"><v-icon style="color: #fe9354f2" size="28px">contact_support</v-icon>FAQ</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/hints"><v-icon style="color: #fe9354f2" size="28px">thumb_up</v-icon>Důležité rady</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/galerie"><v-icon style="color: #fe9354f2" size="28px">thumb_up</v-icon>Galerie</router-link></li>
     </ul>
   </nav>
 </template>
@@ -64,14 +66,14 @@ ul {
   margin: 0;
   padding: 0;
 }
-li {
-  /* background-color: rgba(255,159,36,1); */
+li:hover {
+  color: red;
 }
 /* a:link, a:visited, a:active  {
   color: grey;
 } */
 a:hover {
-  color: black;
+  /* color: black; */
   cursor: pointer;
   opacity: 1;
 }

@@ -132,14 +132,14 @@ export default {
 } */
 
 .odecty tr:hover {
-  background-color: #ddd;
+  background-color: #fe9354f2;
 }
 
 .odecty th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
+  background-color: #fe9354f2;
   color: white;
 }
 </style>

@@ -97,6 +97,7 @@ export default {
   height: auto;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  margin-left: 30px;
 }
 
 .owners table {
@@ -120,7 +121,7 @@ export default {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
+  background-color: blue;
   color: white;
 }
 </style>

@@ -111,6 +111,7 @@ export default {
       axios.put('http://localhost:8081/odecty/' + this.id, {
         id: this.id,
         name: this.name,
+        e1: this.name,
         dateWater: this.dateWater,
         dateHeating: this.dateHeating,
         waterValue: this.waterValue,
@@ -148,6 +149,25 @@ export default {
     this.waterValue = this.$route.params.waterValue
     this.heatingValue = this.$route.params.heatingValue
     console.log(this.id)
+
+    var config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    };
+
+    axios.get('http://localhost:8081/owners', config)
+      .then((response) => {
+        console.log(response.data);
+        response.data.forEach((value, index) => {
+          this.owners.push(value.name)
+        })
+        console.log(this.owners);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   components: {
     Header,

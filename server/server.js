@@ -20,7 +20,7 @@ const File = require('./File.model');
 const Meeting = require('./Meeting.model');
 const Revision = require('./Revision.model');
 const Measure = require('./Measure.model');
-const Imperfection = require('./Imperfection.model');
+const Fault = require('./Fault.model');
 const Odecty = require('./Odecty.model');
 //test spojeni s DB
 var db = mongoose.connection;
@@ -125,12 +125,12 @@ app.get('/odecty', function(req, res) {
   })
 })
 
-app.get('/imperfections', function(req, res) {
-  Imperfection.find({}).exec(function(err, imperfection) {
+app.get('/fault', function(req, res) {
+  Fault.find({}).exec(function(err, fault) {
     if (err) {
       res.send('error has occured');
     } else {
-      res.json(imperfection);
+      res.json(fault);
     }
   })
 })
@@ -326,19 +326,19 @@ app.post('/measure', function(req, res) {
   });
 });
 
-app.post('/imperfection', function(req, res) {
-  var newImperfection = new Imperfection();
+app.post('/fault', function(req, res) {
+  var newFault = new Fault();
 
-  newImperfection.imperfection = req.body.imperfection;
-  newImperfection.created = req.body.created;
-  newImperfection.hurry = req.body.hurry;
+  newFault.fault = req.body.fault;
+  newFault.partOfHouse = req.body.partOfHouse;
+  newFault.hurry = req.body.hurry;
 
-  newImperfection.save(function(err, imperfection) {
+  newFault.save(function(err, fault) {
     if (err) {
       res.send('error saving imperfection')
     } else {
-      console.log(imperfection);
-      res.send(imperfection);
+      console.log(fault);
+      res.send(fault);
     }
   });
 });
@@ -419,7 +419,28 @@ app.put('/odecty/:id', function(req, res) {
     });
 });
 
+app.put('/fault/:id', function(req, res) {
+  Fault.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: {
+        fault: req.body.fault,
+        partOfHouse: req.body.partOfHouse,
+        hurry: req.body.hurry
 
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newFault) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newFault);
+        res.send(newFault);
+      }
+    });
+});
 
 
 
@@ -459,6 +480,19 @@ app.delete('/odecty/:id', function(req, res) {
     } else {
       console.log(odecet);
       res.send(odecet);
+    }
+  })
+})
+
+app.delete('/fault/:id', function(req, res) {
+  Fault.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, fault) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(fault);
+      res.send(fault);
     }
   })
 })

@@ -5,7 +5,9 @@ import Owners from '@/components/Owners'
 import Contacts from '@/components/Contacts'
 import Docs from '@/components/Docs'
 import Revision from '@/components/Revision'
-import Zavady from '@/components/Zavady'
+import Fault from '@/components/Fault'
+import Fault_New from '@/components/Fault_New'
+import Fault_Edit from '@/components/Fault_Edit'
 import Nastaveni from '@/components/Nastaveni'
 import Odecty from '@/components/Odecty'
 import Home from '@/components/Home'
@@ -74,9 +76,19 @@ export default new Router({
       component: Revision
     },
     {
-      path: '/zavady',
-      name: 'Zavady',
-      component: Zavady
+      path: '/fault',
+      name: 'Fault',
+      component: Fault
+    },
+    {
+      path: '/fault/Fault_New',
+      name: 'Fault_New',
+      component: Fault_New
+    },
+    {
+      path: '/fault/Fault_Edit',
+      name: 'Fault_Edit',
+      component: Fault_Edit
     },
     {
       path: '/nastaveni',

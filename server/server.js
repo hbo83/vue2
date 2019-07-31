@@ -221,6 +221,25 @@ app.get('/getimg:productId', (req, res, next) => {
 });
 
 //posts
+app.post('/owner', function(req, res) {
+  var newOwner = new Owner();
+  newOwner.flatNumber = req.body.flatNumber;
+  newOwner.name = req.body.name;
+  newOwner.address = req.body.address;
+  newOwner.part = req.body.part;
+  newOwner.phone = req.body.phone;
+  newOwner.email = req.body.email;
+
+  newOwner.save(function(err, owner) {
+    if (err) {
+      res.send('error saving owner')
+    } else {
+      console.log(owner);
+      res.send(owner);
+    }
+  });
+});
+
 app.post('/contact', function(req, res) {
   var newContact = new Contact();
 
@@ -275,12 +294,11 @@ app.post('/revision', function(req, res) {
 
 app.post('/odecty', function(req, res) {
   var newOdecty = new Odecty();
-
+  newOdecty.dateWater = req.body.dateWater;
+  newOdecty.dateHeating = req.body.dateHeating;
   newOdecty.name = req.body.name;
   newOdecty.waterValue = req.body.waterValue;
-  newOdecty.electricityValue = req.body.electricityValue;
-  newOdecty.gasValue = req.body.gasValue;
-
+  newOdecty.heatingValue = req.body.heatingValue;
   newOdecty.save(function(err, odecty) {
     if (err) {
       res.send('error saving odecty')
@@ -375,6 +393,32 @@ app.put('/revision/:revTitle', function(req, res) {
     });
 });
 
+app.put('/odecty/:id', function(req, res) {
+  Odecty.findOneAndUpdate({
+      _id: req.params.id
+
+    }, {
+      $set: {
+        name: req.body.name,
+        dateWater: req.body.dateWater,
+        dateHeating: req.body.dateHeating,
+        waterValue: req.body.waterValue,
+        heatingValue: req.body.heatingValue
+
+      }
+    }, {
+      upsert: true
+    },
+    function(err, newRevision) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newRevision);
+        res.send(newRevision);
+      }
+    });
+});
+
 
 
 //deletes
@@ -400,6 +444,19 @@ app.delete('/doc/:id', function(req, res) {
     } else {
       console.log(doc);
       res.send(doc);
+    }
+  })
+})
+
+app.delete('/odecty/:id', function(req, res) {
+  Odecty.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, odecet) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(odecet);
+      res.send(odecet);
     }
   })
 })
@@ -450,24 +507,7 @@ app.put('/doc/:id', function(req, res) {
     });
 });
 
-app.post('/owner', function(req, res) {
-  var newOwner = new Owner();
 
-  newOwner.name = req.body.name;
-  newOwner.address = req.body.address;
-  newOwner.part = req.body.part;
-  newOwner.phone = req.body.phone;
-  newOwner.email = req.body.email;
-
-  newOwner.save(function(err, owner) {
-    if (err) {
-      res.send('error saving owner')
-    } else {
-      console.log(owner);
-      res.send(owner);
-    }
-  });
-});
 
 app.put('/owner/:id', function(req, res) {
   Owner.findOneAndUpdate({

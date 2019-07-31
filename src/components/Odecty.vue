@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <!-- <h1>{{ msg }}</h1> -->
-    <Header />
-    <Nav />
+<div>
+  <!-- <h1>{{ msg }}</h1> -->
+  <Header />
+  <Nav />
 
-    <div class="odecty">
+  <div class="odecty">
 
 
-        <table>
+    <table>
       <tr>
-        <th colspan="2">Byt</th>
+        <th colspan="1">Byt</th>
         <th colspan="3">Voda</th>
-        <th colspan="3">Elektřina</th>
-        <th colspan="3">Plyn</th>
+        <th colspan="3">Teplo</th>
+
       </tr>
       <tr>
-        <th>č.</th>
+        <!-- <th>č.</th> -->
         <th>Jméno</th>
         <th>Poslední odečet datum</th>
         <th>Poslední odečet hodnota</th>
@@ -23,31 +23,26 @@
         <th>Poslední odečet datum</th>
         <th>Poslední odečet hodnota</th>
         <th>Datum příštího odečtu</th>
-        <th>Poslední odečet datum</th>
-        <th>Poslední odečet hodnota</th>
-        <th>Datum příštího odečtu</th>
+
       </tr>
-<tr v-for="odecet in odecty">
-<td>{{ odecet.name }}</td>
-<td>{{ odecet.name }}</td>
-<td>{{ odecet.value }}</td>
-<td>{{ odecet.waterValue }}</td>
-<td>{{ odecet.date }}</td>
-<td>{{ odecet.electricityValue }}</td>
-<td>{{ odecet.commodity }}</td>
-<td>{{ odecet.gasValue }}</td>
-<td>{{ odecet.value }}</td>
-<td>{{ odecet.commodity }}</td>
-<td>{{ odecet.date }}</td>
-</tr>
+      <tr @click="selectRow(odecet)" v-for="odecet in odecty">
+        <!-- <td>{{ odecet.flatNumber }}</td> -->
+        <td>{{ odecet.name }}</td>
+        <td>{{ odecet.dateWater }}</td>
+        <td>{{ odecet.waterValue }}</td>
+        <td>{{ nextDateWater(odecet.dateWater) }}</td>
+        <td>{{ odecet.dateHeating }}</td>
+        <td>{{ odecet.heatingValue }}</td>
+        <td>{{ nextDateHeating(odecet.dateHeating) }}</td>
+
+      </tr>
     </table>
 
-    </div>
-    <v-btn fab width="80px" small color="info" to="/odecty/Odecty_New">
-      <v-icon large>add</v-icon>
-    </v-btn>
   </div>
-
+  <v-btn fab width="80px" small color="info" to="/odecty/Odecty_New">
+    <v-icon large>add</v-icon>
+  </v-btn>
+</div>
 </template>
 
 <script>
@@ -57,9 +52,10 @@ import Nav from './Nav.vue'
 import axios from 'axios';
 export default {
   name: 'Odecty',
-  data () {
+  data() {
     return {
       odecty: ''
+
     }
   },
   components: {
@@ -67,47 +63,77 @@ export default {
     Nav
   },
   mounted() {
-      axios.get('http://localhost:8081/odecty')
+    axios.get('http://localhost:8081/odecty')
       .then((response) => {
         console.log(response.data);
+
         this.odecty = response.data;
+
       })
       .catch((error) => {
         console.log(error);
       });
-},
-updated: function () {
-  this.$nextTick(function () {
-    console.log("updated");
-  })
-}
+  },
+  updated: function() {
+    this.$nextTick(function() {
+      console.log("updated");
+    })
+  },
+  methods: {
+    nextDateWater: function(date) {
+      let numDate = parseInt(date.substr(0, 4)) + 1
+      let numDay = date.substr(4, 9)
+      return numDate + numDay
+    },
+    nextDateHeating: function(date) {
+      let numDate = parseInt(date.substr(0, 4)) + 1
+      let numDay = date.substr(4, 9)
+      return numDate + numDay
+    },
+    selectRow(odecet) {
+      console.log(event.target.parentNode.parentNode.childNodes)
+      // console.log(id)
+      //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
+      this.$router.push({
+        name: 'Odecty_Edit',
+        params: odecet
+      })
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .odecty {
   width: 80%;
   height: 500px;
-  border: 1px solid black;
+  margin-left: 30px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
 }
 
 .odecty table {
   width: 100%;
+  border-collapse: collapse;
 }
-.odecty td, .odecty th {
-  border: 1px solid #ddd;
+
+.odecty td,
+.odecty th {
+  border-bottom: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  cursor: pointer;
 }
 
-.odecty tr:nth-child(even){background-color: #f2f2f2;}
+/* .odecty tr:nth-child(even) {
+  background-color: #f2f2f2;
+} */
 
-.odecty tr:hover {background-color: #ddd;}
+.odecty tr:hover {
+  background-color: #ddd;
+}
 
 .odecty th {
   padding-top: 12px;

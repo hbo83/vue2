@@ -3,11 +3,7 @@
   <Header />
   <Nav />
 
-  <div class="newContact">
-
-    <!-- <v-flex xs6> -->
-    <!-- <v-subheader>Vlastník</v-subheader> -->
-    <!-- </v-flex> -->
+  <div class="editOdecty">
     <v-flex xs6>
       <v-select v-model="name" :items="owners" menu-props="auto" label="Vlastník" hide-details prepend-icon="face" single-line></v-select>
     </v-flex>
@@ -15,16 +11,16 @@
       <v-form ref="form" lazy-validation>
         <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="date1" label="Datum odečtu vody" prepend-icon="event" readonly v-on="on"></v-text-field>
+            <v-text-field v-model="dateWater" label="Datum odečtu vody" prepend-icon="event" readonly v-on="on"></v-text-field>
           </template>
-          <v-date-picker v-model="date1" @input="menu1 = false"></v-date-picker>
+          <v-date-picker v-model="dateWater" @input="menu1 = false"></v-date-picker>
         </v-menu>
         <v-text-field prepend-icon="waves" v-model="waterValue" :rules="nameRules" label="Hodnota vodoměru" required></v-text-field>
         <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="date2" label="Datum odečtu tepla" prepend-icon="event" readonly v-on="on"></v-text-field>
+            <v-text-field v-model="dateHeating" label="Datum odečtu tepla" prepend-icon="event" readonly v-on="on"></v-text-field>
           </template>
-          <v-date-picker v-model="date2" @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="dateHeating" @input="menu2 = false"></v-date-picker>
         </v-menu>
         <v-text-field prepend-icon="reorder" v-model="heatingValue" label="Hodnota měřiče tepla"></v-text-field>
 
@@ -33,6 +29,11 @@
         <v-btn @click="formSubmit" color="success">
           Uložit
         </v-btn>
+
+        <v-btn @click="delContact(id)" color="error">
+          Smazat kontakt
+        </v-btn>
+
 
       </v-form>
     </v-app>
@@ -48,14 +49,14 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 
 export default {
-  name: 'Contacts_New',
+  name: 'EditOdecty',
   data() {
     return {
       e1: 'Florida',
       e2: 'Texas',
       e3: null,
       e4: null,
-
+      id: '',
       items: [{
           text: 'State 1'
         },
@@ -80,8 +81,8 @@ export default {
       ],
       menu1: false,
       menu2: false,
-      date1: new Date().toISOString().substr(0, 10),
-      date2: new Date().toISOString().substr(0, 10),
+      dateWater: new Date().toISOString().substr(0, 10),
+      dateHeating: new Date().toISOString().substr(0, 10),
       owners: [],
       name: '',
       waterValue: '',
@@ -98,47 +99,55 @@ export default {
     }
   },
   methods: {
-    someMethod() {
-      console.log(this.$parent);
+    someMethod(e) {
+      console.log(e);
       this.$parent.someMethod;
     },
     formSubmit(e) {
       e.preventDefault();
       this.isOpen = false;
       let currentObj = this;
-      axios.post('http://localhost:8081/odecty', {
-        dateWater: this.date1,
-        dateHeating: this.date2,
+
+      axios.put('http://localhost:8081/odecty/' + this.id, {
+        id: this.id,
         name: this.name,
+        dateWater: this.dateWater,
+        dateHeating: this.dateHeating,
         waterValue: this.waterValue,
         heatingValue: this.heatingValue
       }).then(this.$router.push({
         name: 'Odecty'
-      })).then(alert("kontakt uložen"))
+      })).then(alert("kontakt změněn"))
+    },
+    delContact(id) {
+      if (confirm('Určitě chcete smazat kontakt?')) {
+
+        console.log("mazu")
+        axios.delete('http://localhost:8081/odecty/' + id)
+          .then((response) => {
+            console.log(response.data);
+            // this.contacts = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      alert("Kontakt byl smazán")
+      this.$router.push({
+        name: 'Odecty'
+      })
     }
   },
   mounted() {
-    console.log('Odecty_New mounted');
-
-    var config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
-    };
-
-    axios.get('http://localhost:8081/owners', config)
-      .then((response) => {
-        console.log(response.data);
-        response.data.forEach((value, index) => {
-          this.owners.push(value.name)
-        })
-        console.log(this.owners);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    //zde jsou namountována data z parametru předaného v komponentě contacts redirektem
+    console.log(this.$route.params)
+    this.id = this.$route.params._id
+    this.name = this.$route.params.name
+    this.dateWater = this.$route.params.dateWater
+    this.dateHeating = this.$route.params.dateHeating
+    this.waterValue = this.$route.params.waterValue
+    this.heatingValue = this.$route.params.heatingValue
+    console.log(this.id)
   },
   components: {
     Header,
@@ -147,9 +156,10 @@ export default {
 }
 </script>
 <style scoped>
-.newContact {
+.editOdecty {
   width: 29%;
   margin-left: 38%;
 
 }
+
 </style>

@@ -6,6 +6,8 @@
   <div class="newOwner">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
+        <v-text-field v-model="flatNumber" :counter="2" label="Číslo bytu" required></v-text-field>
+
         <v-text-field v-model="name" :counter="30" label="Jméno" required></v-text-field>
 
         <v-text-field v-model="address" :counter="30" :rules="nameRules" label="Adresa" required></v-text-field>
@@ -39,6 +41,7 @@ export default {
   name: 'Owners_New',
   data() {
     return {
+      flatNumber: '',
       name: '',
       address: '',
       part: '',
@@ -65,6 +68,7 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/owner', {
+        flatNumber: this.flatNumber,
         name: this.name,
         address: this.address,
         part: this.part,

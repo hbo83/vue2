@@ -134,7 +134,7 @@ export default {
 .dokumenty {
   width: 80%;
   height: 500px;
-  /* border: 1px solid black; */
+  margin-left: 30px;
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 

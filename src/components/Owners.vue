@@ -10,6 +10,7 @@
     <table>
       <thead>
         <tr>
+          <th>Byt č.</th>
           <th>Jméno</th>
           <th>Adresa</th>
           <th>Podíl</th>
@@ -19,6 +20,7 @@
       </thead>
 
       <tr @click="selectRow(owner)" v-for="owner in owners">
+        <td>{{ owner.flatNumber }}</td>
         <td>{{ owner.name }}</td>
         <td>{{ owner.address }}</td>
         <td>{{ owner.part }}</td>

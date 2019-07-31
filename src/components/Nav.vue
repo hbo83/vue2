@@ -9,7 +9,7 @@
       <li><router-link style="color: black;font-weight: bold" to = "/contacts"><v-icon style="color: purple" size="28px">contact_phone</v-icon>Kontakty</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/revision"><v-icon style="color: #9be19d" size="28px">alarm</v-icon>Revize</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/odecty"><v-icon style="color: #fe9354f2" size="28px">report</v-icon>Odečty</router-link></li>
-      <li><router-link style="color: black;font-weight: bold" to = "/schuze"><v-icon style="color: #fe9354f2" size="28px">people</v-icon>Schůze</router-link></li>
+      <li><router-link style="color: black;font-weight: bold" to = "/meeting"><v-icon style="color: #bb8897" size="28px">people</v-icon>Schůze</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/zavady"><v-icon style="color: #fe9354f2" size="28px">healing</v-icon>Závady</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/ucetnictvi"><v-icon style="color: #fe9354f2" size="28px">folder_open</v-icon>Ucetnictvi</router-link></li>
       <li><router-link style="color: black;font-weight: bold" to = "/nastaveni"><v-icon style="color: #fe9354f2" size="28px">apps</v-icon>Nastavení</router-link></li>

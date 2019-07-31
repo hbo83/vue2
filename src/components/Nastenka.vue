@@ -51,12 +51,13 @@ export default {
   /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
 }
 
 .nastenka table {
   width: 100%;
   margin-left: 30px;
+  border-collapse: collapse;
 }
 .nastenka td, .nastenka th {
   border-bottom: 1px solid #ddd;

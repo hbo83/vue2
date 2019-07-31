@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Nastenka from '@/components/Nastenka'
 import Owners from '@/components/Owners'
 import Contacts from '@/components/Contacts'
-import Schuze from '@/components/Schuze'
 import Docs from '@/components/Docs'
 import Revision from '@/components/Revision'
 import Zavady from '@/components/Zavady'
@@ -36,6 +35,9 @@ import Revision_Chimney from '@/components/Revision_Chimney'
 import Revision_PresureDev from '@/components/Revision_PresureDev'
 import Odecty_New from '@/components/Odecty_New'
 import Odecty_Edit from '@/components/Odecty_Edit'
+import Meeting from '@/components/Meeting'
+import Meeting_New from '@/components/Meeting_New'
+import Meeting_Edit from '@/components/Meeting_Edit'
 
 Vue.use(Router)
 
@@ -60,11 +62,6 @@ export default new Router({
       //   name: 'NewContact',
       //   component: NewContact,
       // }]
-    },
-    {
-      path: '/schuze',
-      name: 'Schuze',
-      component: Schuze
     },
     {
       path: '/Docs',
@@ -225,6 +222,21 @@ export default new Router({
       path: '/odecty/Odecty_Edit',
       name: 'Odecty_Edit',
       component: Odecty_Edit,
+    },
+    {
+      path: '/meeting',
+      name: 'Meeting',
+      component: Meeting,
+    },
+    {
+      path: '/meeting/Meeting_New',
+      name: 'Meeting_New',
+      component: Meeting_New,
+    },
+    {
+      path: '/meeting/Meeting_Edit',
+      name: 'Meeting_Edit',
+      component: Meeting_Edit,
     }
   ]
 })

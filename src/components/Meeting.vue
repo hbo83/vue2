@@ -4,7 +4,7 @@
     <Header />
     <Nav />
 
-    <div class="schuze">
+    <div class="meeting">
       <table>
     <tr>
       <th>Téma schůze</th>
@@ -18,8 +18,11 @@
     </tr>
 
   </table>
-  <ModalMeetings />
+
     </div>
+    <v-btn fab width="80px" small color="info" to="/meeting/Meeting_New">
+      <v-icon large>add</v-icon>
+    </v-btn>
   </div>
 
 </template>
@@ -27,10 +30,10 @@
 <script>
 import Header from './Header.vue'
 import Nav from './Nav.vue'
-import ModalMeetings from './ModalMeetings.vue'
+
 import axios from 'axios';
 export default {
-  name: 'Schuze',
+  name: 'Meeting',
   data () {
     return {
       meetings: []
@@ -38,8 +41,8 @@ export default {
   },
   components: {
     Header,
-    Nav,
-    ModalMeetings
+    Nav
+
   },
     mounted() {
         axios.get('http://localhost:8081/meetings')
@@ -59,32 +62,34 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.schuze {
+.meeting {
   width: 80%;
   height: 500px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   float: left;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
 }
 
-.schuze table {
+.meeting table {
   width: 100%;
+  margin-left: 30px;
+  border-collapse: collapse;
 }
-.schuze td, .schuze th {
-  border: 1px solid #ddd;
+.meeting td, .meeting th {
+  border-bottom: 1px solid #ddd;
   padding: 8px;
 }
 
-.schuze tr:nth-child(even){background-color: #f2f2f2;}
+.meeting tr:nth-child(even){background-color: #f2f2f2;}
 
-.schuze tr:hover {background-color: #ddd;}
+.meeting tr:hover {background-color: #ddd;}
 
-.schuze th {
+.meeting th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
+  background-color: #bb8897;
   color: white;
 }
 </style>

@@ -421,6 +421,8 @@ app.put('/odecty/:id', function(req, res) {
 
 
 
+
+
 //deletes
 app.delete('/contact/:id', function(req, res) {
   Contact.findOneAndRemove({

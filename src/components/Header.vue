@@ -3,7 +3,7 @@
 
     <h1>SVJ2000</h1>
     <h3 style="font-size: 15px; text-align: left; margin-left: 217px; color: white;">- s námi je správa domu hračka</h3>
-    <v-icon style="color: white; float: right; margin-right: 20px;" size="28px">account_box</v-icon>
+    <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer;" size="28px">account_box</v-icon>
   </header>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     someMethod(){
       console.log(this.$parent);
       this.$parent.someMethod;
+    },
+    redirLogin() {
+      window.location.href = "http://localhost:8080/login";
     }
   }
 }

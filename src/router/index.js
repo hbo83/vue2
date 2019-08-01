@@ -40,6 +40,7 @@ import Odecty_Edit from '@/components/Odecty_Edit'
 import Meeting from '@/components/Meeting'
 import Meeting_New from '@/components/Meeting_New'
 import Meeting_Edit from '@/components/Meeting_Edit'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -249,6 +250,11 @@ export default new Router({
       path: '/meeting/Meeting_Edit',
       name: 'Meeting_Edit',
       component: Meeting_Edit,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
     }
   ]
 })

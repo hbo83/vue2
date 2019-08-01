@@ -22,6 +22,7 @@ const Revision = require('./Revision.model');
 const Measure = require('./Measure.model');
 const Fault = require('./Fault.model');
 const Odecty = require('./Odecty.model');
+const User = require('./User.model');
 //test spojeni s DB
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -220,6 +221,19 @@ app.get('/getimg:productId', (req, res, next) => {
   res.status(200).json(response);
 });
 
+app.get('/users/:email', function(req, res) {
+  const email = req.params.email;
+  User.find({
+    "email": email
+  }).exec(function(err, user) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(user);
+    }
+  })
+})
+
 //posts
 app.post('/owner', function(req, res) {
   var newOwner = new Owner();
@@ -343,6 +357,21 @@ app.post('/fault', function(req, res) {
   });
 });
 
+app.post('/users', function(req, res) {
+  var newUser = new User();
+
+  newUser.email = req.body.email;
+  newUser.password = req.body.password;
+
+  newUser.save(function(err, user) {
+    if (err) {
+      res.send('error saving user')
+    } else {
+      console.log(user);
+      res.send(user);
+    }
+  });
+});
 //puts
 app.put('/contact/:id', function(req, res) {
   Contact.findOneAndUpdate({

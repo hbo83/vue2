@@ -74,11 +74,18 @@ export default {
 
       }).then((response) => {
         console.log(response.data);
-        // this.contacts = response.data;
+        console.log(response.data[0].password);
+
+        if (response.data[0].password === this.password) {
+          alert("heslo souhlasí")
+        } else {
+          alert( "heslo nesouhlasí")
+        }
       })
       .catch((error) => {
         console.log(error);
-      }).then(alert("nyní jste přihlášen jako" + " " + this.email))
+      })
+      // .then(alert("nyní jste přihlášen jako" + " " + this.email))
     },
     signIn() {
       let currentObj = this;

@@ -3,9 +3,10 @@
 
   <h1>SVJ2000</h1>
   <h3 style="font-size: 15px; text-align: left; margin-left: 217px; color: white;">- s námi je správa domu hračka</h3>
-  <p style="text-align: right">{{ readLocalStorage() }}<span>
-      <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer;" size="28px">account_box</v-icon>
+  <p style="text-align: right; color: white;"><b>{{ userLoged }}</b><span>
+      <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px;" size="28px">{{logedYesNo()}}</v-icon>
     </span></p>
+
 </header>
 </template>
 
@@ -15,26 +16,54 @@ export default {
   name: 'Header',
   data() {
     return {
-      userLoged: 'hello'
+      userLoged: '',
+      loged: true
     }
   },
   methods: {
+    logedYesNo() {
+
+      let x = localStorage.getItem("userLoged");
+      if (x) {
+        return "exit_to_app"
+        console.log(x)
+      } else if (x === null) {
+        return "account_box"
+        console.log(x)
+      }
+    },
     someMethod() {
       console.log(this.$parent);
       this.$parent.someMethod;
     },
     redirLogin() {
-      window.location.href = "http://localhost:8080/login";
-    },
-    readLocalStorage() {
       let x = localStorage.getItem("userLoged");
-      return x
+      if (x) {
+        var txt;
+        if (confirm("Opravdu se chcete odhlásit?")) {
+          txt = "Nyní jste odhlášeni!";
+          localStorage.removeItem("userLoged");
+          window.location.href = "http://localhost:8080/login";
+          this.loged === false;
+          alert(txt);
+        }
+
+      } else {
+        window.location.href = "http://localhost:8080/login";
+
+      }
     }
   },
   mounted() {
-    console.log("Header was mounted")
-  }
 
+  },
+  created() {
+    setTimeout(() => {
+      console.log("Header was mounted");
+      this.userLoged = localStorage.getItem("userLoged");
+      console.log(this.userLoged);
+    }, 1000)
+  }
 }
 </script>
 <style scoped>

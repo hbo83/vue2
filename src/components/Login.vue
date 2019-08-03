@@ -81,7 +81,7 @@ export default {
         password: this.password
       }).then(this.$router.push({
         name: 'Contacts'
-      })).then(alert("kontakt uložen, nyní se můžete přihlásit"))
+      })).then(alert("Nyní se můžete přihlásit"))
     }
   },
   mounted() {

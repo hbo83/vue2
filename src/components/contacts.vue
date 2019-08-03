@@ -43,6 +43,8 @@ import Nav from './Nav.vue'
 import NewContact from './Contacts_New.vue'
 
 import axios from 'axios';
+// import buffer from 'buffer';
+// import scrypt from 'scrypt-js';
 
 
 export default {
@@ -111,6 +113,8 @@ export default {
 
   mounted() {
     //po vymazani kontaktu mi axios vracel stary data, zrejme nakesovany, musel jsem zde vypnou cashovani
+
+
     var config = {
       headers: {
         'Content-Type': 'application/json',

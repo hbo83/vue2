@@ -49,43 +49,29 @@ export default {
     }
   },
   methods: {
-    someMethod() {
-      console.log(this.$parent);
-      this.$parent.someMethod;
-    },
-    formSubmit(e) {
-      e.preventDefault();
-      this.isOpen = false;
-      let currentObj = this;
-      axios.post('http://localhost:8081/contact', {
-        profession: this.profession,
-        name: this.name,
-        phone: this.phone,
-        email: this.email
-      }).then(this.$router.push({
-        name: 'Contacts'
-      })).then(alert("kontakt uložen"))
-    },
+
     logIn() {
       let currentObj = this;
 
-      axios.get('http://localhost:8081/users/' + this.email, {
 
-
-      }).then((response) => {
-        console.log(response.data);
-        console.log(response.data[0].password);
-
-        if (response.data[0].password === this.password) {
-          alert("heslo souhlasí")
-        } else {
-          alert( "heslo nesouhlasí")
+      var request = {
+        params: {
+          login: [this.email, this.password]
         }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      // .then(alert("nyní jste přihlášen jako" + " " + this.email))
+      }
+      axios.get('http://localhost:8081/users/', request).then((response) => {
+          console.log(response.data);
+          alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
+          localStorage.setItem("userLoged", response.data[0].email);
+        }).then(this.$router.push({
+          name: 'Contacts',
+          params: { userLoged: this.email }
+        }))
+        .catch((error) => {
+          console.log(error);
+          alert("Heslo nebo email nesouhlasí")
+        })
+
     },
     signIn() {
       let currentObj = this;
@@ -93,11 +79,13 @@ export default {
 
         email: this.email,
         password: this.password
-      }).then(alert("kontakt uložen, nyní se můžete přihlásit"))
+      }).then(this.$router.push({
+        name: 'Contacts'
+      })).then(alert("kontakt uložen, nyní se můžete přihlásit"))
     }
   },
   mounted() {
-    console.log(789)
+    console.log("Login.vue mounted")
   },
   components: {
     Header

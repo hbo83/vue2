@@ -7,6 +7,7 @@ const fs = require('fs');
 const mongoose = require("mongoose");
 const multer = require('multer');
 var http = require('http');
+const scryptJs = require('scrypt-js');
 
 const app = express();
 mongoose.set('useFindAndModify', false);
@@ -57,6 +58,8 @@ var upload = multer({
 // const imgPath = 'photo/sc.png'
 
 // app.use(morgan('combined'))
+
+//parsuje tělo požadavku, a pokud v něm najde nějaký JSON, tak s ním naplní hodnotu vlastnosti req.body. Bez tohoto middleware bychom v req.body nic nenašli.
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -221,10 +224,31 @@ app.get('/getimg:productId', (req, res, next) => {
   res.status(200).json(response);
 });
 
-app.get('/users/:email', function(req, res) {
-  const email = req.params.email;
+// app.get('/users/:email', function(req, res) {
+//   const email = req.params.email;
+//   User.find({
+//     "email": email
+//   }).exec(function(err, user) {
+//     if (err) {
+//       res.send('error has occured');
+//     } else {
+//       res.json(user);
+//     }
+//   })
+// })
+
+app.get('/users', function(req, res) {
+  const email = req.query.login[0];
+  const password = req.query.login[1];
+  console.log(req.query.login[0]);
+  console.log(req.query.login[01]);
+
   User.find({
-    "email": email
+    $and: [{
+      email: email
+    }, {
+      password: password
+    }]
   }).exec(function(err, user) {
     if (err) {
       res.send('error has occured');

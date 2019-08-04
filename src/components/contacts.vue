@@ -51,6 +51,7 @@ export default {
   name: 'Kontakty',
   data() {
     return {
+      userGlobal: '',
       contacts: [],
       editData: {
         modalContactSaveOpen: false,
@@ -113,15 +114,25 @@ export default {
 
   mounted() {
     //po vymazani kontaktu mi axios vracel stary data, zrejme nakesovany, musel jsem zde vypnou cashovani
-
-
-    var config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
-    };
-    axios.get('http://localhost:8081/contacts', config)
+console.log("Contact mounted");
+this.userGlobal = localStorage.getItem("userLoged");
+console.log(this.userGlobal);
+var request = {
+  params: {
+    login: [this.userGlobal]
+  },
+  headers: {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache'
+  }
+}
+    // var config = {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Cache-Control': 'no-cache'
+    //   }
+    // };
+    axios.get('http://localhost:8081/contacts', request)
       .then((response) => {
         console.log(response.data);
         this.contacts = response.data;

@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/odecty">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="editOdecty">
     <v-flex xs6>
       <v-select v-model="name" :items="owners" menu-props="auto" label="Vlastník" hide-details prepend-icon="face" single-line></v-select>

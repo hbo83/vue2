@@ -71,13 +71,19 @@ export default {
   },
   mounted() {
     //po vymazani kontaktu mi axios vracel stary data, zrejme nakesovany, musel jsem zde vypnou cashovani
-    var config = {
+    console.log("Owners mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
+    var request = {
+      params: {
+        login: [this.userGlobal]
+      },
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache'
       }
-    };
-    axios.get('http://localhost:8081/owners', config)
+    }
+    axios.get('http://localhost:8081/owners', request)
       .then((response) => {
         console.log(response.data);
         console.log(this.msg);

@@ -80,7 +80,10 @@ app.get('/posts', (req, res) => {
 
 //gets
 app.get('/owners', function(req, res) {
-  Owner.find({}).exec(function(err, owners) {
+  const userGlobal = req.query.login[0];
+  Owner.find({
+    userGlobal: userGlobal
+  }).exec(function(err, owners) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -90,7 +93,10 @@ app.get('/owners', function(req, res) {
 })
 
 app.get('/contacts', function(req, res) {
-  Contact.find({}).exec(function(err, contacts) {
+  const userGlobal = req.query.login[0];
+  Contact.find({
+    userGlobal: userGlobal
+  }).exec(function(err, contacts) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -98,6 +104,7 @@ app.get('/contacts', function(req, res) {
     }
   })
 })
+
 
 app.get('/meetings', function(req, res) {
   Meeting.find({}).exec(function(err, meetings) {
@@ -143,6 +150,7 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
   console.log(req.file);
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
+    userGlobal: req.body.userGlobal,
     name: req.body.name,
     modified: new Date().toISOString(),
     productImage: req.file.path
@@ -161,7 +169,10 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
 })
 
 app.get('/getimg', function(req, res) {
-  File.find({}).exec(function(err, files) {
+  const userGlobal = req.query.login[0];
+  File.find({
+    userGlobal: userGlobal
+  }).exec(function(err, files) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -261,6 +272,7 @@ app.get('/users', function(req, res) {
 //posts
 app.post('/owner', function(req, res) {
   var newOwner = new Owner();
+  newOwner.userGlobal = req.body.userGlobal;
   newOwner.flatNumber = req.body.flatNumber;
   newOwner.name = req.body.name;
   newOwner.address = req.body.address;
@@ -280,7 +292,7 @@ app.post('/owner', function(req, res) {
 
 app.post('/contact', function(req, res) {
   var newContact = new Contact();
-
+  newContact.userGlobal = req.body.userGlobal;
   newContact.profession = req.body.profession;
   newContact.name = req.body.name;
   newContact.phone = req.body.phone;
@@ -426,6 +438,7 @@ app.put('/revision/:revTitle', function(req, res) {
       revTitle: req.params.revTitle
     }, {
       $set: {
+        userGlobal: req.body.userGlobal,
         revLast: req.body.revLast,
         revNext: req.body.revNext,
         revLast1: req.body.revLast1,

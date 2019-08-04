@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RevisionSchema = new Schema({
+  userGlobal: String,
   revTitle: String,
   revLast: String,
   revNext: String,

@@ -3,6 +3,9 @@
   <Header />
   <Nav />
 
+  <v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/docs">
+    <v-icon large>arrow_back</v-icon>
+  </v-btn>
   <div class="newDoc">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
@@ -10,7 +13,7 @@
         <upload-btn round @file-update="update"><template slot="icon">
             <v-icon>add</v-icon>
           </template></upload-btn>
-        
+
       </v-form>
     </v-app>
   </div>
@@ -29,6 +32,7 @@ export default {
   name: 'Docs_New',
   data() {
     return {
+      userGlobal: '',
       docName: ''
     }
   },
@@ -38,6 +42,7 @@ export default {
       console.log(this.docName); //data
       var docName = this.docName;
       const fd = new FormData();
+      fd.append('userGlobal', this.userGlobal);
       fd.append('name', docName); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
@@ -59,7 +64,9 @@ export default {
     }
   },
   mounted() {
-    console.log('Docs_New.vue mounted')
+    console.log('Docs_New.vue mounted');
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

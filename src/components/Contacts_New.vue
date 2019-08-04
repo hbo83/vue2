@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/contacts">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="newContact">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
@@ -35,6 +37,7 @@ export default {
   name: 'Contacts_New',
   data() {
     return {
+      userGlobal: '',
       profession: '',
       name: '',
       phone: '',
@@ -60,6 +63,7 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/contact', {
+        userGlobal: this.userGlobal,
         profession: this.profession,
         name: this.name,
         phone: this.phone,
@@ -70,7 +74,9 @@ export default {
     }
   },
   mounted() {
-    console.log(789)
+    console.log("Contact_New mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

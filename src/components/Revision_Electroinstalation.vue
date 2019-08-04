@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/revision">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="electroInstalation">
   <p style="text-align: justify"><b>Účelem revize elektrických zařízení je ověřování jejich stavu z hlediska bezpečnosti. Požadavky bezpečnosti se považují za splněné,
      pokud elektrické zařízení odpovída z hlediska bezpečnosti příslušným ustanovením norem.</b></p>
@@ -74,6 +76,7 @@ export default {
   name: 'Revision_Electroinstalation',
   data() {
     return {
+      userGlobal: '',
       date: new Date().toISOString().substr(0, 10),
 
       menu: false,
@@ -98,6 +101,7 @@ export default {
 
       axios.put('http://localhost:8081/revision/Electroinstalation', {
         // id: '5d3d4967f21d7167583bf923',
+        userGlobal: this.userGlobal,
         revTitle: 'Electroinstalation',
         revLast: this.date
       }).then(this.$router.push({
@@ -108,6 +112,8 @@ export default {
   mounted() {
     console.log('Revision_Electroinstalation.vue mounted')
     console.log(new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().substr(0, 10));
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/owners">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="newOwner">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
@@ -41,6 +43,7 @@ export default {
   name: 'Owners_New',
   data() {
     return {
+      userGlobal: '',
       flatNumber: '',
       name: '',
       address: '',
@@ -68,6 +71,7 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/owner', {
+        userGlobal: this.userGlobal,
         flatNumber: this.flatNumber,
         name: this.name,
         address: this.address,
@@ -80,7 +84,9 @@ export default {
     }
   },
   mounted() {
-    console.log(789)
+    console.log("Owners_New mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

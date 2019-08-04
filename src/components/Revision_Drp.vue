@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/revision">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="drp">
   <p style="text-align: justify"><b>Jako každé jiné elektrické zařízení je potřeba i na hromosvodech provádět dle příslušných norem pravidelné
      revize a kontroly. Zařízení slouží k ochraně budov, objektů a živých bytostí v nich před nebezpečnými účinky blesku. Hromosvod vytváří
@@ -77,6 +79,7 @@ export default {
   name: 'Revision_Excitings',
   data() {
     return {
+      userGlobal: '',
       date: new Date().toISOString().substr(0, 10),
       date2: new Date().toISOString().substr(0, 10),
       menu: false,
@@ -100,6 +103,7 @@ export default {
 
       axios.put('http://localhost:8081/revision/Drp', {
         // id: '5d3d4967f21d7167583bf923',
+        userGlobal: this.userGlobal,
         revTitle: 'Drp',
         revLast1: this.date,
         revLast2: this.date2
@@ -109,7 +113,9 @@ export default {
     }
   },
   mounted() {
-    console.log('Revision_Drp.vue mounted')
+    console.log('Revision_Drp.vue mounted');
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

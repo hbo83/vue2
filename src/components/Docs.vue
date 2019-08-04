@@ -60,13 +60,19 @@ export default {
     }
   },
   mounted() {
-    var config = {
+    console.log("Docs mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
+    var request = {
+      params: {
+        login: [this.userGlobal]
+      },
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache'
       }
     }
-    axios.get('http://localhost:8081/getimg', config)
+    axios.get('http://localhost:8081/getimg', request)
       .then((response) => {
         console.log(response.data);
         // console.log(this.msg);

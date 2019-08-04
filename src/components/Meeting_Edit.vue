@@ -2,11 +2,13 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/meeting">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="editMeeting">
     <v-app class="white">
       <v-form ref="form" lazy-validation>
-        
+
           <v-text-field v-model="theme" :counter="30" label="Téma" required></v-text-field>
 
           <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">

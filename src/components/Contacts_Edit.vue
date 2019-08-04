@@ -2,7 +2,9 @@
 <div>
   <Header />
   <Nav />
-
+<v-btn style="float: left; margin-left: 60px" fab width="80px" small color="info" to="/contacts">
+  <v-icon large>arrow_back</v-icon>
+</v-btn>
   <div class="editContact">
     <v-app class="white">
       <v-form ref="form" lazy-validation>

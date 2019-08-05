@@ -45,6 +45,7 @@ export default {
   name: 'Meeting_New',
   data() {
     return {
+      userGlobal: '',
       theme: '',
       created: new Date().toISOString().substr(0, 10),
       date: new Date().toISOString().substr(0, 10),
@@ -71,6 +72,7 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/meeting', {
+        userGlobal: this.userGlobal,
         theme: this.theme,
         created: this.created,
         date: this.date,
@@ -80,7 +82,9 @@ export default {
     }
   },
   mounted() {
-    console.log('Meeting_New mounted')
+    console.log('Meeting_New mounted');
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

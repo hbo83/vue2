@@ -17,16 +17,24 @@
       <v-form ref="form" lazy-validation>
         <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="date1" label="Datum odečtu vody" prepend-icon="event" readonly v-on="on"></v-text-field>
+            <v-text-field v-model="date1" label="Datum odečtu studené vody" prepend-icon="event" readonly v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="date1" @input="menu1 = false"></v-date-picker>
         </v-menu>
-        <v-text-field prepend-icon="waves" v-model="waterValue" :rules="nameRules" label="Hodnota vodoměru" required></v-text-field>
+        <v-text-field prepend-icon="waves" v-model="waterColdValue" :rules="nameRules" label="Hodnota vodoměru studené vody" required></v-text-field>
         <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="date2" label="Datum odečtu tepla" prepend-icon="event" readonly v-on="on"></v-text-field>
+            <v-text-field v-model="date2" label="Datum odečtu teplé vody" prepend-icon="event" readonly v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="date2" @input="menu2 = false"></v-date-picker>
+        </v-menu>
+        </v-menu>
+        <v-text-field prepend-icon="waves" v-model="waterHotValue" :rules="nameRules" label="Hodnota vodoměru teplé vody" required></v-text-field>
+        <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y full-width min-width="290px">
+          <template v-slot:activator="{ on }">
+            <v-text-field v-model="date3" label="Datum odečtu tepla" prepend-icon="event" readonly v-on="on"></v-text-field>
+          </template>
+          <v-date-picker v-model="date3" @input="menu3 = false"></v-date-picker>
         </v-menu>
         <v-text-field prepend-icon="reorder" v-model="heatingValue" label="Hodnota měřiče tepla"></v-text-field>
 
@@ -53,6 +61,7 @@ export default {
   name: 'Contacts_New',
   data() {
     return {
+      userGlobal: '',
       e1: 'Florida',
       e2: 'Texas',
       e3: null,
@@ -82,11 +91,14 @@ export default {
       ],
       menu1: false,
       menu2: false,
+      menu3: false,
       date1: new Date().toISOString().substr(0, 10),
       date2: new Date().toISOString().substr(0, 10),
+      date3: new Date().toISOString().substr(0, 10),
       owners: [],
       name: '',
-      waterValue: '',
+      waterColdValue: '',
+      waterHotValue: '',
       heatingValue: '',
       nameRules: [
         v => !!v || 'Stav vodoměru je vyžadován',
@@ -109,10 +121,13 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/odecty', {
-        dateWater: this.date1,
-        dateHeating: this.date2,
+        userGlobal: this.userGlobal,
+        dateWaterCold: this.date1,
+        dateWaterHot: this.date2,
+        dateHeating: this.date3,
         name: this.name,
-        waterValue: this.waterValue,
+        waterColdValue: this.waterColdValue,
+        waterHotValue: this.waterHotValue,
         heatingValue: this.heatingValue
       }).then(this.$router.push({
         name: 'Odecty'
@@ -121,15 +136,20 @@ export default {
   },
   mounted() {
     console.log('Odecty_New mounted');
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
 
-    var config = {
+    var request = {
+      params: {
+        login: [this.userGlobal]
+      },
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache'
       }
-    };
+    }
 
-    axios.get('http://localhost:8081/owners', config)
+    axios.get('http://localhost:8081/owners', request)
       .then((response) => {
         console.log(response.data);
         response.data.forEach((value, index) => {

@@ -107,7 +107,10 @@ app.get('/contacts', function(req, res) {
 
 
 app.get('/meetings', function(req, res) {
-  Meeting.find({}).exec(function(err, meetings) {
+  const userGlobal = req.query.login[0];
+  Meeting.find({
+    userGlobal: userGlobal
+  }).exec(function(err, meetings) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -127,7 +130,10 @@ app.get('/revisions', function(req, res) {
 })
 
 app.get('/odecty', function(req, res) {
-  Odecty.find({}).exec(function(err, odecty) {
+  const userGlobal = req.query.login[0];
+  Odecty.find({
+    userGlobal: userGlobal
+  }).exec(function(err, odecty) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -137,7 +143,10 @@ app.get('/odecty', function(req, res) {
 })
 
 app.get('/fault', function(req, res) {
-  Fault.find({}).exec(function(err, fault) {
+  const userGlobal = req.query.login[0];
+  Fault.find({
+    userGlobal: userGlobal
+  }).exec(function(err, fault) {
     if (err) {
       res.send('error has occured');
     } else {
@@ -310,7 +319,7 @@ app.post('/contact', function(req, res) {
 
 app.post('/meeting', function(req, res) {
   var newMeeting = new Meeting();
-
+  newMeeting.userGlobal = req.body.userGlobal;
   newMeeting.theme = req.body.theme;
   newMeeting.created = req.body.created;
   newMeeting.date = req.body.date;
@@ -344,10 +353,13 @@ app.post('/revision', function(req, res) {
 
 app.post('/odecty', function(req, res) {
   var newOdecty = new Odecty();
-  newOdecty.dateWater = req.body.dateWater;
+  newOdecty.userGlobal = req.body.userGlobal;
+  newOdecty.dateWaterCold = req.body.dateWaterCold;
+  newOdecty.dateWaterHot = req.body.dateWaterHot;
   newOdecty.dateHeating = req.body.dateHeating;
   newOdecty.name = req.body.name;
-  newOdecty.waterValue = req.body.waterValue;
+  newOdecty.waterColdValue = req.body.waterColdValue;
+  newOdecty.waterHotValue = req.body.waterHotValue;
   newOdecty.heatingValue = req.body.heatingValue;
   newOdecty.save(function(err, odecty) {
     if (err) {
@@ -378,7 +390,7 @@ app.post('/measure', function(req, res) {
 
 app.post('/fault', function(req, res) {
   var newFault = new Fault();
-
+  newFault.userGlobal = req.body.userGlobal;
   newFault.fault = req.body.fault;
   newFault.partOfHouse = req.body.partOfHouse;
   newFault.hurry = req.body.hurry;

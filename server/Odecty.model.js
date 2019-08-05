@@ -3,10 +3,13 @@ var Schema = mongoose.Schema;
 
 var OdectySchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
-  dateWater: String,
+  userGlobal: String,
+  dateWaterCold: String,
+  dateWaterHot: String,
   dateHeating: String,
   name: String,
-  waterValue: String,
+  waterColdValue: String,
+  waterHotValue: String,
   heatingValue: String
 });
 

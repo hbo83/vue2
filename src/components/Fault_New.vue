@@ -37,6 +37,7 @@ export default {
   name: 'Fault_New',
   data() {
     return {
+      userGlobal: '',
       fault: '',
       partOfHouse: '',
       hurry: true,
@@ -62,6 +63,7 @@ export default {
       this.isOpen = false;
       let currentObj = this;
       axios.post('http://localhost:8081/fault', {
+        userGlobal: this.userGlobal,
         fault: this.fault,
         partOfHouse: this.partOfHouse,
         hurry: this.hurry
@@ -72,7 +74,9 @@ export default {
     }
   },
   mounted() {
-    console.log(789)
+    console.log("Fault_New mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
   },
   components: {
     Header,

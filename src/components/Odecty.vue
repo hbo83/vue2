@@ -10,7 +10,8 @@
     <table>
       <tr>
         <th colspan="1">Byt</th>
-        <th colspan="3">Voda</th>
+        <th colspan="3">Voda studená</th>
+        <th colspan="3">Voda teplá</th>
         <th colspan="3">Teplo</th>
 
       </tr>
@@ -23,14 +24,20 @@
         <th>Poslední odečet datum</th>
         <th>Poslední odečet hodnota</th>
         <th>Datum příštího odečtu</th>
+        <th>Poslední odečet datum</th>
+        <th>Poslední odečet hodnota</th>
+        <th>Datum příštího odečtu</th>
 
       </tr>
       <tr @click="selectRow(odecet)" v-for="odecet in odecty">
         <!-- <td>{{ odecet.flatNumber }}</td> -->
         <td>{{ odecet.name }}</td>
-        <td>{{ odecet.dateWater }}</td>
-        <td>{{ odecet.waterValue }}</td>
-        <td>{{ nextDateWater(odecet.dateWater) }}</td>
+        <td>{{ odecet.dateWaterCold }}</td>
+        <td>{{ odecet.dateWaterCold }}</td>
+        <td>{{ nextDateWater(odecet.dateWaterCold) }}</td>
+        <td>{{ odecet.dateWaterHot }}</td>
+        <td>{{ odecet.dateWaterHot }}</td>
+        <td>{{ nextDateWater(odecet.dateWaterHot) }}</td>
         <td>{{ odecet.dateHeating }}</td>
         <td>{{ odecet.heatingValue }}</td>
         <td>{{ nextDateHeating(odecet.dateHeating) }}</td>
@@ -63,7 +70,19 @@ export default {
     Nav
   },
   mounted() {
-    axios.get('http://localhost:8081/odecty')
+    console.log("Odecty Mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
+    var request = {
+      params: {
+        login: [this.userGlobal]
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    }
+    axios.get('http://localhost:8081/odecty', request)
       .then((response) => {
         console.log(response.data);
 

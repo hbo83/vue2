@@ -57,7 +57,21 @@ export default {
       })}
   },
   mounted() {
-      axios.get('http://localhost:8081/fault')
+    console.log("Meeting mounted");
+    this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.userGlobal);
+
+    var request = {
+      params: {
+        login: [this.userGlobal]
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    }
+
+      axios.get('http://localhost:8081/fault', request)
       .then((response) => {
         console.log(response.data);
         this.faults = response.data;

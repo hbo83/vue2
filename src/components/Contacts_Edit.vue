@@ -16,14 +16,13 @@
 
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
-        <v-btn @click="formSubmit" color="success">
+        <v-btn @click="editContact" color="success">
           Uložit změnu
         </v-btn>
 
         <v-btn @click="delContact(id)" color="error">
           Smazat kontakt
         </v-btn>
-
 
       </v-form>
     </v-app>
@@ -63,10 +62,7 @@ export default {
       console.log(e);
       this.$parent.someMethod;
     },
-    formSubmit(e) {
-      e.preventDefault();
-      this.isOpen = false;
-      let currentObj = this;
+    editContact(e) {
 
       axios.put('http://localhost:8081/contact/' + this.id, {
         id: this.id,
@@ -76,16 +72,15 @@ export default {
         email: this.email
       }).then(this.$router.push({
         name: 'Contacts'
-      })).then(alert("kontakt změněn"))
+      })).then(alert("Kontakt změněn"))
     },
     delContact(id) {
+      // zajmavy je, ze kdyz promptty odklikam rychle tak mi to nacte smazanej kontakt a kdyz pomalu tak uz tam neni
       if (confirm('Určitě chcete smazat kontakt?')) {
 
-        console.log("mazu")
         axios.delete('http://localhost:8081/contact/' + id)
           .then((response) => {
             console.log(response.data);
-            // this.contacts = response.data;
           })
           .catch((error) => {
             console.log(error);
@@ -117,7 +112,5 @@ export default {
 .editContact {
   width: 29%;
   margin-left: 38%;
-
 }
-
 </style>

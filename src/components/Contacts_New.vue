@@ -16,7 +16,7 @@
 
         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
-        <v-btn @click="formSubmit" color="success">
+        <v-btn @click="saveContact" color="success">
           Uložit
         </v-btn>
 
@@ -54,14 +54,8 @@ export default {
     }
   },
   methods: {
-    someMethod() {
-      console.log(this.$parent);
-      this.$parent.someMethod;
-    },
-    formSubmit(e) {
-      e.preventDefault();
-      this.isOpen = false;
-      let currentObj = this;
+    saveContact(e) {
+
       axios.post('http://localhost:8081/contact', {
         userGlobal: this.userGlobal,
         profession: this.profession,
@@ -70,7 +64,7 @@ export default {
         email: this.email
       }).then(this.$router.push({
         name: 'Contacts'
-      })).then(alert("kontakt uložen"))
+      })).then(alert("Kontakt uložen"))
     }
   },
   mounted() {
@@ -88,6 +82,5 @@ export default {
 .newContact {
   width: 29%;
   margin-left: 38%;
-
 }
 </style>

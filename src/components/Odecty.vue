@@ -15,28 +15,28 @@
         <th colspan="3">Teplo</th>
 
       </tr>
-      <tr>
+      <tr class="sub">
         <!-- <th>č.</th> -->
-        <th>Jméno</th>
-        <th>Poslední odečet datum</th>
-        <th>Poslední odečet hodnota</th>
-        <th>Datum příštího odečtu</th>
-        <th>Poslední odečet datum</th>
-        <th>Poslední odečet hodnota</th>
-        <th>Datum příštího odečtu</th>
-        <th>Poslední odečet datum</th>
-        <th>Poslední odečet hodnota</th>
-        <th>Datum příštího odečtu</th>
+        <td>Jméno</th>
+        <td>Poslední odečet</td>
+        <td>Hodnota</td>
+        <td>Příští odečet</td>
+        <td>Poslední odečet</td>
+        <td>Hodnota</td>
+        <td>Příští odečet</td>
+        <td>Poslední odečet</td>
+        <td>Hodnota</td>
+        <td>Příští odečet</td>
 
       </tr>
       <tr @click="selectRow(odecet)" v-for="odecet in odecty">
         <!-- <td>{{ odecet.flatNumber }}</td> -->
         <td>{{ odecet.name }}</td>
         <td>{{ odecet.dateWaterCold }}</td>
-        <td>{{ odecet.dateWaterCold }}</td>
+        <td>{{ odecet.waterColdValue }}</td>
         <td>{{ nextDateWater(odecet.dateWaterCold) }}</td>
         <td>{{ odecet.dateWaterHot }}</td>
-        <td>{{ odecet.dateWaterHot }}</td>
+        <td>{{ odecet.waterHotValue }}</td>
         <td>{{ nextDateWater(odecet.dateWaterHot) }}</td>
         <td>{{ odecet.dateHeating }}</td>
         <td>{{ odecet.heatingValue }}</td>
@@ -151,7 +151,7 @@ export default {
 } */
 
 .odecty tr:hover {
-  background-color: #fe9354f2;
+  background-color: #f2f2f2;
 }
 
 .odecty th {
@@ -161,4 +161,9 @@ export default {
   background-color: #fe9354f2;
   color: white;
 }
+.sub td {
+  background-color: rgba(254, 147, 84, 0.7);
+  color: white;
+}
+
 </style>

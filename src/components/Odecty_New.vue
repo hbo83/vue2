@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       userGlobal: '',
-      e1: 'Florida',
+      e1: '1a',
       e2: 'Texas',
       e3: null,
       e4: null,

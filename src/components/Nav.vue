@@ -60,6 +60,7 @@ li a {
   text-align: left;
   margin-left: 12px;
   opacity: 0.7;
+  border-bottom: 1px solid #9eceff;
 }
 ul {
   list-style-type: none;
@@ -68,6 +69,7 @@ ul {
 }
 li:hover {
   color: red;
+  background-color: #f2f2f2;
 }
 /* a:link, a:visited, a:active  {
   color: grey;
